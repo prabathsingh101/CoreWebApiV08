@@ -6,6 +6,7 @@ using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -183,13 +184,18 @@ namespace CoreWebApiV08.API.Controllers
 
             // add roles here
             // for admin registration UserRoles.Admin instead of UserRoles.Roles
-            if (!await roleManager.RoleExistsAsync(UserRoles.User))
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+            //if (!await roleManager.RoleExistsAsync(UserRoles.User))
+            //    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
-            if (await roleManager.RoleExistsAsync(UserRoles.User))
-            {
-                await userManager.AddToRoleAsync(user, UserRoles.User);
-            }
+            //if (await roleManager.RoleExistsAsync(UserRoles.User))
+            //{
+            //    await userManager.AddToRoleAsync(user, UserRoles.User);
+            //}
+
+
+            await roleManager.CreateAsync(new IdentityRole(model.roles));
+            await userManager.AddToRoleAsync(user, model.roles);
+
             status.StatusCode = 1;
             status.Message = "Sucessfully registered";
             return Ok(status);

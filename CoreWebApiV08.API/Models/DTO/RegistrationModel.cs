@@ -24,5 +24,7 @@ namespace CoreWebApiV08.API.Models.DTO
         public string? Address { get; set; }
 
         public string? PhoneNumber { get; set; }
+
+        public string? roles { get; set; }
     }
 }
