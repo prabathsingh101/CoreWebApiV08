@@ -17,5 +17,6 @@ namespace CoreWebApiV08.API.Controllers
             status.Message = "Data from admin controller";
             return Ok(status);
         }
+        //Ratnesh 
     }
 }
