@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240629094457_init")]
+    [Migration("20240630122833_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -24,6 +24,22 @@ namespace CoreWebApiV08.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.Classes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TblClass");
+                });
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Course.CourseModel", b =>
                 {
@@ -57,6 +73,25 @@ namespace CoreWebApiV08.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TblCourse");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Department.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DepartmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TblDepartment");
                 });
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Domain.ApplicationUser", b =>

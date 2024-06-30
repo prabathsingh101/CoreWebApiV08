@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using CoreWebApiV08.API.DBFirstModel;
 using CoreWebApiV08.API.Models.DTO.Course;
-using CoreWebApiV08.API.Models.DTO.Lesson;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing.Drawing2D;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -30,14 +27,15 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet]
         [Route("GetClass")]
-        [Authorize(Roles ="Admin")]
-        public IEnumerable<TblClass> GetClass() {
+        [Authorize(Roles = "Admin")]
+        public IEnumerable<TblClass> GetClass()
+        {
 
             var SPs = "spGetClass";
 
             var queries = "SELECT 0 as ClassId,'--Select Class--' as Name union SELECT ClassId,Name FROM TblClass  WITH(NOLOCK)";
 
-            return  imsContext.TblClasses.FromSqlRaw(SPs).ToList();
+            return imsContext.TblClasses.FromSqlRaw(SPs).ToList();
 
         }
 

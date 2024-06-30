@@ -1,8 +1,13 @@
-﻿namespace CoreWebApiV08.API.Models.Department
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CoreWebApiV08.API.Models.Department
 {
     public class Department
     {
-        public int? Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         public string? DepartmentName { get; set; }
 

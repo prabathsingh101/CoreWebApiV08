@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
 using CoreWebApiV08.API.DBFirstModel;
-using CoreWebApiV08.API.Models.DTO.Lesson;
 using CoreWebApiV08.API.Models.Lesson;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Drawing.Drawing2D;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -33,7 +29,7 @@ namespace CoreWebApiV08.API.Controllers
         {
             List<CourseLession> _list = new List<CourseLession>();
 
-            var models= imsContext.TblLessions.Where(l => l.CourseId == id);
+            var models = imsContext.TblLessions.Where(l => l.CourseId == id);
 
 
             return models;

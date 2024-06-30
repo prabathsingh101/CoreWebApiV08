@@ -1,9 +1,7 @@
 ﻿namespace CoreWebApiV08.API.Models.DTO.Department
 {
-    public class DepartmentDto
+    public class AddDepartmentDto
     {
-        public int Id { get; set; }
-
         public string? DepartmentName { get; set; }
 
         public string? Description { get; set; }

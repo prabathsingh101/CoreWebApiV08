@@ -74,11 +74,11 @@ namespace CoreWebApiV08.API.Migrations
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Department.Department", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("DepartmentName")
                         .HasColumnType("nvarchar(max)");
