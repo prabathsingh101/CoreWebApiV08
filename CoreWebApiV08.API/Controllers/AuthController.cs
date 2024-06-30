@@ -160,14 +160,22 @@ namespace CoreWebApiV08.API.Controllers
             if (userExists != null)
             {
                 status.StatusCode = 0;
-                status.Message = "Invalid username";
+                status.Message = "User name already exists";
+                return Ok(status);
+            }
+            var emailExists = await userManager.FindByNameAsync(model.Email);
+            if (userExists != null)
+            {
+                status.StatusCode = 0;
+                status.Message = "Email id elready exists.";
                 return Ok(status);
             }
             var user = new ApplicationUser
             {
-                UserName = model.Username,
+                UserName = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 Email = model.Email,
+                Name = model.Name,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Address = model.Address,
@@ -197,7 +205,7 @@ namespace CoreWebApiV08.API.Controllers
             await userManager.AddToRoleAsync(user, model.roles);
 
             status.StatusCode = 1;
-            status.Message = "Sucessfully registered";
+            status.Message = "User is created sucessfully.";
             return Ok(status);
 
         }
@@ -219,14 +227,22 @@ namespace CoreWebApiV08.API.Controllers
             if (userExists != null)
             {
                 status.StatusCode = 0;
-                status.Message = "Invalid username";
+                status.Message = "User name is already exists.";
+                return Ok(status);
+            }
+            var emailExists = await userManager.FindByNameAsync(model.Email);
+            if (userExists != null)
+            {
+                status.StatusCode = 0;
+                status.Message = "Email is already exists.";
                 return Ok(status);
             }
             var user = new ApplicationUser
             {
-                UserName = model.Username,
+                UserName = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 Email = model.Email,
+                Name = model.Name,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Address = model.Address,
@@ -251,7 +267,7 @@ namespace CoreWebApiV08.API.Controllers
                 await userManager.AddToRoleAsync(user, UserRoles.Admin);
             }
             status.StatusCode = 1;
-            status.Message = "Sucessfully registered";
+            status.Message = "User is created sucessfully.";
             return Ok(status);
 
         }

@@ -30,6 +30,11 @@ namespace CoreWebApiV08.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateofBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -48,6 +53,68 @@ namespace CoreWebApiV08.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TblCourse",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    iconUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    courseListIcon = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    longDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    category = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    seqNo = table.Column<int>(type: "int", nullable: true),
+                    lessonsCount = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblCourse", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TblLessions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    seqNo = table.Column<int>(type: "int", nullable: true),
+                    CourseId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblLessions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TblTestModel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblTestModel", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TokenInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Usename = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RefreshTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TokenInfo", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,6 +280,18 @@ namespace CoreWebApiV08.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "TblCourse");
+
+            migrationBuilder.DropTable(
+                name: "TblLessions");
+
+            migrationBuilder.DropTable(
+                name: "TblTestModel");
+
+            migrationBuilder.DropTable(
+                name: "TokenInfo");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

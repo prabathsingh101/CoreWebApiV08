@@ -4,7 +4,7 @@ namespace CoreWebApiV08.API.Models.DTO
 {
     public class RegistrationModel
     {
-        //public string? Name { get; set; }
+        public string? Name { get; set; }
         
         [Required]
         public string? Username { get; set; }

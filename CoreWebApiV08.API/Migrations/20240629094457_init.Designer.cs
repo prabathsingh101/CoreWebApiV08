@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240624075650_TokenInfo")]
-    partial class TokenInfo
+    [Migration("20240629094457_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,40 @@ namespace CoreWebApiV08.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Course.CourseModel", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+
+                    b.Property<string>("category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("courseListIcon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("iconUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("lessonsCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("longDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("seqNo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TblCourse");
+                });
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Domain.ApplicationUser", b =>
                 {
@@ -127,6 +161,44 @@ namespace CoreWebApiV08.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TokenInfo");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.CourseLession", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("duration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("seqNo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TblLessions");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.testmodel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TblTestModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

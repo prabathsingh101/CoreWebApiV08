@@ -1,4 +1,6 @@
 using CoreWebApiV08.API.Data;
+using CoreWebApiV08.API.DBFirstModel;
+using CoreWebApiV08.API.Mapping;
 using CoreWebApiV08.API.Models.Domain;
 using CoreWebApiV08.API.Repositories.Implementation;
 using CoreWebApiV08.API.Repositories.Interface;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,6 +56,10 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<DatabaseContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDbContext<ImsContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
+
+
 // For Identity  
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<DatabaseContext>()
@@ -84,7 +91,11 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IUserService, SQLUserService>();
+builder.Services.AddTransient<IDepartment, SQLDepartment>();
+builder.Services.AddTransient<ICourse, SQLCourse>();
+builder.Services.AddTransient<ILesson, SQLLesson>();
 
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddCors(options =>
 {
@@ -97,6 +108,13 @@ builder.Services.AddCors(options =>
                                               .AllowAnyOrigin();
                       });
 });
+
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+options.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+    .AddNewtonsoftJson(options =>options.SerializerSettings.ContractResolver
+    =new DefaultContractResolver());
+
+
 
 var app = builder.Build();
 
