@@ -36,21 +36,29 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] DepartmentDto departmentDto)
         {
             var status = new Status();
 
             var model = mapper.Map<Department>(departmentDto);
 
-            model= await department.CreateAsync(model); 
+            model = await department.CreateAsync(model);
 
-            var deptDto= mapper.Map<DepartmentDto>(model);
+            var deptDto = mapper.Map<DepartmentDto>(model);
 
-            status.StatusCode = 201;
-            status.Message = "Data saved successfully.";
+            if (deptDto.Id != 0)
+            {
+                status.StatusCode = 201;
+                status.Message = "Data saved successfully.";
+            }
+            else
+            {
+                status.StatusCode = 204;
+                status.Message = "No content found";
+            }
 
-            return Ok(status);
+            return Ok(deptDto);
         }
 
 
