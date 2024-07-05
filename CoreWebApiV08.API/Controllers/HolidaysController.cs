@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using CoreWebApiV08.API.Models.Department;
-using CoreWebApiV08.API.Models.DTO.Department;
+using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Holidays;
 using CoreWebApiV08.API.Models.Holidays;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreWebApiV08.API.Controllers
@@ -25,16 +23,22 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpPost]
+        [Route("Post")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] AddRequestHolidaysDto addRequestHolidaysDto)
         {
+            var status = new Status(); 
+
             var model = mapper.Map<HolidaysModel>(addRequestHolidaysDto);
 
             model = await holidays.CreateAsync(model);
 
             var holidayDto = mapper.Map<AddRequestHolidaysDto>(model);
 
-            return Ok(holidayDto);  
+            status.StatusCode = 201;
+            status.Message = "Data saved successfully.";
+
+            return Ok(status);  
         }
 
         [HttpPut]
@@ -59,6 +63,7 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet]
+        [Route("GetAll")]
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetAll()
         {
