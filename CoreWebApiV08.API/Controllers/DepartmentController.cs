@@ -51,13 +51,13 @@ namespace CoreWebApiV08.API.Controllers
             {
                 status.StatusCode = 201;
                 status.Message = "Data saved successfully.";
-                return(Ok(status));
+                //return(Ok(status));
             }
             else
             {
                 status.StatusCode = 204;
                 status.Message = "No content found";
-                return (Ok(status));
+                //return (Ok(status));
             }
 
             return Ok(deptDto);

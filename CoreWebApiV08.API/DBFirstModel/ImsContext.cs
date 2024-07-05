@@ -33,6 +33,8 @@ public partial class ImsContext : DbContext
 
     public virtual DbSet<TblDepartment> TblDepartments { get; set; }
 
+    public virtual DbSet<TblHoliday> TblHolidays { get; set; }
+
     public virtual DbSet<TblLession> TblLessions { get; set; }
 
     public virtual DbSet<TblTestModel> TblTestModels { get; set; }

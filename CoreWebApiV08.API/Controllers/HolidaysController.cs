@@ -1,0 +1,104 @@
+﻿using AutoMapper;
+using CoreWebApiV08.API.Models.Department;
+using CoreWebApiV08.API.Models.DTO.Department;
+using CoreWebApiV08.API.Models.DTO.Holidays;
+using CoreWebApiV08.API.Models.Holidays;
+using CoreWebApiV08.API.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CoreWebApiV08.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    
+    public class HolidaysController : ControllerBase
+    {
+        private readonly IHolidays holidays;
+        private readonly IMapper mapper;
+
+        public HolidaysController(IHolidays holidays, IMapper mapper)
+        {
+            this.holidays = holidays;
+            this.mapper = mapper;
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create([FromBody] AddRequestHolidaysDto addRequestHolidaysDto)
+        {
+            var model = mapper.Map<HolidaysModel>(addRequestHolidaysDto);
+
+            model = await holidays.CreateAsync(model);
+
+            var holidayDto = mapper.Map<AddRequestHolidaysDto>(model);
+
+            return Ok(holidayDto);  
+        }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update(
+            [FromRoute] int id, 
+            [FromBody] UpdateRequestHolidaysDto 
+            updateHolidaysRequestDto)
+        {
+            
+            var holidayDomainModel = mapper.Map<HolidaysModel>(updateHolidaysRequestDto);
+           
+            holidayDomainModel = await holidays.UpdateAsync(id,holidayDomainModel);
+
+            if (holidayDomainModel == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(mapper.Map<HolidaysDto>(holidayDomainModel));
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> GetAll()
+        {
+
+            var holidayDomainModel = await holidays.GetAllAsync();
+
+            if(holidayDomainModel == null)return NotFound();
+
+            return Ok(mapper.Map<List<HolidaysDto>>(holidayDomainModel));
+           
+        }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+
+            var holidayDomainModel = await holidays.GetByIdAsync(id);
+
+            if (holidayDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<HolidaysDto>(holidayDomainModel));
+
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int id)
+        {
+          var holidayModel =await holidays.DeleteAsync(id);
+            if (holidayModel == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<HolidaysDto>(holidayModel));
+        }
+    }
+}
