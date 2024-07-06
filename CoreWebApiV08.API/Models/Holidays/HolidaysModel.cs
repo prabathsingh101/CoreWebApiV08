@@ -14,5 +14,6 @@ namespace CoreWebApiV08.API.Models.Holidays
         public string? Description { get; set; }
 
         public DateTime? HolidayDate { get; set; }
+        public string? color { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace CoreWebApiV08.API.Models.DTO.Holidays
         public string? Description { get; set; }
 
         public DateTime? HolidayDate { get; set; }
+        public string? color { get; set; }
     }
 }
