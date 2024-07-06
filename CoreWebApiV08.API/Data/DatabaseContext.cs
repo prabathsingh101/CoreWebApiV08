@@ -5,6 +5,7 @@ using CoreWebApiV08.API.Models.Department;
 using CoreWebApiV08.API.Models.Domain;
 using CoreWebApiV08.API.Models.Holidays;
 using CoreWebApiV08.API.Models.Lesson;
+using CoreWebApiV08.API.Models.Teachers;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +29,9 @@ namespace CoreWebApiV08.API.Data
        public  DbSet<Classes> TblClass { get; set; }
 
         public DbSet<HolidaysModel> TblHolidays { get; set; }
+        public DbSet<TeacherModel> TblTeacher { get; set; }
+
+
 
     }
 
