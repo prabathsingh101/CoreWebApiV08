@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CoreWebApiV08.API.Models.Holidays;
+using CoreWebApiV08.API.Models.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreWebApiV08.API.DBFirstModel;
@@ -37,11 +37,23 @@ public partial class ImsContext : DbContext
 
     public virtual DbSet<TblLession> TblLessions { get; set; }
 
+    public virtual DbSet<TblTeacher> TblTeachers { get; set; }
+
     public virtual DbSet<TblTestModel> TblTestModels { get; set; }
 
-    public virtual DbSet<TokenInfo> TokenInfos { get; set; }
-
     
+
+    public virtual DbSet<HolidayEvents> getholidayevents {  get; set; }
+
+
+    public virtual DbSet<UsersModel> userdetails {  get; set; }
+
+
+    public virtual DbSet<RolesModel> getallroles { get; set; }
+
+
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AspNetRole>(entity =>
@@ -133,6 +145,11 @@ public partial class ImsContext : DbContext
             entity.ToTable("TblDepartment");
         });
 
+        modelBuilder.Entity<TblHoliday>(entity =>
+        {
+            entity.Property(e => e.Color).HasColumnName("color");
+        });
+
         modelBuilder.Entity<TblLession>(entity =>
         {
             entity.Property(e => e.Description).HasColumnName("description");
@@ -140,15 +157,22 @@ public partial class ImsContext : DbContext
             entity.Property(e => e.SeqNo).HasColumnName("seqNo");
         });
 
+        modelBuilder.Entity<TblTeacher>(entity =>
+        {
+            entity.ToTable("TblTeacher");
+
+            entity.Property(e => e.Dob).HasColumnName("dob");
+            entity.Property(e => e.Email).HasColumnName("email");
+            entity.Property(e => e.Fname).HasColumnName("fname");
+            entity.Property(e => e.Lname).HasColumnName("lname");
+        });
+
         modelBuilder.Entity<TblTestModel>(entity =>
         {
             entity.ToTable("TblTestModel");
         });
 
-        modelBuilder.Entity<TokenInfo>(entity =>
-        {
-            entity.ToTable("TokenInfo");
-        });
+      
 
         OnModelCreatingPartial(modelBuilder);
     }

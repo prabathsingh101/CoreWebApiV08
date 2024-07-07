@@ -60,6 +60,13 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return holidays;
         }
 
+        //public async Task<List<HolidayEvents>> GetHolidayEventsAsync()
+        //{
+        //    var events = await databaseContext.TblHolidays
+        //        .FromSqlRaw("exec sp_getHolidaysEvent").IgnoreQueryFilters().ToListAsync();
+        //    return events;
+        //}
+
         public async Task<HolidaysModel?> GetByIdAsync(int id)
         {
           

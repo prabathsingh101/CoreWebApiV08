@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using CoreWebApiV08.API.DBFirstModel;
 using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Holidays;
 using CoreWebApiV08.API.Models.Holidays;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -15,11 +17,13 @@ namespace CoreWebApiV08.API.Controllers
     {
         private readonly IHolidays holidays;
         private readonly IMapper mapper;
+        private readonly ImsContext imsContext;
 
-        public HolidaysController(IHolidays holidays, IMapper mapper)
+        public HolidaysController(IHolidays holidays, IMapper mapper, ImsContext imsContext)
         {
             this.holidays = holidays;
             this.mapper = mapper;
+            this.imsContext = imsContext;
         }
 
         [HttpPost]
@@ -104,6 +108,21 @@ namespace CoreWebApiV08.API.Controllers
                 return NotFound();
             }
             return Ok(mapper.Map<HolidaysDto>(holidayModel));
+        }
+
+        [HttpGet("getevents")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> getHolidayEvents()
+        {
+            string sqlquery = "exec sp_getHolidaysEvent";
+
+            var data = await imsContext.getholidayevents.FromSqlRaw(sqlquery).ToListAsync();
+
+            if(data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);    
         }
     }
 }

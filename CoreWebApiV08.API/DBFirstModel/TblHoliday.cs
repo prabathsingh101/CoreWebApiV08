@@ -12,4 +12,6 @@ public partial class TblHoliday
     public string? Description { get; set; }
 
     public DateTime? HolidayDate { get; set; }
+
+    public string? Color { get; set; }
 }

@@ -6,6 +6,7 @@ namespace CoreWebApiV08.API.Repositories.Interface
     public interface IHolidays
     {
         Task<List<HolidaysModel>> GetAllAsync();
+        //Task<List<HolidayEvents>> GetHolidayEventsAsync();
 
         Task<HolidaysModel?> GetByIdAsync(int id);
 

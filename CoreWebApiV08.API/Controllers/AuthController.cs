@@ -1,4 +1,5 @@
 ﻿using CoreWebApiV08.API.Data;
+using CoreWebApiV08.API.DBFirstModel;
 using CoreWebApiV08.API.Models;
 using CoreWebApiV08.API.Models.Domain;
 using CoreWebApiV08.API.Models.DTO;
@@ -6,6 +7,7 @@ using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -21,11 +23,13 @@ namespace CoreWebApiV08.API.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly ITokenService _tokenService;
         private readonly IUserService userService;
+        private readonly ImsContext imsContext;
 
         public AuthController(DatabaseContext context,
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            ITokenService tokenService, IUserService userService
+            ITokenService tokenService, IUserService userService,
+            ImsContext imsContext
             )
         {
             this._context = context;
@@ -33,6 +37,7 @@ namespace CoreWebApiV08.API.Controllers
             this.roleManager = roleManager;
             this._tokenService = tokenService;
             this.userService = userService;
+            this.imsContext = imsContext;
         }
 
         [HttpPost]
@@ -175,7 +180,7 @@ namespace CoreWebApiV08.API.Controllers
                 UserName = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 Email = model.Email,
-                Name = model.Name,
+                Name = model.FirstName,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Address = model.Address,
@@ -192,17 +197,17 @@ namespace CoreWebApiV08.API.Controllers
 
             // add roles here
             // for admin registration UserRoles.Admin instead of UserRoles.Roles
-            //if (!await roleManager.RoleExistsAsync(UserRoles.User))
-            //    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+            if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
-            //if (await roleManager.RoleExistsAsync(UserRoles.User))
-            //{
-            //    await userManager.AddToRoleAsync(user, UserRoles.User);
-            //}
+            if (await roleManager.RoleExistsAsync(UserRoles.User))
+            {
+                await userManager.AddToRoleAsync(user, UserRoles.User);
+            }
 
 
-            await roleManager.CreateAsync(new IdentityRole(model.roles));
-            await userManager.AddToRoleAsync(user, model.roles);
+            //await roleManager.CreateAsync(new IdentityRole(model.roles));
+            //await userManager.AddToRoleAsync(user, model.roles);
 
             status.StatusCode = 1;
             status.Message = "User is created sucessfully.";
@@ -242,7 +247,7 @@ namespace CoreWebApiV08.API.Controllers
                 UserName = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 Email = model.Email,
-                Name = model.Name,
+                Name = model.FirstName,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Address = model.Address,
@@ -288,6 +293,36 @@ namespace CoreWebApiV08.API.Controllers
         {
             var userName = userService.GetRoleName();
             return Ok(userName);
+        }
+
+        [HttpGet("getusers")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> getUsers()
+        {
+            string sqlquery = "EXEC sp_getUsers";
+
+            var data = await imsContext.userdetails.FromSqlRaw(sqlquery).ToListAsync();
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
+
+        [HttpGet("getAllrole")]
+        //[Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> getRole()
+        {
+            string sqlquery = "EXEC sp_GetRole";
+
+            var data = await imsContext.getallroles.FromSqlRaw(sqlquery).ToListAsync();
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
         }
     }
 }
