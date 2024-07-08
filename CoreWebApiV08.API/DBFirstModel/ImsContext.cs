@@ -1,4 +1,5 @@
-﻿using CoreWebApiV08.API.Models.Holidays;
+﻿using CoreWebApiV08.API.Models.Classes;
+using CoreWebApiV08.API.Models.Holidays;
 using CoreWebApiV08.API.Models.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -50,6 +51,8 @@ public partial class ImsContext : DbContext
 
 
     public virtual DbSet<RolesModel> getallroles { get; set; }
+
+    public virtual DbSet<TeacherName> getteachername { get; set; }
 
 
 

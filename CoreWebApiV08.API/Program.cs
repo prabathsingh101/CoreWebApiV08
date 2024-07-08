@@ -96,6 +96,7 @@ builder.Services.AddTransient<ICourse, SQLCourse>();
 builder.Services.AddTransient<ILesson, SQLLesson>();
 builder.Services.AddTransient<IHolidays, SQLHolidays>();
 builder.Services.AddTransient<ITeacher, SQLTeacher>();
+builder.Services.AddTransient<IClasses, SQLClasses>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 

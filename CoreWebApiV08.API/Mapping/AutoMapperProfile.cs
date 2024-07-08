@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using CoreWebApiV08.API.DBFirstModel;
+using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.Course;
 using CoreWebApiV08.API.Models.Department;
+using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Models.DTO.Course;
 using CoreWebApiV08.API.Models.DTO.Department;
 using CoreWebApiV08.API.Models.DTO.Holidays;
@@ -35,6 +37,10 @@ namespace CoreWebApiV08.API.Mapping
             CreateMap<TeacherModel, TeacherDto>().ReverseMap();
             CreateMap<AddTeacherRequestDto, TeacherModel>().ReverseMap();
             CreateMap<UpdateTeacherRequestDto, TeacherModel>().ReverseMap();
+
+            CreateMap<Classes, ClassesDto>().ReverseMap();
+            CreateMap<AddClassRequestDto, Classes>().ReverseMap();
+            CreateMap<UpdateClassRequestDto, Classes>().ReverseMap();
         }
     }
 }

@@ -1,29 +1,27 @@
 ﻿using AutoMapper;
 using CoreWebApiV08.API.DBFirstModel;
-using CoreWebApiV08.API.Models.Department;
+using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.DTO;
-using CoreWebApiV08.API.Models.DTO.Department;
-using CoreWebApiV08.API.Models.DTO.Teacher;
-using CoreWebApiV08.API.Models.Teachers;
+using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CoreWebApiV08.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TeacherController : ControllerBase
+    public class ClassesController : ControllerBase
     {
-        private readonly ITeacher teacher;
+        
+        private readonly IClasses classes;
         private readonly IMapper mapper;
         private readonly ImsContext imsContext;
 
-        public TeacherController(ITeacher teacher, IMapper mapper, ImsContext imsContext)
+        public ClassesController(IClasses classes, IMapper mapper, ImsContext imsContext)
         {
-            this.teacher = teacher;
+           
+            this.classes = classes;
             this.mapper = mapper;
             this.imsContext = imsContext;
         }
@@ -41,12 +39,12 @@ namespace CoreWebApiV08.API.Controllers
             [FromQuery] int pageSize = 1000
             )
         {
-            var model = await teacher.GetAllAsync(
+            var model = await classes.GetAllAsync(
                 filterOn, filterQuery, sortBy,
                 isAscending ?? true, pageNumber, pageSize
                 );
 
-            return Ok(mapper.Map<List<TeacherDto>>(model));
+            return Ok(mapper.Map<List<ClassesDto>>(model));
         }
 
         [HttpGet("{id:int}")]
@@ -55,32 +53,31 @@ namespace CoreWebApiV08.API.Controllers
         {
             //get teacher domain from database      
 
-            var teacherDomain = await teacher.GetByIdAsync(id);
+            var Domain = await classes.GetByIdAsync(id);
 
             //map domain model to dto
 
-            if (teacherDomain == null)
+            if (Domain == null)
             {
                 return NotFound();
             }
 
-            return Ok(mapper.Map<TeacherDto>(teacherDomain));
+            return Ok(mapper.Map<ClassesDto>(Domain));
         }
-
         [HttpPost]
         [Route("Create")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody] AddTeacherRequestDto addTeacherRequestDto)
+        public async Task<IActionResult> Create([FromBody] AddClassRequestDto addClassRequestDto)
         {
             var status = new Status();
 
-            var model = mapper.Map<TeacherModel>(addTeacherRequestDto);
+            var model = mapper.Map<Classes>(addClassRequestDto);
 
-            model = await teacher.CreateAsync(model);
+            model = await classes.CreateAsync(model);
 
-            var teacherDto = mapper.Map<TeacherDto>(model);
+            var classesDto = mapper.Map<ClassesDto>(model);
 
-            if (teacherDto.id > 0)
+            if (classesDto.id > 0)
             {
                 status.StatusCode = 201;
                 status.Message = "Data saved successfully.";
@@ -93,54 +90,37 @@ namespace CoreWebApiV08.API.Controllers
 
             return Ok(status);
         }
-
         [HttpDelete]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var teacherModel = await teacher.DeleteAsync(id);
-            if (teacherModel == null)
+            var model = await classes.DeleteAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
-            return Ok(mapper.Map<TeacherDto>(teacherModel));
+            return Ok(mapper.Map<ClassesDto>(model));
         }
-
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id,
-                                               [FromBody] UpdateTeacherRequestDto updateTeacherRequestDto)
+                                               [FromBody] UpdateClassRequestDto updateClassRequestDto)
         {
             //map dto to domain model
-            var teacherDomainModel = mapper.Map<TeacherModel>(updateTeacherRequestDto);
+            var DomainModel = mapper.Map<Classes>(updateClassRequestDto);
 
             //check dept if exists
-            teacherDomainModel = await teacher.UpdateAsync(id, teacherDomainModel);
+            DomainModel = await classes.UpdateAsync(id, DomainModel);
 
-            if (teacherDomainModel == null)
+            if (DomainModel == null)
             {
                 return NotFound();
             }
 
             //convert domain model to dto
-            return Ok(mapper.Map<TeacherDto>(teacherDomainModel));
-        }
-
-        [HttpGet("teachername")]
-        [Authorize(Roles = "Admin,User")]
-        public async Task<IActionResult> getTeachername()
-        {
-            string sqlquery = "exec sp_getTeacherName";
-
-            var data = await imsContext.getteachername.FromSqlRaw(sqlquery).ToListAsync();
-
-            if (data == null)
-            {
-                return NotFound();
-            }
-            return Ok(data);
+            return Ok(mapper.Map<ClassesDto>(DomainModel));
         }
     }
 }
