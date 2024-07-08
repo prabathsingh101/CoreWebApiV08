@@ -6,6 +6,7 @@ using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -121,6 +122,21 @@ namespace CoreWebApiV08.API.Controllers
 
             //convert domain model to dto
             return Ok(mapper.Map<ClassesDto>(DomainModel));
+        }
+
+        [HttpGet("getclassdetail")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> getClass()
+        {
+            string sqlquery = "exec sp_getClassDetails";
+
+            var data = await imsContext.getclassdetails.FromSqlRaw(sqlquery).ToListAsync();
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
         }
     }
 }
