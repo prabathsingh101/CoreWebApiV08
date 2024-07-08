@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreWebApiV08.API.Data
 {
-    public class DatabaseContext: IdentityDbContext<ApplicationUser>
+    public class DatabaseContext : IdentityDbContext<ApplicationUser>
     {
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
@@ -24,15 +24,15 @@ namespace CoreWebApiV08.API.Data
 
         public DbSet<CourseLession> TblLessions { get; set; }
 
-       public  DbSet<testmodel> TblTestModel { get; set; }    
-       public  DbSet<Department> TblDepartment { get; set; }
-       public  DbSet<Classes> TblClass { get; set; }
+        public DbSet<testmodel> TblTestModel { get; set; }
+
+        public DbSet<Department> TblDepartment { get; set; }
+
+        public DbSet<Classes> TblClass { get; set; }
 
         public DbSet<HolidaysModel> TblHolidays { get; set; }
+
         public DbSet<TeacherModel> TblTeacher { get; set; }
-
-
-
     }
 
 

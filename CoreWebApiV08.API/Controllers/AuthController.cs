@@ -311,7 +311,7 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("getAllrole")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> getRole()
         {
             string sqlquery = "EXEC sp_GetRole";

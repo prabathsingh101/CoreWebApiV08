@@ -1,14 +1,7 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace CoreWebApiV08.API.Models.Teachers
+﻿namespace CoreWebApiV08.API.Models.DTO.Teacher
 {
-    public class TeacherModel
+    public class UpdateTeacherRequestDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
         public string? fname { get; set; }
         public string? mname { get; set; }
         public string? lname { get; set; }
@@ -21,16 +14,7 @@ namespace CoreWebApiV08.API.Models.Teachers
         public string? address { get; set; }
         public string? pincode { get; set; }
         public DateTime? dateofjoining { get; set; }
-
-
         public DateTime? createddate { get; set; }
         public DateTime? modfieddate { get; set; }
-
-        public TeacherModel()
-        {            
-            this.modfieddate = DateTime.UtcNow;
-            this.createddate = DateTime.UtcNow;
-        }
-
     }
 }

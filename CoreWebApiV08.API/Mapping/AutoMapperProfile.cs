@@ -6,7 +6,9 @@ using CoreWebApiV08.API.Models.DTO.Course;
 using CoreWebApiV08.API.Models.DTO.Department;
 using CoreWebApiV08.API.Models.DTO.Holidays;
 using CoreWebApiV08.API.Models.DTO.Lesson;
+using CoreWebApiV08.API.Models.DTO.Teacher;
 using CoreWebApiV08.API.Models.Holidays;
+using CoreWebApiV08.API.Models.Teachers;
 
 namespace CoreWebApiV08.API.Mapping
 {
@@ -28,6 +30,11 @@ namespace CoreWebApiV08.API.Mapping
             CreateMap<HolidaysModel, HolidaysDto>().ReverseMap();
             CreateMap<AddRequestHolidaysDto, HolidaysModel>().ReverseMap();
             CreateMap<UpdateRequestHolidaysDto, HolidaysModel>().ReverseMap();
+
+
+            CreateMap<TeacherModel, TeacherDto>().ReverseMap();
+            CreateMap<AddTeacherRequestDto, TeacherModel>().ReverseMap();
+            CreateMap<UpdateTeacherRequestDto, TeacherModel>().ReverseMap();
         }
     }
 }

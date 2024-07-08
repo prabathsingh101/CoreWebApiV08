@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240708040448_addcolteacher")]
+    partial class addcolteacher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,11 +283,11 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<string>("lname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("mname")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("modfieddate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("phone")
                         .HasColumnType("nvarchar(max)");
