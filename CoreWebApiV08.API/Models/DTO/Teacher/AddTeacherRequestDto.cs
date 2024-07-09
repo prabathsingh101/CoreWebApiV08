@@ -2,9 +2,9 @@
 {
     public class AddTeacherRequestDto
     {
-        public string? fname { get; set; }
+        public string fname { get; set; }
         public string? mname { get; set; }
-        public string? lname { get; set; }
+        public string lname { get; set; }
         public string? email { get; set; }
         public DateTime? dob { get; set; }
         public string? phone { get; set; }
@@ -16,5 +16,10 @@
         public DateTime? dateofjoining { get; set; }
         public DateTime? createddate { get; set; }
         public DateTime? modfieddate { get; set; }
+
+        public AddTeacherRequestDto()
+        {
+            this.createddate = DateTime.UtcNow;
+        }
     }
 }

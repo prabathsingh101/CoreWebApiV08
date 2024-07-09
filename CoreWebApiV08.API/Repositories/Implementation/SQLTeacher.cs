@@ -55,7 +55,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
                 {
                     teachers = isAscending ? teachers.OrderBy(x => x.fname) : teachers.OrderByDescending(x => x.fname);
                 }
-                else if (sortBy.Equals("Length", StringComparison.OrdinalIgnoreCase))
+                else if (sortBy.Equals("lname", StringComparison.OrdinalIgnoreCase))
                 {
                     teachers = isAscending ? teachers.OrderBy(x => x.lname) : teachers.OrderByDescending(x => x.lname);
                 }

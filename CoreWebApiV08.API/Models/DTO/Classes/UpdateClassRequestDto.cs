@@ -12,5 +12,9 @@
 
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }
+        public UpdateClassRequestDto()
+        {
+            this.updateddate = DateTime.UtcNow;
+        }
     }
 }

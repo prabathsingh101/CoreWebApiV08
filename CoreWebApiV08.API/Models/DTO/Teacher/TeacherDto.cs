@@ -3,9 +3,9 @@
     public class TeacherDto
     {
         public int? id { get; set; }
-        public string? fname { get; set; }
+        public string fname { get; set; }
         public string? mname { get; set; }
-        public string? lname { get; set; }
+        public string lname { get; set; }
         public string? email { get; set; }
         public DateTime? dob { get; set; }
         public string? phone { get; set; }
