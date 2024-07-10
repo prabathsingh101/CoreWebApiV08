@@ -15,7 +15,7 @@
         public decimal? registrationfees { get; set; }
 
         public string? mobileno { get; set; }
-
+        public bool? isDeleted { get; set; }
         public string? address { get; set; }
 
         public int? classid { get; set; }

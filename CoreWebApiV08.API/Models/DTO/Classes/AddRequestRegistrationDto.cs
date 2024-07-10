@@ -13,7 +13,7 @@
         public decimal? registrationfees { get; set; }
 
         public int? mobileno { get; set; }
-
+        public bool? isDeleted { get; set; }
         public int? classid { get; set; }
         public string fathersname { get; set; }
         public string? address { get; set; }

@@ -46,6 +46,10 @@ namespace CoreWebApiV08.API.Mapping
             CreateMap<StudentRegistration, RegistrationDto>().ReverseMap();
             CreateMap<AddRequestRegistrationDto, StudentRegistration>().ReverseMap();
             CreateMap<UpdateRequestRegistrationDto, StudentRegistration>().ReverseMap();
+
+            CreateMap<StudentAdmissionModel, AdmissionDto>().ReverseMap();
+            CreateMap<AddAdmissionRequestDto, StudentAdmissionModel>().ReverseMap();
+            CreateMap<UpdateAdmissionRequestDto, StudentAdmissionModel>().ReverseMap();
         }
     }
 }

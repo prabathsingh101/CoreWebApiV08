@@ -4,21 +4,22 @@ using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreWebApiV08.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class RegistrationController : ControllerBase
     {
-        private readonly IStudent student;
+        private readonly IStudentRegistration registration;
         private readonly IMapper mapper;
         private readonly ImsContext imsContext;
 
-        public StudentController(IStudent student, IMapper mapper, ImsContext imsContext)
+        public RegistrationController(IStudentRegistration registration, IMapper mapper, ImsContext imsContext)
         {
-            this.student = student;
+            this.registration = registration;
             this.mapper = mapper;
             this.imsContext = imsContext;
         }
@@ -36,12 +37,12 @@ namespace CoreWebApiV08.API.Controllers
             [FromQuery] int pageSize = 1000
             )
         {
-            var model = await student.GetAllAsync(
+            var model = await registration.GetAllAsync(
                 filterOn, filterQuery, sortBy,
                 isAscending ?? true, pageNumber, pageSize
                 );
 
-            return Ok(mapper.Map<List<AdmissionDto>>(model));
+            return Ok(mapper.Map<List<RegistrationDto>>(model));
         }
 
         [HttpGet("{id:int}")]
@@ -50,7 +51,7 @@ namespace CoreWebApiV08.API.Controllers
         {
             //get teacher domain from database      
 
-            var domain = await student.GetByIdAsync(id);
+            var domain = await registration.GetByIdAsync(id);
 
             //map domain model to dto
 
@@ -59,21 +60,21 @@ namespace CoreWebApiV08.API.Controllers
                 return NotFound();
             }
 
-            return Ok(mapper.Map<AdmissionDto>(domain));
+            return Ok(mapper.Map<RegistrationDto>(domain));
         }
 
         [HttpPost]
         [Route("Create")]
         //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody] AddAdmissionRequestDto addAdmissionRequestDto)
+        public async Task<IActionResult> Create([FromBody] AddRequestRegistrationDto addRequestRegistrationDto)
         {
             var status = new Status();
 
-            var model = mapper.Map<StudentAdmissionModel>(addAdmissionRequestDto);
+            var model = mapper.Map<StudentRegistration>(addRequestRegistrationDto);
 
-            model = await student.CreateAsync(model);
+            model = await registration.CreateAsync(model);
 
-            var teacherDto = mapper.Map<AdmissionDto>(model);
+            var teacherDto = mapper.Map<RegistrationDto>(model);
 
             if (teacherDto.id > 0)
             {
@@ -94,25 +95,25 @@ namespace CoreWebApiV08.API.Controllers
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var model = await student.DeleteAsync(id);
+            var model = await registration.DeleteAsync(id);
             if (model == null)
             {
                 return NotFound();
             }
-            return Ok(mapper.Map<AdmissionDto>(model));
+            return Ok(mapper.Map<RegistrationDto>(model));
         }
 
         [HttpPut]
         [Route("{id:int}")]
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id,
-                                               [FromBody] UpdateAdmissionRequestDto updateAdmissionRequestDto)
+                                               [FromBody] UpdateRequestRegistrationDto updateRequestRegistrationDto)
         {
             //map dto to domain model
-            var DomainModel = mapper.Map<StudentAdmissionModel>(updateAdmissionRequestDto);
+            var DomainModel = mapper.Map<StudentRegistration>(updateRequestRegistrationDto);
 
             //check dept if exists
-            DomainModel = await student.UpdateAsync(id, DomainModel);
+            DomainModel = await registration.UpdateAsync(id, DomainModel);
 
             if (DomainModel == null)
             {
@@ -120,7 +121,7 @@ namespace CoreWebApiV08.API.Controllers
             }
 
             //convert domain model to dto
-            return Ok(mapper.Map<AdmissionDto>(DomainModel));
+            return Ok(mapper.Map<RegistrationDto>(DomainModel));
         }
 
     }
