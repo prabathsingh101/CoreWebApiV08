@@ -55,6 +55,9 @@ public partial class ImsContext : DbContext
     public virtual DbSet<TeacherName> getteachername { get; set; }
     public virtual DbSet<MapTeacherModel> getclassdetails { get; set; }
 
+    public virtual DbSet<Classes> getclassname { get; set; }
+
+
 
 
 

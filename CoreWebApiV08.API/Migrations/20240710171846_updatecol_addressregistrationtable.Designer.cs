@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240710171846_updatecol_addressregistrationtable")]
+    partial class updatecol_addressregistrationtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,56 +54,6 @@ namespace CoreWebApiV08.API.Migrations
                     b.HasKey("id");
 
                     b.ToTable("TblClass");
-                });
-
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentAdmissionModel", b =>
-                {
-                    b.Property<int?>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"));
-
-                    b.Property<string>("address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("admissiondate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("classid")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("createddate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("fathersname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("fname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("lname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("mobileno")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("registrationdate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("registrationfees")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("registrationno")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("updateddate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("id");
-
-                    b.ToTable("TblStudent");
                 });
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentRegistration", b =>
