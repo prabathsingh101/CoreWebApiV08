@@ -2,7 +2,7 @@
 {
     public class AdmissionDto
     {
-        public int? id { get; set; }
+        public int id { get; set; }
 
         public int? registrationno { get; set; }
 

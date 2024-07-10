@@ -2,8 +2,7 @@
 {
     public class AddAdmissionRequestDto
     {
-        public int? id { get; set; }
-
+       
         public int? registrationno { get; set; }
 
         public string? fname { get; set; }
