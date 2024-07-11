@@ -15,6 +15,7 @@
         public int? mobileno { get; set; }
         public string? address { get; set; }
         public bool? isDeleted { get; set; }
+        public bool? isStatus { get; set; }
         public int? classid { get; set; }
         public string fathersname { get; set; }
         public DateTime? createddate { get; set; }
