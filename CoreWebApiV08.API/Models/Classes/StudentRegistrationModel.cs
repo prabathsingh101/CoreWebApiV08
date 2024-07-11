@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace CoreWebApiV08.API.Models.Classes
 {
-    public class StudentRegistration
+    public class StudentRegistrationModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -13,6 +13,7 @@ namespace CoreWebApiV08.API.Models.Classes
         public string? fname { get; set; }
 
         public string? lname { get; set; }
+        public string? fullname { get; set; }
 
         public DateTime? registrationdate { get; set; }
         public decimal? registrationfees { get; set; }

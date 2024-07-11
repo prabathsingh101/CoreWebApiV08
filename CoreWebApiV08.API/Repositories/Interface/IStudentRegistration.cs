@@ -4,7 +4,7 @@ namespace CoreWebApiV08.API.Repositories.Interface
 {
     public interface IStudentRegistration
     {
-        Task<List<StudentRegistration>> GetAllAsync(
+        Task<List<StudentRegistrationModel>> GetAllAsync(
             string? filterOn = null,
             string? filterQuery = null,
             string? sortBy = null,
@@ -13,12 +13,12 @@ namespace CoreWebApiV08.API.Repositories.Interface
             int pageSize = 1000
             );
 
-        Task<StudentRegistration?> GetByIdAsync(int id);
+        Task<StudentRegistrationModel?> GetByIdAsync(int id);
 
-        Task<StudentRegistration> CreateAsync(StudentRegistration registration);
+        Task<StudentRegistrationModel> CreateAsync(StudentRegistrationModel registration);
 
-        Task<StudentRegistration?> UpdateAsync(int id, StudentRegistration registration);
+        Task<StudentRegistrationModel?> UpdateAsync(int id, StudentRegistrationModel registration);
 
-        Task<StudentRegistration?> DeleteAsync(int id);
+        Task<StudentRegistrationModel?> DeleteAsync(int id);
     }
 }

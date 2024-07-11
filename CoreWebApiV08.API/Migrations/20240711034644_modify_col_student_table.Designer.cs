@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240711034644_modify_col_student_table")]
+    partial class modify_col_student_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,9 +82,6 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<string>("fname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("fullname")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool?>("isDeleted")
                         .HasColumnType("bit");
 
@@ -111,7 +111,7 @@ namespace CoreWebApiV08.API.Migrations
                     b.ToTable("TblStudent");
                 });
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentRegistrationModel", b =>
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentRegistration", b =>
                 {
                     b.Property<int?>("id")
                         .ValueGeneratedOnAdd()
@@ -132,9 +132,6 @@ namespace CoreWebApiV08.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("fname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("fullname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("isDeleted")

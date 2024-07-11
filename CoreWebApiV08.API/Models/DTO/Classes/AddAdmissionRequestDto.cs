@@ -8,7 +8,7 @@
         public string? fname { get; set; }
 
         public string? lname { get; set; }
-
+        public string? fullname { get; set; }
         public DateTime? registrationdate { get; set; }
         public DateTime? admissiondate { get; set; }
         public decimal? registrationfees { get; set; }
@@ -26,6 +26,7 @@
         public AddAdmissionRequestDto()
         {
             this.createddate = DateTime.UtcNow;
+            this.admissiondate = DateTime.UtcNow;
         }
     }
 }

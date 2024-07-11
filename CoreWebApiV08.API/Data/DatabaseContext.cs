@@ -33,7 +33,7 @@ namespace CoreWebApiV08.API.Data
         public DbSet<HolidaysModel> TblHolidays { get; set; }
 
         public DbSet<TeacherModel> TblTeacher { get; set; }
-        public DbSet<StudentRegistration> TblRegistration { get; set; }
+        public DbSet<StudentRegistrationModel> TblRegistration { get; set; }
         public DbSet<StudentAdmissionModel> TblStudent { get; set; }
     }
 

@@ -70,7 +70,7 @@ namespace CoreWebApiV08.API.Controllers
         {
             var status = new Status();
 
-            var model = mapper.Map<StudentRegistration>(addRequestRegistrationDto);
+            var model = mapper.Map<StudentRegistrationModel>(addRequestRegistrationDto);
 
             model = await registration.CreateAsync(model);
 
@@ -110,7 +110,7 @@ namespace CoreWebApiV08.API.Controllers
                                                [FromBody] UpdateRequestRegistrationDto updateRequestRegistrationDto)
         {
             //map dto to domain model
-            var DomainModel = mapper.Map<StudentRegistration>(updateRequestRegistrationDto);
+            var DomainModel = mapper.Map<StudentRegistrationModel>(updateRequestRegistrationDto);
 
             //check dept if exists
             DomainModel = await registration.UpdateAsync(id, DomainModel);

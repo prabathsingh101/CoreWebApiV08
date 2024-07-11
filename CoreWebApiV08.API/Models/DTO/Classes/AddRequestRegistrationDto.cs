@@ -8,7 +8,7 @@
         public string? fname { get; set; }
 
         public string? lname { get; set; }
-
+        public string? fullname { get; set; }
         public DateTime? registrationdate { get; set; }
         public decimal? registrationfees { get; set; }
         public bool? isStatus { get; set; }
@@ -23,6 +23,7 @@
         public AddRequestRegistrationDto()
         {
             this.createddate = DateTime.UtcNow;
+            this.registrationdate = DateTime.UtcNow;
         }
     }
 }

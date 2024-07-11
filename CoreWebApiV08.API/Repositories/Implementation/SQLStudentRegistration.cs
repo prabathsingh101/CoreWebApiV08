@@ -13,14 +13,14 @@ namespace CoreWebApiV08.API.Repositories.Implementation
         {
             this.databaseContext = databaseContext;
         }
-        public async Task<StudentRegistration> CreateAsync(StudentRegistration registration)
+        public async Task<StudentRegistrationModel> CreateAsync(StudentRegistrationModel registration)
         {
             await databaseContext.TblRegistration.AddAsync(registration);
             await databaseContext.SaveChangesAsync();
             return registration;
         }
 
-        public async Task<StudentRegistration?> DeleteAsync(int id)
+        public async Task<StudentRegistrationModel?> DeleteAsync(int id)
         {
             var isExists = await databaseContext.TblRegistration.FirstOrDefaultAsync(x => x.id == id);
 
@@ -33,7 +33,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return isExists;
         }
 
-        public async Task<List<StudentRegistration>> GetAllAsync(
+        public async Task<List<StudentRegistrationModel>> GetAllAsync(
             string? filterOn = null, string? filterQuery = null,
             string? sortBy = null, bool isAscending = true, 
             int pageNumber = 1, int pageSize = 1000
@@ -74,12 +74,12 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return await registration.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
-        public async Task<StudentRegistration?> GetByIdAsync(int id)
+        public async Task<StudentRegistrationModel?> GetByIdAsync(int id)
         {
             return await databaseContext.TblRegistration.FirstOrDefaultAsync(x => x.id == id);
         }
 
-        public async Task<StudentRegistration?> UpdateAsync(int id, StudentRegistration registration)
+        public async Task<StudentRegistrationModel?> UpdateAsync(int id, StudentRegistrationModel registration)
         {
             var isExists = await databaseContext.TblRegistration.FirstOrDefaultAsync(x => x.id == id);
 
