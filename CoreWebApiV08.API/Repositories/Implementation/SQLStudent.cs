@@ -98,6 +98,8 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
             isExists.lname = admissionModel.lname;
 
+            isExists.fullname = admissionModel.fullname;
+
             isExists.registrationdate = admissionModel.registrationdate;
 
             isExists.admissiondate = admissionModel.admissiondate;
@@ -112,7 +114,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
             isExists.address = admissionModel.address;
 
-            isExists.createddate = admissionModel.createddate;
+            //isExists.createddate = admissionModel.createddate;
 
             isExists.updateddate = admissionModel.updateddate;
 

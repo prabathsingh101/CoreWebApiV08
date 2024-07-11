@@ -6,6 +6,7 @@ using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -123,6 +124,19 @@ namespace CoreWebApiV08.API.Controllers
             //convert domain model to dto
             return Ok(mapper.Map<RegistrationDto>(DomainModel));
         }
+        [HttpGet("getmaxregno")]
+        //[Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> getmaxregno()
+        {
+            string sqlquery = "select ISNULL(max(registrationno),0) as registrationno from tblregistration";
 
+            var data = await imsContext.getmaxregno.FromSqlRaw(sqlquery).ToListAsync();
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
     }
 }

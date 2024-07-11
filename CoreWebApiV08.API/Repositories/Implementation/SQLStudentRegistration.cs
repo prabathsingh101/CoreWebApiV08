@@ -94,6 +94,8 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
             isExists.lname = registration.lname;
 
+            isExists.fullname = registration.fullname;
+
             isExists.registrationdate = registration.registrationdate;
 
             isExists.registrationfees = registration.registrationfees;
@@ -106,7 +108,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
             isExists.address = registration.address;
 
-            isExists.createddate = registration.createddate;
+            //isExists.createddate = registration.createddate;
 
             isExists.updateddate = registration.updateddate;
 

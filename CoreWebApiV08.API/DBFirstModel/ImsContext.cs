@@ -58,6 +58,7 @@ public partial class ImsContext : DbContext
     public virtual DbSet<Classes> getclassname { get; set; }
 
 
+    public virtual DbSet<MaxRegNoModel> getmaxregno { get; set; }
 
 
 
