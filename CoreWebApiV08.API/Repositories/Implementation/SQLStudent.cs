@@ -22,7 +22,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
         public async Task<StudentAdmissionModel?> DeleteAsync(int id)
         {
-            var isExists = await databaseContext.TblStudent.FirstOrDefaultAsync(x => x.id == id);
+            var isExists = await databaseContext.TblStudent.Include("Class").FirstOrDefaultAsync(x => x.id == id);
 
             if (isExists == null)
             {
@@ -39,7 +39,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             int pageNumber = 1, int pageSize = 1000
             )
         {
-            var admission = databaseContext.TblStudent.AsQueryable();
+            var admission = databaseContext.TblStudent.Include("Class").AsQueryable();
 
             //filtering
 

@@ -26,7 +26,7 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("GetAll")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         // //GET:/api/teacher?filterOn=Name&filterQuery=Track&sortBy=Name&isAscending=true&pageNumber=1&pageSize=10
         public async Task<IActionResult> GetAll(
             [FromQuery]
@@ -47,7 +47,7 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             //get teacher domain from database      
@@ -66,7 +66,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPost]
         [Route("Create")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] AddRequestRegistrationDto addRequestRegistrationDto)
         {
             var status = new Status();
@@ -93,7 +93,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var model = await registration.DeleteAsync(id);
@@ -106,7 +106,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id,
                                                [FromBody] UpdateRequestRegistrationDto updateRequestRegistrationDto)
         {
@@ -124,8 +124,29 @@ namespace CoreWebApiV08.API.Controllers
             //convert domain model to dto
             return Ok(mapper.Map<RegistrationDto>(DomainModel));
         }
+
+        [HttpPatch]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Patch([FromRoute] int id,
+                                              [FromBody] UpdateRequestRegistrationDto updateRequestRegistrationDto)
+        {
+            //map dto to domain model
+            var DomainModel = mapper.Map<StudentRegistrationModel>(updateRequestRegistrationDto);
+
+            //check dept if exists
+            DomainModel = await registration.UpdateAsync(id, DomainModel);
+
+            if (DomainModel == null)
+            {
+                return NotFound();
+            }
+
+            //convert domain model to dto
+            return Ok(mapper.Map<RegistrationDto>(DomainModel));
+        }
+
         [HttpGet("getmaxregno")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> getmaxregno()
         {
             string sqlquery = "select ISNULL(max(registrationno),0) as registrationno from tblregistration";
@@ -143,7 +164,7 @@ namespace CoreWebApiV08.API.Controllers
         //[Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> getregistrationdetails()
         {
-            string sqlquery = "select TblRegistration.id as id,TblRegistration.registrationno as registrationno,TblRegistration.fullname as fullname,TblRegistration.registrationdate as registrationdate,TblRegistration.registrationfees as registrationfees,TblRegistration.mobileno as mobileno,TblRegistration.address as address,TblRegistration.isDeleted as isdeleted,TblRegistration.isStatus as isstatus, TblClass.classname as classname from TblRegistration inner join TblClass on TblClass.id=TblRegistration.classid";
+            string sqlquery = "select TblRegistration.id as id,TblRegistration.islocked as islocked,TblRegistration.registrationno as registrationno,TblRegistration.fullname as fullname,TblRegistration.registrationdate as registrationdate,TblRegistration.registrationfees as registrationfees,TblRegistration.mobileno as mobileno,TblRegistration.address as address,TblRegistration.isDeleted as isdeleted, case TblRegistration.isStatus when 1 then 'Completed' when 0 then 'Pending' else 'Unknown' end isstatus, TblClass.classname as classname from TblRegistration inner join TblClass on TblClass.id=TblRegistration.classid";
 
             var data = await imsContext.getregistrationdetails.FromSqlRaw(sqlquery).ToListAsync();
 

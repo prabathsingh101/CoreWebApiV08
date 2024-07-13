@@ -11,7 +11,7 @@
         public DateTime? registrationdate { get; set; }
 
         public decimal? registrationfees { get; set; }
-
+        public bool? islocked { get; set; } = false;
         public string? mobileno { get; set; }
         public string? address { get; set; }
         public bool? isDeleted { get; set; } = false;

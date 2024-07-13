@@ -12,6 +12,7 @@
         public DateTime? registrationdate { get; set; }
         public decimal? registrationfees { get; set; }
         public bool? isStatus { get; set; } = false;
+        public bool? islocked { get; set; } = false;
         public string? mobileno { get; set; }
         public bool? isDeleted { get; set; } = false;   
         public int? classid { get; set; }

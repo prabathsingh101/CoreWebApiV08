@@ -29,6 +29,7 @@ namespace CoreWebApiV08.API.Models.Classes
         public bool? isDeleted { get; set; } = false;
 
         public bool? isStatus { get; set; } = false;
+        public bool? islocked { get; set; } = false;
 
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }

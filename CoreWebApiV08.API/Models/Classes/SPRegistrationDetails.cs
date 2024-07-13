@@ -21,7 +21,8 @@ namespace CoreWebApiV08.API.Models.Classes
 
         public bool? isdeleted { get; set; }
 
-        public bool? isstatus { get; set; }
+        public string? isstatus { get; set; }
+        public bool? islocked { get; set; }
 
         public string? classname { get; set; }
     }

@@ -107,8 +107,9 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             isExists.fathersname = registration.fathersname;
 
             isExists.address = registration.address;
+            isExists.isStatus = registration.isStatus;
 
-            //isExists.createddate = registration.createddate;
+            isExists.islocked = registration.islocked;
 
             isExists.updateddate = registration.updateddate;
 
