@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreWebApiV08.API.Controllers
@@ -26,7 +27,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet]
         [Route("all")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetAllAttendance()
         {
             var model = await classes.GetAllAttendanceAsync();
@@ -36,7 +37,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> AttendanceById([FromRoute] int id)
         {
             //get teacher domain from database      
@@ -54,7 +55,7 @@ namespace CoreWebApiV08.API.Controllers
         }
         [HttpPost]
         [Route("create")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] AddAttendanceTypeRequestDto addAttendance)
         {
             var status = new Status();

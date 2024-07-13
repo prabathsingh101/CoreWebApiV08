@@ -161,7 +161,7 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("registrationdetails")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> getregistrationdetails()
         {
             string sqlquery = "select TblRegistration.id as id,TblRegistration.islocked as islocked,TblRegistration.registrationno as registrationno,TblRegistration.fullname as fullname,TblRegistration.registrationdate as registrationdate,TblRegistration.registrationfees as registrationfees,TblRegistration.mobileno as mobileno,TblRegistration.address as address,TblRegistration.isDeleted as isdeleted, case TblRegistration.isStatus when 1 then 'Completed' when 0 then 'Pending' else 'Unknown' end isstatus, TblClass.classname as classname from TblRegistration inner join TblClass on TblClass.id=TblRegistration.classid";
