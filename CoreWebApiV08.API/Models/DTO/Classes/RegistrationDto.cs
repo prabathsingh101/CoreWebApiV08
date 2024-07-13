@@ -1,4 +1,6 @@
-﻿namespace CoreWebApiV08.API.Models.DTO.Classes
+﻿using System.Drawing;
+
+namespace CoreWebApiV08.API.Models.DTO.Classes
 {
     public class RegistrationDto
     {
@@ -16,6 +18,8 @@
         public bool? isStatus { get; set; }
         public string? mobileno { get; set; }
         public int? classid { get; set; }
+
+        public Classes.ClassesDto Class { get; set; }
         public string? fathersname { get; set; }
         public string? address { get; set; }
         public DateTime? createddate { get; set; }

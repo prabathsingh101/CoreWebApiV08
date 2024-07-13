@@ -39,7 +39,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             int pageNumber = 1, int pageSize = 1000
             )
         {
-            var registration = databaseContext.TblRegistration.AsQueryable();
+            var registration = databaseContext.TblRegistration.Include("Class").AsQueryable();
 
             //filtering
 
@@ -76,7 +76,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
         public async Task<StudentRegistrationModel?> GetByIdAsync(int id)
         {
-            return await databaseContext.TblRegistration.FirstOrDefaultAsync(x => x.id == id);
+            return await databaseContext.TblRegistration.Include("Class").FirstOrDefaultAsync(x => x.id == id);
         }
 
         public async Task<StudentRegistrationModel?> UpdateAsync(int id, StudentRegistrationModel registration)

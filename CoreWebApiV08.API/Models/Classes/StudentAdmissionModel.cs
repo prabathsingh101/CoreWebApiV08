@@ -7,7 +7,7 @@ namespace CoreWebApiV08.API.Models.Classes
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? id { get; set; }
+        public int id { get; set; }
 
         public int? registrationno { get; set; }
 
@@ -23,7 +23,6 @@ namespace CoreWebApiV08.API.Models.Classes
 
         public string? address { get; set; }
 
-        public int? classid { get; set; }
         public string? fathersname { get; set; }
         public bool? isDeleted { get; set; } = false;
 
@@ -31,10 +30,9 @@ namespace CoreWebApiV08.API.Models.Classes
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }
 
-        //public StudentAdmissionModel()
-        //{
-        //    this.createddate = DateTime.UtcNow;
-        //    this.updateddate = DateTime.UtcNow;
-        //}
+        //
+        public int? classid { get; set; }
+        // Navigation property for claass
+        public Classes? Class { get; set; }
     }
 }

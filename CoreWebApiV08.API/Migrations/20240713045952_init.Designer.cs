@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240711034023_add status_col_student_table")]
-    partial class addstatus_col_student_table
+    [Migration("20240713045952_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,11 +58,11 @@ namespace CoreWebApiV08.API.Migrations
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentAdmissionModel", b =>
                 {
-                    b.Property<int?>("id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
@@ -82,6 +82,9 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<string>("fname")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("fullname")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool?>("isDeleted")
                         .HasColumnType("bit");
 
@@ -108,16 +111,18 @@ namespace CoreWebApiV08.API.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("classid");
+
                     b.ToTable("TblStudent");
                 });
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentRegistration", b =>
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentRegistrationModel", b =>
                 {
-                    b.Property<int?>("id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
@@ -134,6 +139,9 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<string>("fname")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("fullname")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool?>("isDeleted")
                         .HasColumnType("bit");
 
@@ -159,6 +167,8 @@ namespace CoreWebApiV08.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
+
+                    b.HasIndex("classid");
 
                     b.ToTable("TblRegistration");
                 });
@@ -571,6 +581,24 @@ namespace CoreWebApiV08.API.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentAdmissionModel", b =>
+                {
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
+                        .WithMany()
+                        .HasForeignKey("classid");
+
+                    b.Navigation("Class");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentRegistrationModel", b =>
+                {
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
+                        .WithMany()
+                        .HasForeignKey("classid");
+
+                    b.Navigation("Class");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

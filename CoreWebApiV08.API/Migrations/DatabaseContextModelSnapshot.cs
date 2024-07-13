@@ -55,11 +55,11 @@ namespace CoreWebApiV08.API.Migrations
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentAdmissionModel", b =>
                 {
-                    b.Property<int?>("id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
@@ -108,16 +108,18 @@ namespace CoreWebApiV08.API.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("classid");
+
                     b.ToTable("TblStudent");
                 });
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentRegistrationModel", b =>
                 {
-                    b.Property<int?>("id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
@@ -162,6 +164,8 @@ namespace CoreWebApiV08.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
+
+                    b.HasIndex("classid");
 
                     b.ToTable("TblRegistration");
                 });
@@ -574,6 +578,24 @@ namespace CoreWebApiV08.API.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentAdmissionModel", b =>
+                {
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
+                        .WithMany()
+                        .HasForeignKey("classid");
+
+                    b.Navigation("Class");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentRegistrationModel", b =>
+                {
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
+                        .WithMany()
+                        .HasForeignKey("classid");
+
+                    b.Navigation("Class");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

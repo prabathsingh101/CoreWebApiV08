@@ -20,9 +20,10 @@
         public string? address { get; set; }
 
         public int? classid { get; set; }
-        public string fathersname { get; set; }
+        public string? fathersname { get; set; }
 
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }
+        public Classes.ClassesDto Class { get; set; }
     }
 }
