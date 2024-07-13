@@ -11,7 +11,7 @@ namespace CoreWebApiV08.API.Models.Classes
 
         public string? classname { get; set; }
 
-        public int? teacherid { get; set; }
+        //public int? teacherid { get; set; }
 
         public int? studentlimit { get; set; }
 
@@ -19,6 +19,11 @@ namespace CoreWebApiV08.API.Models.Classes
 
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }
+
+        //
+        public int? teacherid { get; set; }
+        // Navigation property for claass
+        public Teachers.TeacherModel? Teacher { get; set; }
 
         public Classes()
         {

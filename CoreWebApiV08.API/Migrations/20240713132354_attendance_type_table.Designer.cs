@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240713132354_attendance_type_table")]
+    partial class attendance_type_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +32,6 @@ namespace CoreWebApiV08.API.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("AttendanceType")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("attendancedate")
                         .HasColumnType("datetime2");
@@ -83,8 +83,6 @@ namespace CoreWebApiV08.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
-
-                    b.HasIndex("teacherid");
 
                     b.ToTable("TblClass");
                 });
@@ -636,15 +634,6 @@ namespace CoreWebApiV08.API.Migrations
                     b.Navigation("Class");
 
                     b.Navigation("Student");
-
-                    b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.Classes", b =>
-                {
-                    b.HasOne("CoreWebApiV08.API.Models.Teachers.TeacherModel", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("teacherid");
 
                     b.Navigation("Teacher");
                 });

@@ -36,7 +36,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
         public async Task<List<Classes>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
             string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 1000)
         {
-            var classes = databaseContext.TblClass.AsQueryable();
+            var classes = databaseContext.TblClass.Include("Teacher").AsQueryable();
 
             //filtering
 
@@ -65,7 +65,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
         public async Task<Classes?> GetByIdAsync(int id)
         {
-            return await databaseContext.TblClass.FirstOrDefaultAsync(x => x.id == id);
+            return await databaseContext.TblClass.Include("Teacher").FirstOrDefaultAsync(x => x.id == id);
         }
 
         public async Task<Classes?> UpdateAsync(int id, Classes classes)

@@ -14,5 +14,7 @@
 
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }
+
+        public Teacher.TeacherDto? Teacher { get; set; }
     }
 }
