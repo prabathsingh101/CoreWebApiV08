@@ -12,8 +12,8 @@
         public DateTime? registrationdate { get; set; }
         public DateTime? admissiondate { get; set; }
         public decimal? registrationfees { get; set; }
-        public bool? isDeleted { get; set; }
-        public bool? isStatus { get; set; }
+        public bool? isDeleted { get; set; } = false;
+        public bool? isStatus { get; set; } = false;
         public string? mobileno { get; set; }
 
         public string? address { get; set; }

@@ -59,6 +59,8 @@ public partial class ImsContext : DbContext
 
 
     public virtual DbSet<MaxRegNoModel> getmaxregno { get; set; }
+    public virtual DbSet<SPRegistrationDetails> getregistrationdetails { get; set; }
+
 
 
 

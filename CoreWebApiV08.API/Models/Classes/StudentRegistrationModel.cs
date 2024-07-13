@@ -25,9 +25,9 @@ namespace CoreWebApiV08.API.Models.Classes
         public int? classid { get; set; }
         public string? fathersname { get; set; }
 
-        public bool? isDeleted { get; set; }
+        public bool? isDeleted { get; set; } = false;
 
-        public bool? isStatus {  get; set; }    
+        public bool? isStatus { get; set; } = false;
 
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }
