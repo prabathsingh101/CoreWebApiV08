@@ -7,6 +7,8 @@ using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
+using System.Globalization;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -28,7 +30,7 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("GetAll")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         // //GET:/api/teacher?filterOn=Name&filterQuery=Track&sortBy=Name&isAscending=true&pageNumber=1&pageSize=10
         public async Task<IActionResult> GetAll(
             [FromQuery]
@@ -49,7 +51,7 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             //get teacher domain from database      
@@ -65,6 +67,7 @@ namespace CoreWebApiV08.API.Controllers
 
             return Ok(mapper.Map<ClassesDto>(Domain));
         }
+
         [HttpPost]
         [Route("Create")]
         [Authorize(Roles = "Admin")]
@@ -91,6 +94,7 @@ namespace CoreWebApiV08.API.Controllers
 
             return Ok(status);
         }
+
         [HttpDelete]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
@@ -103,6 +107,7 @@ namespace CoreWebApiV08.API.Controllers
             }
             return Ok(mapper.Map<ClassesDto>(model));
         }
+
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
@@ -138,6 +143,7 @@ namespace CoreWebApiV08.API.Controllers
             }
             return Ok(data);
         }
+
         [HttpGet("classname")]
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> getClassName()
@@ -152,5 +158,7 @@ namespace CoreWebApiV08.API.Controllers
             }
             return Ok(data);
         }
+
+        
     }
 }

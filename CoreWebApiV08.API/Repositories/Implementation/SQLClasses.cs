@@ -20,6 +20,13 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return classes;
         }
 
+        public async Task<AttendanceTypeModel> CreateAttendanceAsync(AttendanceTypeModel model)
+        {
+            await databaseContext.TblAttendanceType.AddAsync(model);
+            await databaseContext.SaveChangesAsync();
+            return model;
+        }
+
         public async Task<Classes?> DeleteAsync(int id)
         {
             var existsClass = await databaseContext.TblClass.FirstOrDefaultAsync(x => x.id == id);
@@ -61,6 +68,17 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             var skipResults = (pageNumber - 1) * pageSize;
 
             return await classes.Skip(skipResults).Take(pageSize).ToListAsync();
+        }
+
+        public async Task<List<AttendanceTypeModel>> GetAllAttendanceAsync()
+        {
+            return await databaseContext.TblAttendanceType.Include("Class").Include("Student").Include("Teacher").ToListAsync();
+         
+        }
+
+        public async Task<AttendanceTypeModel?> GetAttendanceByIdAsync(int id)
+        {
+            return await databaseContext.TblAttendanceType.Include("Class").Include("Teacher").Include("Student").FirstOrDefaultAsync(x => x.id == id);
         }
 
         public async Task<Classes?> GetByIdAsync(int id)

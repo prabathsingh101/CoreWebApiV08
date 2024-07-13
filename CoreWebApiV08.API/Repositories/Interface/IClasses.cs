@@ -19,5 +19,10 @@ namespace CoreWebApiV08.API.Repositories.Interface
         Task<Classes?> UpdateAsync(int id, Classes classes);
 
         Task<Classes?> DeleteAsync(int id);
+
+
+        Task<AttendanceTypeModel> CreateAttendanceAsync(AttendanceTypeModel model);
+        Task<AttendanceTypeModel?> GetAttendanceByIdAsync(int id);
+        Task<List<AttendanceTypeModel>> GetAllAttendanceAsync();
     }
 }

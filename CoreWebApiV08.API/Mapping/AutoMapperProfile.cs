@@ -50,6 +50,10 @@ namespace CoreWebApiV08.API.Mapping
             CreateMap<StudentAdmissionModel, AdmissionDto>().ReverseMap();
             CreateMap<AddAdmissionRequestDto, StudentAdmissionModel>().ReverseMap();
             CreateMap<UpdateAdmissionRequestDto, StudentAdmissionModel>().ReverseMap();
+
+            CreateMap<AttendanceTypeModel, AttendanceTypeDto>().ReverseMap();
+            CreateMap<AddAttendanceTypeRequestDto, AttendanceTypeModel>().ReverseMap();
+            CreateMap<UpdateAttendanceTypeRequestDto, AttendanceTypeModel>().ReverseMap();
         }
     }
 }
