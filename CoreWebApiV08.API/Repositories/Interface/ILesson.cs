@@ -1,11 +1,18 @@
-﻿using CoreWebApiV08.API.Models.Lesson;
+﻿using CoreWebApiV08.API.Models.Course;
+using CoreWebApiV08.API.Models.Lesson;
 
 namespace CoreWebApiV08.API.Repositories.Interface
 {
     public interface ILesson
     {
-        Task<List<CourseLession>>GetAllLessonAsync();
+        Task<List<CourseLessionModel>> GetAllAsync();
 
-        Task<CourseLession> GetLessionBycourseIdAsync(int CourseId);
+        Task<CourseLessionModel?> GetByIdAsync(int id);
+
+        Task<CourseLessionModel> CreateAsync(CourseLessionModel model);
+
+        Task<CourseLessionModel> UpdateAsync(int id, CourseLessionModel model);
+
+        Task<CourseLessionModel?> DeleteAsync(int id);
     }
 }

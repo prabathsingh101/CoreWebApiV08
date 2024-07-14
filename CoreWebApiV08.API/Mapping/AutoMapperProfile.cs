@@ -10,6 +10,7 @@ using CoreWebApiV08.API.Models.DTO.Holidays;
 using CoreWebApiV08.API.Models.DTO.Lesson;
 using CoreWebApiV08.API.Models.DTO.Teacher;
 using CoreWebApiV08.API.Models.Holidays;
+using CoreWebApiV08.API.Models.Lesson;
 using CoreWebApiV08.API.Models.Teachers;
 
 namespace CoreWebApiV08.API.Mapping
@@ -28,7 +29,9 @@ namespace CoreWebApiV08.API.Mapping
             CreateMap<UpdateCourseRequestDto, CourseModel>().ReverseMap();
 
 
-            CreateMap<TblLession, CourseLessonDto>().ReverseMap();
+            CreateMap<CourseLessionModel, CourseLessonDto>().ReverseMap();
+            CreateMap<AddLessonRequestDto, CourseLessionModel>().ReverseMap();
+            CreateMap<UpdateLessonRequestDto, CourseLessionModel>().ReverseMap();
 
 
             CreateMap<HolidaysModel, HolidaysDto>().ReverseMap();

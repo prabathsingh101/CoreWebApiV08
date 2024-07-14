@@ -8,6 +8,8 @@
 
         public string? courselisticon { get; set; }
 
+        public DateTime? duration { get; set; }
+
         public string? longdescription { get; set; }
 
         public string? category { get; set; }

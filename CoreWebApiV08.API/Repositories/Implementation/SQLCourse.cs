@@ -56,6 +56,8 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
             isexists.title = model.title;
             isexists.longdescription = model.longdescription;
+            isexists.updateddate = model.updateddate;
+            isexists.duration = model.duration;
 
             await databaseContext.SaveChangesAsync();
 

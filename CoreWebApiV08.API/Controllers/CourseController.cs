@@ -1,16 +1,12 @@
 ﻿using AutoMapper;
 using CoreWebApiV08.API.DBFirstModel;
+using CoreWebApiV08.API.Models.Course;
+using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Course;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing.Drawing2D;
-using System.Drawing;
-using CoreWebApiV08.API.Models.Course;
-using CoreWebApiV08.API.Models.DTO;
-using CoreWebApiV08.API.Models.DTO.Teacher;
-using CoreWebApiV08.API.Models.Teachers;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -76,8 +72,8 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
-        //[Authorize(Roles = "Writer")]
+        [Route("create")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] AddCourseRequestDto addCourseRequestDto)
         {
             var status = new Status();
@@ -105,7 +101,7 @@ namespace CoreWebApiV08.API.Controllers
         }
         [HttpDelete]
         [Route("{id:int}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var model = await course.DeleteAsync(id);
@@ -118,7 +114,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id,
                                                [FromBody] UpdateCourseRequestDto updateCourseRequestDto)
         {

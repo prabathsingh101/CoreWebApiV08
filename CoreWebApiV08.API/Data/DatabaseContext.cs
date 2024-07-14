@@ -22,7 +22,7 @@ namespace CoreWebApiV08.API.Data
 
         public DbSet<CourseModel> TblCourse { get; set; }
 
-        public DbSet<CourseLession> TblLessions { get; set; }
+        public DbSet<CourseLessionModel> TblLessions { get; set; }
 
         public DbSet<testmodel> TblTestModel { get; set; }
 
