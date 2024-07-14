@@ -43,7 +43,9 @@ namespace CoreWebApiV08.API.Repositories.Implementation
         public async Task<List<Classes>> GetAllAsync(string? filterOn = null, string? filterQuery = null,
             string? sortBy = null, bool isAscending = true, int pageNumber = 1, int pageSize = 1000)
         {
-            var classes = databaseContext.TblClass.Include("Teacher").AsQueryable();
+            var classes = databaseContext.TblClass
+                .Include("Course")
+                .Include("Teacher").AsQueryable();
 
             //filtering
 
@@ -72,18 +74,26 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
         public async Task<List<AttendanceTypeModel>> GetAllAttendanceAsync()
         {
-            return await databaseContext.TblAttendanceType.Include("Class").Include("Student").Include("Teacher").ToListAsync();
+            return await databaseContext.TblAttendanceType
+                .Include("Class")
+                .Include("Student")
+                .Include("Teacher").ToListAsync();
          
         }
 
         public async Task<AttendanceTypeModel?> GetAttendanceByIdAsync(int id)
         {
-            return await databaseContext.TblAttendanceType.Include("Class").Include("Teacher").Include("Student").FirstOrDefaultAsync(x => x.id == id);
+            return await databaseContext.TblAttendanceType
+                .Include("Class")
+                .Include("Teacher")
+                .Include("Student").FirstOrDefaultAsync(x => x.id == id);
         }
 
         public async Task<Classes?> GetByIdAsync(int id)
         {
-            return await databaseContext.TblClass.Include("Teacher").FirstOrDefaultAsync(x => x.id == id);
+            return await databaseContext.TblClass
+                .Include("Course")
+                .Include("Teacher").FirstOrDefaultAsync(x => x.id == id);
         }
 
         public async Task<Classes?> UpdateAsync(int id, Classes classes)

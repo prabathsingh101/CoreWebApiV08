@@ -7,6 +7,7 @@
         public string? classname { get; set; }
 
         public int? teacherid { get; set; }
+        public int? courseid { get; set; }
 
         public int? studentlimit { get; set; }
 
