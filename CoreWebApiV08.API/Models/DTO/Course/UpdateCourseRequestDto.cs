@@ -1,9 +1,7 @@
 ﻿namespace CoreWebApiV08.API.Models.DTO.Course
 {
-    public class CourseDto
+    public class UpdateCourseRequestDto
     {
-        public int? id { get; set; }
-
         public string? title { get; set; }
 
         public string? iconurl { get; set; }
@@ -20,5 +18,9 @@
 
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }
+        public UpdateCourseRequestDto()
+        {
+            this.updateddate = DateTime.UtcNow;
+        }
     }
 }

@@ -5,6 +5,12 @@ using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Drawing2D;
+using System.Drawing;
+using CoreWebApiV08.API.Models.Course;
+using CoreWebApiV08.API.Models.DTO;
+using CoreWebApiV08.API.Models.DTO.Teacher;
+using CoreWebApiV08.API.Models.Teachers;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -40,12 +46,12 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllCourse")]
+        [Route("GetAll")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllCourse()
         {
 
-          var model= await course.GetAllCourseAsync();
+          var model= await course.GetAllAsync();
 
             return Ok(mapper.Map<List<CourseDto>>(model));
 
@@ -69,7 +75,81 @@ namespace CoreWebApiV08.API.Controllers
             return Ok(mapper.Map<CourseDto>(courseDomain));
         }
 
-      
+        [HttpPost]
+        [Authorize]
+        //[Authorize(Roles = "Writer")]
+        public async Task<IActionResult> Create([FromBody] AddCourseRequestDto addCourseRequestDto)
+        {
+            var status = new Status();
 
+            var domainModel = mapper.Map<CourseModel>(addCourseRequestDto);
+
+           
+            domainModel = await course.CreateAsync(domainModel);
+
+            
+            var courseDto = mapper.Map<CourseDto>(domainModel);
+
+            if (courseDto.id > 0)
+            {
+                status.StatusCode = 201;
+                status.Message = "Data saved successfully.";
+            }
+            else
+            {
+                status.StatusCode = 204;
+                status.Message = "No content found";
+            }
+
+            return Ok(status);
+        }
+        [HttpDelete]
+        [Route("{id:int}")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var model = await course.DeleteAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<CourseDto>(model));
+        }
+
+        [HttpPut]
+        [Route("{id:int}")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update([FromRoute] int id,
+                                               [FromBody] UpdateCourseRequestDto updateCourseRequestDto)
+        {
+            var status = new Status();
+
+            var domainModel = mapper.Map<CourseModel>(updateCourseRequestDto);
+
+
+            domainModel = await course.UpdateAsync(id, domainModel);
+
+            if (domainModel == null)
+            {
+                return NotFound();
+            }
+
+
+            //return Ok(mapper.Map<CourseDto>(domainModel));
+            var courseDto = mapper.Map<CourseDto>(domainModel);
+
+            if (courseDto.id > 0)
+            {
+                status.StatusCode = 200;
+                status.Message = "Data updated successfully.";
+            }
+            else
+            {
+                status.StatusCode = 204;
+                status.Message = "No content found";
+            }
+
+            return Ok(status);
+        }
     }
 }

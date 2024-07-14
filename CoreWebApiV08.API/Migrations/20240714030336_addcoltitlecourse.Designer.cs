@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240714030336_addcoltitlecourse")]
+    partial class addcoltitlecourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,9 +229,6 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<DateTime?>("createddate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("duration")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("iconurl")
                         .HasColumnType("nvarchar(max)");
 
@@ -402,36 +402,25 @@ namespace CoreWebApiV08.API.Migrations
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.CourseLession", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("courseid")
+                    b.Property<int?>("CourseId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("createddate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("duration")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("seqno")
-                        .HasColumnType("int");
-
-                    b.Property<string>("title")
+                    b.Property<string>("duration")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("updateddate")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("seqNo")
+                        .HasColumnType("int");
 
-                    b.HasKey("id");
-
-                    b.HasIndex("courseid");
+                    b.HasKey("Id");
 
                     b.ToTable("TblLessions");
                 });
@@ -685,15 +674,6 @@ namespace CoreWebApiV08.API.Migrations
                         .HasForeignKey("classid");
 
                     b.Navigation("Class");
-                });
-
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.CourseLession", b =>
-                {
-                    b.HasOne("CoreWebApiV08.API.Models.Course.CourseModel", "Course")
-                        .WithMany()
-                        .HasForeignKey("courseid");
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

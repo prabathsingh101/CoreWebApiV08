@@ -1,11 +1,7 @@
-﻿using CoreWebApiV08.API.Models.Course;
-
-namespace CoreWebApiV08.API.Models.DTO.Lesson
+﻿namespace CoreWebApiV08.API.Models.DTO.Lesson
 {
-    public class CourseLessonDto
+    public class AddLessonRequestDto
     {
-        public int id { get; set; }
-
         public string? title { get; set; }
         public string? description { get; set; }
 
@@ -14,10 +10,11 @@ namespace CoreWebApiV08.API.Models.DTO.Lesson
         public int? courseid { get; set; }
         public int? seqno { get; set; }
         public DateTime? createddate { get; set; }
-        public DateTime? updateddate { get; set; }
 
-        //navigation
-       
-        public CourseModel? Course { get; set; }
+        public AddLessonRequestDto()
+        {
+            this.createddate = DateTime.UtcNow;
+        }
+
     }
 }

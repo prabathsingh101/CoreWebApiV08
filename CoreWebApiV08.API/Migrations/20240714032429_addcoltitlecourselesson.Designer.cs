@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240714032429_addcoltitlecourselesson")]
+    partial class addcoltitlecourselesson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,8 +229,8 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<DateTime?>("createddate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("duration")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("duration")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("iconurl")
                         .HasColumnType("nvarchar(max)");
@@ -417,8 +420,8 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("duration")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("duration")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("seqno")
                         .HasColumnType("int");

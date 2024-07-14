@@ -20,7 +20,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
         public async Task<CourseLession> GetLessionBycourseIdAsync(int CourseId)
         {
-            return await databaseContext.TblLessions.FirstOrDefaultAsync(x => x.CourseId == CourseId);
+            return await databaseContext.TblLessions.FirstOrDefaultAsync(x => x.courseid == CourseId);
         }
     }
 }
