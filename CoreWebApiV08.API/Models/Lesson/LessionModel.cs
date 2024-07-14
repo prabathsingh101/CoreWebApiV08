@@ -4,7 +4,7 @@ using CoreWebApiV08.API.Models.Course;
 
 namespace CoreWebApiV08.API.Models.Lesson
 {
-    public class CourseLessionModel
+    public class LessionModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

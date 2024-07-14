@@ -2,7 +2,7 @@
 
 namespace CoreWebApiV08.API.Models.DTO.Lesson
 {
-    public class CourseLessonDto
+    public class LessonDto
     {
         public int id { get; set; }
 
@@ -17,7 +17,6 @@ namespace CoreWebApiV08.API.Models.DTO.Lesson
         public DateTime? updateddate { get; set; }
 
         //navigation
-       
-        public CourseModel? Course { get; set; }
+        public Course.CourseDto? Course { get; set; }
     }
 }

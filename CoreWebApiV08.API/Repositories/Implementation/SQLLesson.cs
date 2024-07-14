@@ -14,14 +14,14 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             this.databaseContext = databaseContext;
         }
 
-        public async Task<CourseLessionModel> CreateAsync(CourseLessionModel model)
+        public async Task<LessionModel> CreateAsync(LessionModel model)
         {
             await databaseContext.TblLessions.AddAsync(model);
             await databaseContext.SaveChangesAsync();
             return model;
         }
 
-        public async Task<CourseLessionModel?> DeleteAsync(int id)
+        public async Task<LessionModel?> DeleteAsync(int id)
         {
             var isexists = await databaseContext.TblLessions.FirstOrDefaultAsync(x => x.id == id);
 
@@ -34,17 +34,17 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return isexists;
         }
 
-        public async Task<List<CourseLessionModel>> GetAllAsync()
+        public async Task<List<LessionModel>> GetAllAsync()
         {
-            return await databaseContext.TblLessions.OrderBy(o => o.createddate).ToListAsync();
+            return await databaseContext.TblLessions.Include("Course").OrderBy(o => o.createddate).ToListAsync();
         }
 
-        public async Task<CourseLessionModel?> GetByIdAsync(int id)
+        public async Task<LessionModel?> GetByIdAsync(int id)
         {
-            return await databaseContext.TblLessions.OrderByDescending(o => o.createddate).FirstOrDefaultAsync(x => x.id == id);
+            return await databaseContext.TblLessions.Include("Course").OrderByDescending(o => o.createddate).FirstOrDefaultAsync(x => x.id == id);
         }
 
-        public async Task<CourseLessionModel> UpdateAsync(int id, CourseLessionModel model)
+        public async Task<LessionModel> UpdateAsync(int id, LessionModel model)
         {
             var isexists = await databaseContext.TblLessions.FirstOrDefaultAsync(x => x.id == id);
 
@@ -54,6 +54,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             }
 
             isexists.title = model.title;
+            isexists.courseid = model.courseid; 
             isexists.description = model.description;
             isexists.updateddate = model.updateddate;
 

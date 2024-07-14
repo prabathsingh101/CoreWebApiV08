@@ -5,14 +5,14 @@ namespace CoreWebApiV08.API.Repositories.Interface
 {
     public interface ILesson
     {
-        Task<List<CourseLessionModel>> GetAllAsync();
+        Task<List<LessionModel>> GetAllAsync();
 
-        Task<CourseLessionModel?> GetByIdAsync(int id);
+        Task<LessionModel?> GetByIdAsync(int id);
 
-        Task<CourseLessionModel> CreateAsync(CourseLessionModel model);
+        Task<LessionModel> CreateAsync(LessionModel model);
 
-        Task<CourseLessionModel> UpdateAsync(int id, CourseLessionModel model);
+        Task<LessionModel> UpdateAsync(int id, LessionModel model);
 
-        Task<CourseLessionModel?> DeleteAsync(int id);
+        Task<LessionModel?> DeleteAsync(int id);
     }
 }

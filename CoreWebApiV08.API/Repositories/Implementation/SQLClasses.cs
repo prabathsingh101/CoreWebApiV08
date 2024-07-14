@@ -98,8 +98,8 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             existsclasses.classname = classes.classname;
             existsclasses.teacherid = classes.teacherid;
             existsclasses.studentlimit = classes.studentlimit;
-
-            existsclasses.createddate = DateTime.UtcNow;
+            existsclasses.courseid = classes.courseid; 
+           
             existsclasses.updateddate = DateTime.UtcNow;
 
             await databaseContext.SaveChangesAsync();

@@ -16,5 +16,6 @@
         public DateTime? updateddate { get; set; }
 
         public Teacher.TeacherDto? Teacher { get; set; }
+        public Course.CourseDto? Course { get; set; }
     }
 }

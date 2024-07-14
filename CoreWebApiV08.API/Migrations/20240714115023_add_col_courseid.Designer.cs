@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240714115023_add_col_courseid")]
+    partial class add_col_courseid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -405,7 +408,7 @@ namespace CoreWebApiV08.API.Migrations
                     b.ToTable("TblHolidays");
                 });
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.LessionModel", b =>
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.CourseLessionModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -698,7 +701,7 @@ namespace CoreWebApiV08.API.Migrations
                     b.Navigation("Class");
                 });
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.LessionModel", b =>
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.CourseLessionModel", b =>
                 {
                     b.HasOne("CoreWebApiV08.API.Models.Course.CourseModel", "Course")
                         .WithMany()

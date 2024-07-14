@@ -9,9 +9,7 @@ namespace CoreWebApiV08.API.Models.Classes
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        public string? classname { get; set; }
-
-        //public int? teacherid { get; set; }
+        public string? classname { get; set; }    
 
         public int? studentlimit { get; set; }
 
@@ -22,8 +20,10 @@ namespace CoreWebApiV08.API.Models.Classes
 
         //
         public int? teacherid { get; set; }
+        public int? courseid { get; set; }
         // Navigation property for claass
         public Teachers.TeacherModel? Teacher { get; set; }
+        public Course.CourseModel? Course { get; set; }
 
         public Classes()
         {

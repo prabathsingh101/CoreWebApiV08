@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using CoreWebApiV08.API.DBFirstModel;
-using CoreWebApiV08.API.Models.Course;
-using CoreWebApiV08.API.Models.DTO.Course;
 using CoreWebApiV08.API.Models.DTO;
+using CoreWebApiV08.API.Models.DTO.Lesson;
 using CoreWebApiV08.API.Models.Lesson;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using CoreWebApiV08.API.Models.DTO.Lesson;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -46,7 +44,7 @@ namespace CoreWebApiV08.API.Controllers
 
             var model = await lesson.GetAllAsync();
 
-            return Ok(mapper.Map<List<CourseLessonDto>>(model));
+            return Ok(mapper.Map<List<LessonDto>>(model));
 
         }
 
@@ -64,23 +62,23 @@ namespace CoreWebApiV08.API.Controllers
                 return NotFound();
             }
 
-            return Ok(mapper.Map<CourseLessonDto>(domain));
+            return Ok(mapper.Map<LessonDto>(domain));
         }
 
         [HttpPost]
-        [Authorize]
+        [Route("create")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] AddLessonRequestDto addLessonRequestDto)
         {
             var status = new Status();
 
-            var domain = mapper.Map<CourseLessionModel>(addLessonRequestDto);
+            var domain = mapper.Map<LessionModel>(addLessonRequestDto);
 
 
             domain = await lesson.CreateAsync(domain);
 
 
-            var lessonDto = mapper.Map<CourseLessonDto>(domain);
+            var lessonDto = mapper.Map<LessonDto>(domain);
 
             if (lessonDto.id > 0)
             {
@@ -105,7 +103,7 @@ namespace CoreWebApiV08.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(mapper.Map<CourseLessonDto>(model));
+            return Ok(mapper.Map<LessonDto>(model));
         }
 
         [HttpPut]
@@ -116,7 +114,7 @@ namespace CoreWebApiV08.API.Controllers
         {
             var status = new Status();
 
-            var domainModel = mapper.Map<CourseLessionModel>(updateLessonRequestDto);
+            var domainModel = mapper.Map<LessionModel>(updateLessonRequestDto);
 
 
             domainModel = await lesson.UpdateAsync(id, domainModel);
@@ -129,7 +127,7 @@ namespace CoreWebApiV08.API.Controllers
 
             //return Ok(mapper.Map<CourseDto>(domainModel));
 
-            var courseDto = mapper.Map<CourseLessonDto>(domainModel);
+            var courseDto = mapper.Map<LessonDto>(domainModel);
 
             if (courseDto.id > 0)
             {

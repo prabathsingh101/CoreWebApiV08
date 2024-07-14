@@ -29,9 +29,9 @@ namespace CoreWebApiV08.API.Mapping
             CreateMap<UpdateCourseRequestDto, CourseModel>().ReverseMap();
 
 
-            CreateMap<CourseLessionModel, CourseLessonDto>().ReverseMap();
-            CreateMap<AddLessonRequestDto, CourseLessionModel>().ReverseMap();
-            CreateMap<UpdateLessonRequestDto, CourseLessionModel>().ReverseMap();
+            CreateMap<LessionModel, LessonDto>().ReverseMap();
+            CreateMap<AddLessonRequestDto, LessionModel>().ReverseMap();
+            CreateMap<UpdateLessonRequestDto, LessionModel>().ReverseMap();
 
 
             CreateMap<HolidaysModel, HolidaysDto>().ReverseMap();
