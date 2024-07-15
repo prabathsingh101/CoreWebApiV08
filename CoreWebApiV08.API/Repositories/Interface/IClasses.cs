@@ -24,5 +24,9 @@ namespace CoreWebApiV08.API.Repositories.Interface
         Task<AttendanceTypeModel> CreateAttendanceAsync(AttendanceTypeModel model);
         Task<AttendanceTypeModel?> GetAttendanceByIdAsync(int id);
         Task<List<AttendanceTypeModel>> GetAllAttendanceAsync();
+
+       // Task<AttendanceTypeModel?> GetAttendanceByClassIdAsync(int id);
+
+        Task<StudentAdmissionModel?> GetStudentByClassIdAsync(int classid);
     }
 }

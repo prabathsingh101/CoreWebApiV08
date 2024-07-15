@@ -1,5 +1,6 @@
 ﻿using CoreWebApiV08.API.Data;
 using CoreWebApiV08.API.Models.Classes;
+using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -81,6 +82,11 @@ namespace CoreWebApiV08.API.Repositories.Implementation
          
         }
 
+        public Task<AttendanceTypeModel?> GetAttendanceByClassIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<AttendanceTypeModel?> GetAttendanceByIdAsync(int id)
         {
             return await databaseContext.TblAttendanceType
@@ -94,6 +100,13 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return await databaseContext.TblClass
                 .Include("Course")
                 .Include("Teacher").FirstOrDefaultAsync(x => x.id == id);
+        }
+
+        public async Task<StudentAdmissionModel?> GetStudentByClassIdAsync(int classid)
+        {
+            return await databaseContext.TblStudent
+                .Include("Class")
+                .FirstOrDefaultAsync(x => x.classid == classid);
         }
 
         public async Task<Classes?> UpdateAsync(int id, Classes classes)
@@ -116,5 +129,6 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
             return existsclasses;
         }
+
     }
 }

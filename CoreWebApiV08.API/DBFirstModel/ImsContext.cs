@@ -1,5 +1,7 @@
-﻿using CoreWebApiV08.API.Models.Classes;
+﻿using CoreWebApiV08.API.Models;
+using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.Holidays;
+using CoreWebApiV08.API.Models.Teachers;
 using CoreWebApiV08.API.Models.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,6 +62,8 @@ public partial class ImsContext : DbContext
 
     public virtual DbSet<MaxRegNoModel> getmaxregno { get; set; }
     public virtual DbSet<SPRegistrationDetails> getregistrationdetails { get; set; }
+    public virtual DbSet<Students> studentdetails { get; set; }
+    public virtual DbSet<Teachers> teachersdetails { get; set; }
 
 
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CoreWebApiV08.API.DBFirstModel;
+using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.Department;
 using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Department;
@@ -9,6 +10,7 @@ using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreWebApiV08.API.Controllers
@@ -136,6 +138,22 @@ namespace CoreWebApiV08.API.Controllers
 
             var data = await imsContext.getteachername.FromSqlRaw(sqlquery).ToListAsync();
 
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [Route("teacherbyclassid/{id:int}")]
+        //[Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> studentbyclassid([FromRoute] int id)
+        {
+
+            string sqlquery = "select t.id, RTRIM(ISNULL(NULLIF(LTRIM(RTRIM(T.fname)), '') + ' ', '') +ISNULL(NULLIF(LTRIM(RTRIM(T.mname)), '') + ' ', '') +ISNULL(NULLIF(LTRIM(RTRIM(T.lname)), ''), '')) AS fullname,c.classname from tblteacher t inner join tblclass c on t.id = c.teacherid where c.id=@id";
+            SqlParameter parameter = new SqlParameter("@id", id);
+            var data = await imsContext.teachersdetails.FromSqlRaw(sqlquery, parameter).ToListAsync();
             if (data == null)
             {
                 return NotFound();
