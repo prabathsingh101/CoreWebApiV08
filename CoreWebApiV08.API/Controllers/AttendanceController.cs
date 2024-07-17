@@ -69,7 +69,7 @@ namespace CoreWebApiV08.API.Controllers
 
             //return Ok(mapper.Map<AdmissionDto>(Domain));
 
-            string sqlquery = "select s.id,s.fullname,s.registrationno,s.admissiondate as admissiondate,s.address, c.id as classid, c.classname from TblStudent s inner join TblClass c on c.id=s.classid where s.classid=@classid";
+            string sqlquery = "select s.id,s.fullname,s.registrationno,c.id as classid from TblStudent s inner join TblClass c on c.id=s.classid where s.classid=@classid";
             SqlParameter parameter = new SqlParameter("@classid", id);
             var data = await imsContext.studentdetails.FromSqlRaw(sqlquery, parameter).ToListAsync();
             if (data == null)
