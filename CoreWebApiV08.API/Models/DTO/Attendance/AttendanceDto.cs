@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace CoreWebApiV08.API.Models.Attendance
+﻿namespace CoreWebApiV08.API.Models.DTO.Attendance
 {
-    public class AttendanceTypeModel
+    public class AttendanceDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
         public DateTime? date { get; set; }

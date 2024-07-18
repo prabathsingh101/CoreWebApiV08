@@ -1,4 +1,5 @@
 ﻿using CoreWebApiV08.API.Models;
+using CoreWebApiV08.API.Models.Attendance;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.Course;
 using CoreWebApiV08.API.Models.Department;

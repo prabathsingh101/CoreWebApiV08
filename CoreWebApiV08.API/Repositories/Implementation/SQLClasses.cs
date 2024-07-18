@@ -1,4 +1,5 @@
 ﻿using CoreWebApiV08.API.Data;
+using CoreWebApiV08.API.Models.Attendance;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
@@ -21,12 +22,17 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return classes;
         }
 
-        public async Task<AttendanceTypeModel> CreateAttendanceAsync(AttendanceTypeModel model)
+        public Task<AttendanceTypeModel> CreateAttendanceAsync(AttendanceTypeModel model)
         {
-            await databaseContext.TblAttendanceType.AddAsync(model);
-            await databaseContext.SaveChangesAsync();
-            return model;
+            throw new NotImplementedException();
         }
+
+        //public async Task<AttendanceTypeModel> CreateAttendanceAsync(AttendanceTypeModel model)
+        //{
+        //    await databaseContext.TblAttendanceType.AddAsync(model);
+        //    await databaseContext.SaveChangesAsync();
+        //    return model;
+        //}
 
         public async Task<Classes?> DeleteAsync(int id)
         {
@@ -130,5 +136,6 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return existsclasses;
         }
 
+      
     }
 }

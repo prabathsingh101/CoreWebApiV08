@@ -7,7 +7,7 @@ namespace CoreWebApiV08.API.Models
     [Keyless]
     public class Students
     {
-        public int? id { get; set; }
+        public int? studentid { get; set; }
         public string? fullname { get; set; }
         public int? registrationno { get; set; }       
         public int? classid { get; set; }

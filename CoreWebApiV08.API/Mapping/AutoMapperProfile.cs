@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using CoreWebApiV08.API.DBFirstModel;
+using CoreWebApiV08.API.Models.Attendance;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.Course;
 using CoreWebApiV08.API.Models.Department;
+using CoreWebApiV08.API.Models.DTO.Attendance;
 using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Models.DTO.Course;
 using CoreWebApiV08.API.Models.DTO.Department;
@@ -56,9 +58,9 @@ namespace CoreWebApiV08.API.Mapping
             CreateMap<AddAdmissionRequestDto, StudentAdmissionModel>().ReverseMap();
             CreateMap<UpdateAdmissionRequestDto, StudentAdmissionModel>().ReverseMap();
 
-            CreateMap<AttendanceTypeModel, AttendanceTypeDto>().ReverseMap();
-            CreateMap<AddAttendanceTypeRequestDto, AttendanceTypeModel>().ReverseMap();
-            CreateMap<UpdateAttendanceTypeRequestDto, AttendanceTypeModel>().ReverseMap();
+            CreateMap<AttendanceTypeModel, AttendanceDto>().ReverseMap();
+            CreateMap<AddAttendanceRequestDto, AttendanceTypeModel>().ReverseMap();
+            CreateMap<UpdateAttendanceRequestDto, AttendanceTypeModel>().ReverseMap();
         }
     }
 }

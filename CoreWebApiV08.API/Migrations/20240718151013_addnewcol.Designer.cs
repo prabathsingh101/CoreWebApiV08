@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240718151013_addnewcol")]
+    partial class addnewcol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace CoreWebApiV08.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Attendance.AttendanceTypeModel", b =>
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.AttendanceTypeModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -30,14 +33,14 @@ namespace CoreWebApiV08.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int?>("classid")
-                        .HasColumnType("int");
+                    b.Property<string>("AttendanceType")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("date")
+                    b.Property<DateTime?>("attendancedate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("isSelected")
-                        .HasColumnType("bit");
+                    b.Property<int?>("classid")
+                        .HasColumnType("int");
 
                     b.Property<int?>("studentid")
                         .HasColumnType("int");
@@ -45,10 +48,13 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<int?>("teacherid")
                         .HasColumnType("int");
 
-                    b.Property<string>("type")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("id");
+
+                    b.HasIndex("classid");
+
+                    b.HasIndex("studentid");
+
+                    b.HasIndex("teacherid");
 
                     b.ToTable("TblAttendanceType");
                 });
@@ -639,6 +645,27 @@ namespace CoreWebApiV08.API.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.AttendanceTypeModel", b =>
+                {
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
+                        .WithMany()
+                        .HasForeignKey("classid");
+
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.StudentAdmissionModel", "Student")
+                        .WithMany()
+                        .HasForeignKey("studentid");
+
+                    b.HasOne("CoreWebApiV08.API.Models.Teachers.TeacherModel", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("teacherid");
+
+                    b.Navigation("Class");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.Classes", b =>

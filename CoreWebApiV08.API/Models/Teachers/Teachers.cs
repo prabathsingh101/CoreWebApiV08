@@ -9,5 +9,6 @@ namespace CoreWebApiV08.API.Models.Teachers
 
         public string? fullname { get; set; }
         public string? classname { get; set; }
+        public int? classid { get; set; }
     }
 }

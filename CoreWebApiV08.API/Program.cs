@@ -99,6 +99,7 @@ builder.Services.AddTransient<ITeacher, SQLTeacher>();
 builder.Services.AddTransient<IClasses, SQLClasses>();
 builder.Services.AddTransient<IStudentRegistration, SQLStudentRegistration>();  
 builder.Services.AddTransient<IStudent, SQLStudent>();
+builder.Services.AddTransient<IAttendance, SQLAttendance>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
