@@ -147,11 +147,11 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet]
         [Route("teacherbyclassid/{id:int}")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> studentbyclassid([FromRoute] int id)
         {
 
-            string sqlquery = "select t.id, RTRIM(ISNULL(NULLIF(LTRIM(RTRIM(T.fname)), '') + ' ', '') +ISNULL(NULLIF(LTRIM(RTRIM(T.mname)), '') + ' ', '') +ISNULL(NULLIF(LTRIM(RTRIM(T.lname)), ''), '')) AS fullname,c.id as classid,c.classname from tblteacher t inner join tblclass c on t.id = c.teacherid where c.id=@id";
+            string sqlquery = "select t.id as teacherid, RTRIM(ISNULL(NULLIF(LTRIM(RTRIM(T.fname)), '') + ' ', '') +ISNULL(NULLIF(LTRIM(RTRIM(T.mname)), '') + ' ', '') +ISNULL(NULLIF(LTRIM(RTRIM(T.lname)), ''), '')) AS fullname,c.id as classid,c.classname from tblteacher t inner join tblclass c on t.id = c.teacherid where c.id=@id";
             SqlParameter parameter = new SqlParameter("@id", id);
             var data = await imsContext.teachersdetails.FromSqlRaw(sqlquery, parameter).ToListAsync();
             if (data == null)

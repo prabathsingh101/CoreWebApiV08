@@ -7,5 +7,7 @@ namespace CoreWebApiV08.API.Repositories.Interface
     public interface IAttendance
     {
         Task <AttendanceTypeModel> CreateAsync(AttendanceTypeModel students);
+
+        Task<AttendanceTypeModel> CreateTeacherAsync(AttendanceTypeModel teacher);
     }
 }

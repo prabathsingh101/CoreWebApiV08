@@ -65,7 +65,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet]
         [Route("studentbyclassid/{id:int}")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> studentbyclassid([FromRoute] int id)
         {           
 
@@ -84,11 +84,13 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPost]
         [Route("create")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] List<AddAttendanceRequestDto> addAttendance)
         {
             
             var status = new Status();
+
+            
 
             foreach (var item in addAttendance) {
                 var attendanceData = new AttendanceTypeModel { 
@@ -102,7 +104,12 @@ namespace CoreWebApiV08.API.Controllers
 
                 mydata = await attendance.CreateAsync(mydata);
                 var attendanceDto = mapper.Map<AttendanceDto>(mydata);
-                if (attendanceDto.id > 0)
+                if (attendanceDto == null)
+                {
+                    status.StatusCode = 203;
+                    status.Message = "Attendance is already created.";
+                }
+                else if (attendanceDto.id > 0)
                 {
                     status.StatusCode = 201;
                     status.Message = "Data saved successfully.";
@@ -115,6 +122,77 @@ namespace CoreWebApiV08.API.Controllers
             }      
 
             return Ok(status);
+        }
+
+        [HttpPost]
+        [Route("teacherattendance")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> teacherattendance([FromBody] List<AddAttendanceRequestDto> addAttendance)
+        {
+
+            var status = new Status();
+
+
+            foreach (var item in addAttendance)
+            {
+                var attendanceData = new AttendanceTypeModel
+                {
+                    classid = item.classid,
+                    date = item.date,
+                    teacherid = item.teacherid,
+                    isSelected = item.isSelected,
+                    type = item.type,
+                };
+                var mydata = mapper.Map<AttendanceTypeModel>(attendanceData);
+
+                mydata = await attendance.CreateAsync(mydata);
+                var attendanceDto = mapper.Map<AttendanceDto>(mydata);
+                if (attendanceDto == null)
+                {
+                    status.StatusCode = 203;
+                    status.Message = "Attendance is already created.";
+                }
+                else if (attendanceDto.id > 0)
+                {
+                    status.StatusCode = 201;
+                    status.Message = "Data saved successfully.";
+                }
+                else
+                {
+                    status.StatusCode = 204;
+                    status.Message = "No content found";
+                }
+            }
+
+            return Ok(status);
+        }
+
+        [HttpGet]
+        [Route("studentattendancelist")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> studentattendancelist()
+        {
+            string sqlquery = "exec sp_student_attn_list";            
+            var data = await imsContext.AttendanceList.FromSqlRaw(sqlquery).ToListAsync();
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [Route("teacherattendancelist")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> teacherattendancelist()
+        {
+            string sqlquery = "exec sp_teacher_attn_list";
+            var data = await imsContext.AttendanceList.FromSqlRaw(sqlquery).ToListAsync();
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
         }
     }
 }
