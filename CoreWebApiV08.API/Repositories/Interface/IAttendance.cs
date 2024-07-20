@@ -8,6 +8,11 @@ namespace CoreWebApiV08.API.Repositories.Interface
     {
         Task <AttendanceTypeModel> CreateAsync(AttendanceTypeModel students);
 
+        Task<AttendanceTypeModel> StudentAttnUpdateAsync(int id, AttendanceTypeModel model);
+
         Task<AttendanceTypeModel> CreateTeacherAsync(AttendanceTypeModel teacher);
+
+        Task<AttendanceTypeModel> TeacherAttnUpdateAsync(int id, AttendanceTypeModel model);
+
     }
 }

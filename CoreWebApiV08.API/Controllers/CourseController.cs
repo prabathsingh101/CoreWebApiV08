@@ -147,5 +147,20 @@ namespace CoreWebApiV08.API.Controllers
 
             return Ok(status);
         }
+
+
+        [HttpGet]
+        [Route("totalcourse")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> TotalCourse()
+        {
+            string sqlquery = "select count(id) as totalcourse from TblCourse";
+            var data = await imsContext.totalcourse.FromSqlRaw(sqlquery).ToListAsync();
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
     }
 }

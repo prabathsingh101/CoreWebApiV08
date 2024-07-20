@@ -1,6 +1,7 @@
 ﻿using CoreWebApiV08.API.Models;
 using CoreWebApiV08.API.Models.Attendance;
 using CoreWebApiV08.API.Models.Classes;
+using CoreWebApiV08.API.Models.Course;
 using CoreWebApiV08.API.Models.Holidays;
 using CoreWebApiV08.API.Models.Teachers;
 using CoreWebApiV08.API.Models.User;
@@ -66,6 +67,9 @@ public partial class ImsContext : DbContext
     public virtual DbSet<Students> studentdetails { get; set; }
     public virtual DbSet<Teachers> teachersdetails { get; set; }
     public virtual DbSet<AttendanceList> AttendanceList { get; set; }
+    public virtual DbSet<TotalStudent> totalstudent { get; set; }
+    public virtual DbSet<TotalTeacher> totalteacher { get; set; }
+    public virtual DbSet<TotalCourse> totalcourse { get; set; }
 
 
 

@@ -6,6 +6,7 @@ using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -124,5 +125,18 @@ namespace CoreWebApiV08.API.Controllers
             return Ok(mapper.Map<AdmissionDto>(DomainModel));
         }
 
+        [HttpGet]
+        [Route("totalstudent")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> TotalStudent()
+        {
+            string sqlquery = "select count(id) as totalstudent from TblStudent";
+            var data = await imsContext.totalstudent.FromSqlRaw(sqlquery).ToListAsync();
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
     }
 }

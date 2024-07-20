@@ -11,5 +11,7 @@ namespace CoreWebApiV08.API.Models.Attendance
         public DateTime? date { get; set; }
         public string? type { get; set; }
         public bool? isSelected { get; set; }
+
+        public string? isstatus { get; set; }   
     }
 }

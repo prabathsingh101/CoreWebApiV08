@@ -2,16 +2,13 @@
 using CoreWebApiV08.API.Data;
 using CoreWebApiV08.API.DBFirstModel;
 using CoreWebApiV08.API.Models.Attendance;
-using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Attendance;
-using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -193,6 +190,75 @@ namespace CoreWebApiV08.API.Controllers
                 return NotFound();
             }
             return Ok(data);
+        }
+
+        
+
+        [HttpPatch]
+        [Route("updatestudentattn/{id:int}")]
+        public async Task<IActionResult> UpdateStudentAttn([FromRoute] int id,
+                                         [FromBody] UpdateAttendanceRequestDto updateAttendanceRequestDto)
+        {
+            var status = new Status();
+
+            var domainModel = mapper.Map<AttendanceTypeModel>(updateAttendanceRequestDto);
+
+
+            domainModel = await attendance.StudentAttnUpdateAsync(id, domainModel);
+
+            if (domainModel == null)
+            {
+                return NotFound();
+            }
+            
+            var attnDto = mapper.Map<AttendanceDto>(domainModel);
+
+            if (attnDto.id > 0)
+            {
+                status.StatusCode = 200;
+                status.Message = "Data updated successfully.";
+            }
+            else
+            {
+                status.StatusCode = 204;
+                status.Message = "No content found";
+            }
+
+            return Ok(status);
+        }
+
+
+        [HttpPatch]
+        [Route("updateteacherattn/{id:int}")]
+        public async Task<IActionResult> UpdateTeacherAttn([FromRoute] int id,
+                                        [FromBody] UpdateAttendanceRequestDto updateAttendanceRequestDto)
+        {
+            var status = new Status();
+
+            var domainModel = mapper.Map<AttendanceTypeModel>(updateAttendanceRequestDto);
+
+
+            domainModel = await attendance.TeacherAttnUpdateAsync(id, domainModel);
+
+            if (domainModel == null)
+            {
+                return NotFound();
+            }
+
+            var attnDto = mapper.Map<AttendanceDto>(domainModel);
+
+            if (attnDto.id > 0)
+            {
+                status.StatusCode = 200;
+                status.Message = "Data updated successfully.";
+            }
+            else
+            {
+                status.StatusCode = 204;
+                status.Message = "No content found";
+            }
+
+            return Ok(status);
         }
     }
 }

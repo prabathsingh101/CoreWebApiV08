@@ -160,5 +160,18 @@ namespace CoreWebApiV08.API.Controllers
             }
             return Ok(data);
         }
+        [HttpGet]
+        [Route("totalteacher")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> TotalTeacher()
+        {
+            string sqlquery = "select count(id) as totalteacher from TblTeacher";
+            var data = await imsContext.totalteacher.FromSqlRaw(sqlquery).ToListAsync();
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
     }
 }

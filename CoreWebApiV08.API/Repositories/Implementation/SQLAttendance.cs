@@ -2,6 +2,7 @@
 using CoreWebApiV08.API.Models;
 using CoreWebApiV08.API.Models.Attendance;
 using CoreWebApiV08.API.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreWebApiV08.API.Repositories.Implementation
 {
@@ -36,6 +37,40 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             await databaseContext.TblAttendanceType.AddAsync(teacher);
             await databaseContext.SaveChangesAsync();
             return teacher;
+        }
+
+        public async Task<AttendanceTypeModel> StudentAttnUpdateAsync(int id, AttendanceTypeModel model)
+        {
+            var isexists = await databaseContext.TblAttendanceType.FirstOrDefaultAsync(x => x.id == id);
+
+            if (isexists == null)
+            {
+                return null;
+            }
+
+            isexists.isSelected = model.isSelected;
+           
+
+            await databaseContext.SaveChangesAsync();
+
+            return isexists;
+        }
+
+        public async Task<AttendanceTypeModel> TeacherAttnUpdateAsync(int id, AttendanceTypeModel model)
+        {
+            var isexists = await databaseContext.TblAttendanceType.FirstOrDefaultAsync(x => x.id == id);
+
+            if (isexists == null)
+            {
+                return null;
+            }
+
+            isexists.isSelected = model.isSelected;
+
+
+            await databaseContext.SaveChangesAsync();
+
+            return isexists;
         }
     }
 }
