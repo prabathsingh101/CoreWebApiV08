@@ -1,6 +1,7 @@
 ﻿using CoreWebApiV08.API.Data;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreWebApiV08.API.Repositories.Implementation
@@ -8,13 +9,21 @@ namespace CoreWebApiV08.API.Repositories.Implementation
     public class SQLStudent: IStudent
     {
         private readonly DatabaseContext databaseContext;
+        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public SQLStudent(DatabaseContext databaseContext)
+        public SQLStudent(DatabaseContext databaseContext,
+            IWebHostEnvironment webHostEnvironment,
+            IHttpContextAccessor httpContextAccessor)
         {
             this.databaseContext = databaseContext;
+            this.webHostEnvironment = webHostEnvironment;
+            this.httpContextAccessor = httpContextAccessor;            
         }
         public async Task<StudentAdmissionModel> CreateAsync(StudentAdmissionModel admissionModel)
-        {
+        {           
+
+            //add to db
             await databaseContext.TblStudent.AddAsync(admissionModel);
             await databaseContext.SaveChangesAsync();
             return admissionModel;

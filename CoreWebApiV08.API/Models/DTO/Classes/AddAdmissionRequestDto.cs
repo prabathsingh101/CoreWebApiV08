@@ -18,7 +18,20 @@
         public string? address { get; set; }
 
         public int? classid { get; set; }
+
         public string fathersname { get; set; }
+
+        public IFormFile? File { get; set; }
+
+        public string? FileName { get; set; }
+
+        public string? FileDescription { get; set; }
+
+        public string? FileExtension { get; set; }
+
+        public long? FileSizeBytes { get; set; }
+
+        public string? FilePath { get; set; }
 
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }

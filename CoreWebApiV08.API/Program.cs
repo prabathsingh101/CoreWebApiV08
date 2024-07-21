@@ -7,6 +7,7 @@ using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
@@ -17,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -100,6 +102,7 @@ builder.Services.AddTransient<IClasses, SQLClasses>();
 builder.Services.AddTransient<IStudentRegistration, SQLStudentRegistration>();  
 builder.Services.AddTransient<IStudent, SQLStudent>();
 builder.Services.AddTransient<IAttendance, SQLAttendance>();
+builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
@@ -132,13 +135,16 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-//app.UseCors(options =>
-//            options.WithOrigins("*").
-//            AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 app.UseCors("MyAllowSpecificOrigins");
 app.UseAuthentication();
 
 app.UseAuthorization();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "StudentImage")),
+    RequestPath = "/StudentImage"
+});
 
 app.MapControllers();
 

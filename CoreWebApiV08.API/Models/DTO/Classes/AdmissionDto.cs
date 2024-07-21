@@ -21,7 +21,13 @@
 
         public int? classid { get; set; }
         public string? fathersname { get; set; }
+        public IFormFile? File { get; set; }
 
+        public string? FileName { get; set; }
+
+        public string? FileDescription { get; set; }
+
+        
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }
         public Classes.ClassesDto Class { get; set; }

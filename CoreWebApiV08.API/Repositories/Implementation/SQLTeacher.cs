@@ -1,5 +1,4 @@
 ﻿using CoreWebApiV08.API.Data;
-using CoreWebApiV08.API.Models.Department;
 using CoreWebApiV08.API.Models.Teachers;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -91,6 +90,8 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             existsTeacher.address = teacher.address;
             existsTeacher.dateofjoining = teacher.dateofjoining;
             existsTeacher.pincode = teacher.pincode;
+            existsTeacher.gender = teacher.gender;
+            existsTeacher.filepath = teacher.filepath;
             existsTeacher.createddate = DateTime.UtcNow;
             existsTeacher.modfieddate = DateTime.UtcNow;
 

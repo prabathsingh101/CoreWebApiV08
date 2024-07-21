@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240721101006_addimageurlcol")]
+    partial class addimageurlcol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,37 +94,6 @@ namespace CoreWebApiV08.API.Migrations
                     b.ToTable("TblClass");
                 });
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.Images", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("filedescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("fileextension")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("filename")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("filepath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("filesizebytes")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("registrationno")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("TblStudentDocs");
-                });
-
             modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentAdmissionModel", b =>
                 {
                     b.Property<int>("id")
@@ -129,21 +101,6 @@ namespace CoreWebApiV08.API.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("FileDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileExtension")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("FileSizeBytes")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
@@ -164,6 +121,9 @@ namespace CoreWebApiV08.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("fullname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imageurl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("isDeleted")
@@ -513,14 +473,8 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<string>("email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("filepath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("fname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("lname")

@@ -14,6 +14,8 @@
         public string? proficiency { get; set; }
         public string? address { get; set; }
         public string? pincode { get; set; }
+        public string? filepath { get; set; }
+        public string? gender { get; set; }
         public DateTime? dateofjoining { get; set; }
         public DateTime? createddate { get; set; }
         public DateTime? modfieddate { get; set; }

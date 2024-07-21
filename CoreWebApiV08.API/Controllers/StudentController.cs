@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using CoreWebApiV08.API.DBFirstModel;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.DTO;
@@ -69,6 +70,7 @@ namespace CoreWebApiV08.API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] AddAdmissionRequestDto addAdmissionRequestDto)
         {
+            
             var status = new Status();
 
             var model = mapper.Map<StudentAdmissionModel>(addAdmissionRequestDto);
@@ -138,5 +140,7 @@ namespace CoreWebApiV08.API.Controllers
             }
             return Ok(data);
         }
+
+      
     }
 }

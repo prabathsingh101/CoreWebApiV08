@@ -13,16 +13,16 @@ namespace CoreWebApiV08.API.Models.Teachers
         public string? mname { get; set; }
         public string lname { get; set; }
         public string? email { get; set; }
-        public DateTime? dob { get; set; }
+        public DateTime? dob { get; set; } = new DateTime();
         public string? phone { get; set; }
         public string? degree { get; set; }
         public string? contactno { get; set; }
         public string? proficiency { get; set; }
         public string? address { get; set; }
         public string? pincode { get; set; }
-        public DateTime? dateofjoining { get; set; }
-
-
+        public string? filepath { get; set; }
+        public string? gender { get; set; }
+        public DateTime? dateofjoining { get; set; } = new DateTime();
         public DateTime? createddate { get; set; }
         public DateTime? modfieddate { get; set; }
 

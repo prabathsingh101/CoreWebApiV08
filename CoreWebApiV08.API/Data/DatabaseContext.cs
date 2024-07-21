@@ -37,6 +37,7 @@ namespace CoreWebApiV08.API.Data
         public DbSet<StudentRegistrationModel> TblRegistration { get; set; }
         public DbSet<StudentAdmissionModel> TblStudent { get; set; }
         public DbSet<AttendanceTypeModel> TblAttendanceType { get; set; }
+        public DbSet<Images> TblStudentDocs { get; set; }
     }
 
 
