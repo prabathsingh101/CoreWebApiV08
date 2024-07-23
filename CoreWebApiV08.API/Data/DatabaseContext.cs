@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.Course;
 using CoreWebApiV08.API.Models.Department;
 using CoreWebApiV08.API.Models.Domain;
+using CoreWebApiV08.API.Models.Employees;
 using CoreWebApiV08.API.Models.Holidays;
 using CoreWebApiV08.API.Models.Lesson;
 using CoreWebApiV08.API.Models.Teachers;
@@ -38,6 +39,7 @@ namespace CoreWebApiV08.API.Data
         public DbSet<StudentAdmissionModel> TblStudent { get; set; }
         public DbSet<AttendanceTypeModel> TblAttendanceType { get; set; }
         public DbSet<Images> TblStudentDocs { get; set; }
+        public DbSet<EmployeeModel> TblEmployee { get; set; }
     }
 
 

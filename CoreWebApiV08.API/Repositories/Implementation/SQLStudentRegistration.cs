@@ -39,7 +39,11 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             int pageNumber = 1, int pageSize = 1000
             )
         {
-            var registration = databaseContext.TblRegistration.OrderByDescending(a=>a.registrationdate).Include("Class").AsQueryable();
+            var registration = databaseContext.TblRegistration
+                .OrderByDescending(a=>a.createddate)
+                .ThenByDescending(a=>a.fullname)
+                .ThenBy(a=>a.registrationfees)
+                .Include("Class").AsQueryable();
 
             //filtering
 

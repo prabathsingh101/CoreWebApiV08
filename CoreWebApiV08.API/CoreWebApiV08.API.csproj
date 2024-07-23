@@ -30,6 +30,8 @@
 
   <ItemGroup>
     <Folder Include="DBFirstModel\" />
+    <Folder Include="Images\" />
+    <Folder Include="Resources\Images\" />
     <Folder Include="StudentImage\" />
   </ItemGroup>
 

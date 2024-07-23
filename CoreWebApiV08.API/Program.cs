@@ -5,6 +5,7 @@ using CoreWebApiV08.API.Models.Domain;
 using CoreWebApiV08.API.Repositories.Implementation;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -61,6 +62,14 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddDbContext<ImsContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
 
+//file upload size
+builder.Services.Configure<FormOptions>(o =>
+{
+    o.ValueLengthLimit = int.MaxValue;
+    o.MultipartBodyLengthLimit = int.MaxValue;
+    o.MemoryBufferThreshold = int.MaxValue;
+});
+
 
 // For Identity  
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -103,6 +112,7 @@ builder.Services.AddTransient<IStudentRegistration, SQLStudentRegistration>();
 builder.Services.AddTransient<IStudent, SQLStudent>();
 builder.Services.AddTransient<IAttendance, SQLAttendance>();
 builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
+builder.Services.AddScoped<IEmployees, SQLEmployee>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
@@ -140,10 +150,22 @@ app.UseCors("MyAllowSpecificOrigins");
 app.UseAuthentication();
 
 app.UseAuthorization();
+//app.UseStaticFiles();
+//app.UseStaticFiles(new StaticFileOptions
+//{
+//    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "StudentImage")),
+//    RequestPath = "/StudentImage"
+//});
+
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+    RequestPath = new PathString("/Resources")
+});
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "StudentImage")),
-    RequestPath = "/StudentImage"
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+    RequestPath = "/Images"
 });
 
 app.MapControllers();
