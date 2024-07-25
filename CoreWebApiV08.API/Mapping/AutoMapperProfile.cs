@@ -8,9 +8,11 @@ using CoreWebApiV08.API.Models.DTO.Attendance;
 using CoreWebApiV08.API.Models.DTO.Classes;
 using CoreWebApiV08.API.Models.DTO.Course;
 using CoreWebApiV08.API.Models.DTO.Department;
+using CoreWebApiV08.API.Models.DTO.FeesHead;
 using CoreWebApiV08.API.Models.DTO.Holidays;
 using CoreWebApiV08.API.Models.DTO.Lesson;
 using CoreWebApiV08.API.Models.DTO.Teacher;
+using CoreWebApiV08.API.Models.FeesHead;
 using CoreWebApiV08.API.Models.Holidays;
 using CoreWebApiV08.API.Models.Lesson;
 using CoreWebApiV08.API.Models.Teachers;
@@ -61,6 +63,11 @@ namespace CoreWebApiV08.API.Mapping
             CreateMap<AttendanceTypeModel, AttendanceDto>().ReverseMap();
             CreateMap<AddAttendanceRequestDto, AttendanceTypeModel>().ReverseMap();
             CreateMap<UpdateAttendanceRequestDto, AttendanceTypeModel>().ReverseMap();
+
+
+            CreateMap<FeesHeadModel, FeesHeadDto>().ReverseMap();
+            CreateMap<AddFeesHeadRequestDto, FeesHeadModel>().ReverseMap();
+            CreateMap<UpdateFeesHeadRequestDto, FeesHeadModel>().ReverseMap();
         }
     }
 }

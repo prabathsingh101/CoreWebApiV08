@@ -113,6 +113,7 @@ builder.Services.AddTransient<IStudent, SQLStudent>();
 builder.Services.AddTransient<IAttendance, SQLAttendance>();
 builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
 builder.Services.AddScoped<IEmployees, SQLEmployee>();
+builder.Services.AddScoped<IFeesHead, SQLFeesHead>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 

@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240725141440_addtablefeeshead")]
+    partial class addtablefeeshead
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -463,16 +466,13 @@ namespace CoreWebApiV08.API.Migrations
                     b.ToTable("TblEmployee");
                 });
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.FeesHead.FeesHeadModel", b =>
+            modelBuilder.Entity("CoreWebApiV08.API.Models.FeesHead.FeesHead", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int?>("classid")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("createddate")
                         .HasColumnType("datetime2");
@@ -486,15 +486,10 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<bool?>("isstatus")
                         .HasColumnType("bit");
 
-                    b.Property<string>("shortdescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("updateddate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
-
-                    b.HasIndex("classid");
 
                     b.ToTable("TblFeesHead");
                 });
@@ -794,15 +789,6 @@ namespace CoreWebApiV08.API.Migrations
                 });
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentRegistrationModel", b =>
-                {
-                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
-                        .WithMany()
-                        .HasForeignKey("classid");
-
-                    b.Navigation("Class");
-                });
-
-            modelBuilder.Entity("CoreWebApiV08.API.Models.FeesHead.FeesHeadModel", b =>
                 {
                     b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
                         .WithMany()

@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240725144505_modifytablefeesheadcls")]
+    partial class modifytablefeesheadcls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -471,6 +474,9 @@ namespace CoreWebApiV08.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<int?>("Classesid")
+                        .HasColumnType("int");
+
                     b.Property<int?>("classid")
                         .HasColumnType("int");
 
@@ -486,15 +492,12 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<bool?>("isstatus")
                         .HasColumnType("bit");
 
-                    b.Property<string>("shortdescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("updateddate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
 
-                    b.HasIndex("classid");
+                    b.HasIndex("Classesid");
 
                     b.ToTable("TblFeesHead");
                 });
@@ -804,11 +807,11 @@ namespace CoreWebApiV08.API.Migrations
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.FeesHead.FeesHeadModel", b =>
                 {
-                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Classes")
                         .WithMany()
-                        .HasForeignKey("classid");
+                        .HasForeignKey("Classesid");
 
-                    b.Navigation("Class");
+                    b.Navigation("Classes");
                 });
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.LessionModel", b =>

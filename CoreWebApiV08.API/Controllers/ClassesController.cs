@@ -3,6 +3,8 @@ using CoreWebApiV08.API.DBFirstModel;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Classes;
+using CoreWebApiV08.API.Models.DTO.FeesHead;
+using CoreWebApiV08.API.Models.FeesHead;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,13 +22,15 @@ namespace CoreWebApiV08.API.Controllers
         private readonly IClasses classes;
         private readonly IMapper mapper;
         private readonly ImsContext imsContext;
+        private readonly IFeesHead feesHead;
 
-        public ClassesController(IClasses classes, IMapper mapper, ImsContext imsContext)
+        public ClassesController(IClasses classes, IMapper mapper, ImsContext imsContext, IFeesHead feesHead)
         {
            
             this.classes = classes;
             this.mapper = mapper;
             this.imsContext = imsContext;
+            this.feesHead = feesHead;
         }
 
         [HttpGet("GetAll")]
@@ -159,6 +163,95 @@ namespace CoreWebApiV08.API.Controllers
             return Ok(data);
         }
 
-        
+
+        [HttpGet]
+        [Route("getfeeshead")]
+        public async Task<IActionResult> getfeeshead()
+        {
+            var model = await feesHead.GetAllAsync();
+               
+
+            return Ok(mapper.Map<List<FeesHeadDto>>(model));
+        }
+
+        [HttpGet("getbyidfeeshead/{id:int}")]
+        //[Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> getbyidfeeshead([FromRoute] int id)
+        {
+            //get teacher domain from database      
+
+            var Domain = await feesHead.GetByIdAsync(id);
+
+            //map domain model to dto
+
+            if (Domain == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<FeesHeadDto>(Domain));
+        }
+
+
+        [HttpPost]
+        [Route("createfeeshead")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> createfeeshead([FromBody] AddFeesHeadRequestDto addFeesHeadRequestDto)
+        {
+            var status = new Status();
+
+            var model = mapper.Map<FeesHeadModel>(addFeesHeadRequestDto);
+
+            model = await feesHead.CreateAsync(model);
+
+            var feesheadDto = mapper.Map<FeesHeadDto>(model);
+
+            if (feesheadDto.id > 0)
+            {
+                status.StatusCode = 201;
+                status.Message = "Data saved successfully.";
+            }
+            else
+            {
+                status.StatusCode = 204;
+                status.Message = "No content found";
+            }
+
+            return Ok(status);
+        }
+
+        [HttpDelete]
+        [Route("deletefeeshead/{id:int}")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> deletefeeshead([FromRoute] int id)
+        {
+            var model = await feesHead.DeleteAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return Ok(mapper.Map<FeesHeadDto>(model));
+        }
+
+        [HttpPut]
+        [Route("updatefeeshead/{id:int}")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> updatefeeshead([FromRoute] int id,
+                                               [FromBody] UpdateFeesHeadRequestDto updateFeesHeadRequestDto)
+        {
+            //map dto to domain model
+            var DomainModel = mapper.Map<FeesHeadModel>(updateFeesHeadRequestDto);
+
+            //check dept if exists
+            DomainModel = await feesHead.UpdateAsync(id, DomainModel);
+
+            if (DomainModel == null)
+            {
+                return NotFound();
+            }
+
+            //convert domain model to dto
+            return Ok(mapper.Map<FeesHeadDto>(DomainModel));
+        }
     }
 }
