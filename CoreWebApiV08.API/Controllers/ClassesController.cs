@@ -206,7 +206,13 @@ namespace CoreWebApiV08.API.Controllers
 
             var feesheadDto = mapper.Map<FeesHeadDto>(model);
 
-            if (feesheadDto.id > 0)
+            if (feesheadDto == null)
+            {
+                status.StatusCode = 203;
+                status.Message = "Attendance is already created.";
+            }
+
+            else if (feesheadDto.id > 0)
             {
                 status.StatusCode = 201;
                 status.Message = "Data saved successfully.";

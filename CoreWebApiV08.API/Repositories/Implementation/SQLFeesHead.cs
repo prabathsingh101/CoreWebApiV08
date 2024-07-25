@@ -1,4 +1,5 @@
 ﻿using CoreWebApiV08.API.Data;
+using CoreWebApiV08.API.Models;
 using CoreWebApiV08.API.Models.FeesHead;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +16,14 @@ namespace CoreWebApiV08.API.Repositories.Implementation
         }
         public async Task<FeesHeadModel> CreateAsync(FeesHeadModel model)
         {
+            var isxists = databaseContext.TblFeesHead.Where(a => a.feename == model.feename).FirstOrDefault();
+            if (isxists!= null) {
+                return null;
+            }
             await databaseContext.TblFeesHead.AddAsync(model);
             await databaseContext.SaveChangesAsync();
             return model;
         }
-
         public async Task<FeesHeadModel?> DeleteAsync(int id)
         {
             var isexists = await databaseContext.TblFeesHead.FirstOrDefaultAsync(x => x.id == id);

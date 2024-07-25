@@ -85,9 +85,7 @@ namespace CoreWebApiV08.API.Controllers
         public async Task<IActionResult> Create([FromBody] List<AddAttendanceRequestDto> addAttendance)
         {
             
-            var status = new Status();
-
-            
+            var status = new Status();            
 
             foreach (var item in addAttendance) {
                 var attendanceData = new AttendanceTypeModel { 
@@ -100,11 +98,13 @@ namespace CoreWebApiV08.API.Controllers
                var mydata= mapper.Map<AttendanceTypeModel>(attendanceData);
 
                 mydata = await attendance.CreateAsync(mydata);
+
                 var attendanceDto = mapper.Map<AttendanceDto>(mydata);
+
                 if (attendanceDto == null)
                 {
                     status.StatusCode = 203;
-                    status.Message = "Attendance is already created.";
+                    status.Message = "Fee name is already exists for this class.";
                 }
                 else if (attendanceDto.id > 0)
                 {
