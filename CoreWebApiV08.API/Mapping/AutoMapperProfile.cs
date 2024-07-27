@@ -68,6 +68,11 @@ namespace CoreWebApiV08.API.Mapping
             CreateMap<FeesHeadModel, FeesHeadDto>().ReverseMap();
             CreateMap<AddFeesHeadRequestDto, FeesHeadModel>().ReverseMap();
             CreateMap<UpdateFeesHeadRequestDto, FeesHeadModel>().ReverseMap();
+
+
+            CreateMap<PaymentModels, PaymentDto>().ReverseMap();
+            CreateMap<AddPaymentRequestDto, PaymentModels>().ReverseMap();
+            CreateMap<UpdatePaymentRequestDto, PaymentModels>().ReverseMap();
         }
     }
 }

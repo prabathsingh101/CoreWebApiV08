@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240714032640_addcoltitlecourselessondate")]
-    partial class addcoltitlecourselessondate
+    [Migration("20240727063106_tblfkpayment")]
+    partial class tblfkpayment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace CoreWebApiV08.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.AttendanceTypeModel", b =>
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Attendance.AttendanceTypeModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -33,20 +33,23 @@ namespace CoreWebApiV08.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<string>("AttendanceType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("attendancedate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("classid")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("isSelected")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("studentid")
                         .HasColumnType("int");
 
                     b.Property<int?>("teacherid")
                         .HasColumnType("int");
+
+                    b.Property<string>("type")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
@@ -70,6 +73,9 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<string>("classname")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("courseid")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("createddate")
                         .HasColumnType("datetime2");
 
@@ -87,9 +93,42 @@ namespace CoreWebApiV08.API.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("courseid");
+
                     b.HasIndex("teacherid");
 
                     b.ToTable("TblClass");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.Images", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("filedescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("fileextension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("filename")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("filepath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("filesizebytes")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("registrationno")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("TblStudentDocs");
                 });
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.StudentAdmissionModel", b =>
@@ -99,6 +138,21 @@ namespace CoreWebApiV08.API.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("FileDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileExtension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("FileSizeBytes")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
@@ -378,6 +432,150 @@ namespace CoreWebApiV08.API.Migrations
                     b.ToTable("TokenInfo");
                 });
 
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Employees.EmployeeModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("FileExtension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("createddate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("dob")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("doj")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("fname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("updateddate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.ToTable("TblEmployee");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.FeesHead.FeesHeadModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("classid")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("createddate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("feeamount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("feename")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("isstatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("shortdescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("updateddate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("classid");
+
+                    b.ToTable("TblFeesHead");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.FeesHead.PaymentModels", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<decimal?>("admissionfees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("classid")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("collectiondate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("createddate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("discountamount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("duration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("finalamount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("invoiceno")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("islocked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isstatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("paymenttype")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("studentid")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("updateddate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("classid");
+
+                    b.HasIndex("studentid");
+
+                    b.ToTable("TblPayments");
+                });
+
             modelBuilder.Entity("CoreWebApiV08.API.Models.Holidays.HolidaysModel", b =>
                 {
                     b.Property<int>("Id")
@@ -403,7 +601,7 @@ namespace CoreWebApiV08.API.Migrations
                     b.ToTable("TblHolidays");
                 });
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.CourseLession", b =>
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.LessionModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -468,8 +666,14 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<string>("email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("filepath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("fname")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("lname")
@@ -642,7 +846,7 @@ namespace CoreWebApiV08.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.AttendanceTypeModel", b =>
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Attendance.AttendanceTypeModel", b =>
                 {
                     b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
                         .WithMany()
@@ -665,9 +869,15 @@ namespace CoreWebApiV08.API.Migrations
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Classes.Classes", b =>
                 {
+                    b.HasOne("CoreWebApiV08.API.Models.Course.CourseModel", "Course")
+                        .WithMany()
+                        .HasForeignKey("courseid");
+
                     b.HasOne("CoreWebApiV08.API.Models.Teachers.TeacherModel", "Teacher")
                         .WithMany()
                         .HasForeignKey("teacherid");
+
+                    b.Navigation("Course");
 
                     b.Navigation("Teacher");
                 });
@@ -690,7 +900,31 @@ namespace CoreWebApiV08.API.Migrations
                     b.Navigation("Class");
                 });
 
-            modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.CourseLession", b =>
+            modelBuilder.Entity("CoreWebApiV08.API.Models.FeesHead.FeesHeadModel", b =>
+                {
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
+                        .WithMany()
+                        .HasForeignKey("classid");
+
+                    b.Navigation("Class");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.FeesHead.PaymentModels", b =>
+                {
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
+                        .WithMany()
+                        .HasForeignKey("classid");
+
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.StudentAdmissionModel", "Student")
+                        .WithMany()
+                        .HasForeignKey("studentid");
+
+                    b.Navigation("Class");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.LessionModel", b =>
                 {
                     b.HasOne("CoreWebApiV08.API.Models.Course.CourseModel", "Course")
                         .WithMany()

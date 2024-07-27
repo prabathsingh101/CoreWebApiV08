@@ -14,5 +14,6 @@ namespace CoreWebApiV08.API.Repositories.Interface
 
         Task<AttendanceTypeModel> TeacherAttnUpdateAsync(int id, AttendanceTypeModel model);
 
+        Task<List<AttendanceTypeModel>> GetAllAttendanceAsync();
     }
 }

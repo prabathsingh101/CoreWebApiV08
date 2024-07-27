@@ -8,9 +8,8 @@ using CoreWebApiV08.API.Models.FeesHead;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing.Printing;
-using System.Globalization;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -175,7 +174,7 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("getbyidfeeshead/{id:int}")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> getbyidfeeshead([FromRoute] int id)
         {
             //get teacher domain from database      
@@ -192,10 +191,26 @@ namespace CoreWebApiV08.API.Controllers
             return Ok(mapper.Map<FeesHeadDto>(Domain));
         }
 
+        [HttpGet("getfeenamebyclassid/{id:int}")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> getfeenamebyclassid([FromRoute] int id)
+        {                 
+
+            var Domain = await feesHead.GetFeenameByClassIdAsync(id);
+            
+
+            if (Domain == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<FeesHeadDto>(Domain));
+        }
+
 
         [HttpPost]
         [Route("createfeeshead")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> createfeeshead([FromBody] AddFeesHeadRequestDto addFeesHeadRequestDto)
         {
             var status = new Status();
@@ -209,7 +224,7 @@ namespace CoreWebApiV08.API.Controllers
             if (feesheadDto == null)
             {
                 status.StatusCode = 203;
-                status.Message = "Attendance is already created.";
+                status.Message = "Fees head is already exists for this class.";
             }
 
             else if (feesheadDto.id > 0)
@@ -228,7 +243,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpDelete]
         [Route("deletefeeshead/{id:int}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> deletefeeshead([FromRoute] int id)
         {
             var model = await feesHead.DeleteAsync(id);
@@ -241,7 +256,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPut]
         [Route("updatefeeshead/{id:int}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> updatefeeshead([FromRoute] int id,
                                                [FromBody] UpdateFeesHeadRequestDto updateFeesHeadRequestDto)
         {
@@ -258,6 +273,22 @@ namespace CoreWebApiV08.API.Controllers
 
             //convert domain model to dto
             return Ok(mapper.Map<FeesHeadDto>(DomainModel));
+        }
+
+        [HttpGet]
+        [Route("getfeenamelistbyclass/{id:int}")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> getfeenamelistbyclass([FromRoute] int id)
+        {
+
+            string sqlquery = "select id, classid, feename from TblFeesHead where classid=@id";
+            SqlParameter parameter = new SqlParameter("@id", id);
+            var data = await imsContext.mapfeenames.FromSqlRaw(sqlquery, parameter).ToListAsync();
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
         }
     }
 }

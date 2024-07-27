@@ -42,6 +42,7 @@ namespace CoreWebApiV08.API.Data
         public DbSet<Images> TblStudentDocs { get; set; }
         public DbSet<EmployeeModel> TblEmployee { get; set; }
         public DbSet<FeesHeadModel> TblFeesHead { get; set; }
+        public DbSet<PaymentModels> TblPayments { get; set; }
     }
 
 

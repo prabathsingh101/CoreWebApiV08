@@ -9,6 +9,8 @@ namespace CoreWebApiV08.API.Repositories.Interface
 
         Task<FeesHeadModel?> GetByIdAsync(int id);
 
+        Task<List<FeesHeadModel?>> GetFeenameByClassIdAsync(int id);
+
         Task<FeesHeadModel> CreateAsync(FeesHeadModel model);
 
         Task<FeesHeadModel> UpdateAsync(int id, FeesHeadModel model);

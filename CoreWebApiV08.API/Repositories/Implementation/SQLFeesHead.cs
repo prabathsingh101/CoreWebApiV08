@@ -16,7 +16,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
         }
         public async Task<FeesHeadModel> CreateAsync(FeesHeadModel model)
         {
-            var isxists = databaseContext.TblFeesHead.Where(a => a.feename == model.feename).FirstOrDefault();
+            var isxists = databaseContext.TblFeesHead.Where(a => a.classid == model.classid && a.feename == model.feename).FirstOrDefault();
             if (isxists!= null) {
                 return null;
             }
@@ -41,7 +41,8 @@ namespace CoreWebApiV08.API.Repositories.Implementation
         {
             return await databaseContext.TblFeesHead
                 .OrderByDescending(x => x.feename)
-                .ThenByDescending(x => x.createddate)
+                .ThenByDescending(x => x.shortdescription)
+                .ThenBy(x => x.createddate)
                 .Include("Class").ToListAsync();
         }
 
@@ -49,8 +50,14 @@ namespace CoreWebApiV08.API.Repositories.Implementation
         {
             return await databaseContext.TblFeesHead
                 .OrderByDescending(x=>x.feename)
-                .ThenByDescending(x=>x.createddate)  
+                .ThenByDescending(x=>x.shortdescription)
+                .ThenBy(x => x.createddate)
                 .Include("Class").FirstOrDefaultAsync(x => x.id == id);
+        }
+
+        public async Task<List<FeesHeadModel?>> GetFeenameByClassIdAsync(int id)
+        {
+            return await databaseContext.TblFeesHead.Where(a => a.classid == id).ToListAsync();
         }
 
         public async Task<FeesHeadModel> UpdateAsync(int id, FeesHeadModel model)

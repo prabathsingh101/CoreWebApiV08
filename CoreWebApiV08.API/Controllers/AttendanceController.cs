@@ -4,6 +4,7 @@ using CoreWebApiV08.API.DBFirstModel;
 using CoreWebApiV08.API.Models.Attendance;
 using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Attendance;
+using CoreWebApiV08.API.Models.DTO.Course;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -104,7 +105,7 @@ namespace CoreWebApiV08.API.Controllers
                 if (attendanceDto == null)
                 {
                     status.StatusCode = 203;
-                    status.Message = "Fee name is already exists for this class.";
+                    status.Message = "Attendance is already exists for this class.";
                 }
                 else if (attendanceDto.id > 0)
                 {
@@ -196,6 +197,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPatch]
         [Route("updatestudentattn/{id:int}")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> UpdateStudentAttn([FromRoute] int id,
                                          [FromBody] UpdateAttendanceRequestDto updateAttendanceRequestDto)
         {
@@ -230,6 +232,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPatch]
         [Route("updateteacherattn/{id:int}")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> UpdateTeacherAttn([FromRoute] int id,
                                         [FromBody] UpdateAttendanceRequestDto updateAttendanceRequestDto)
         {
@@ -259,6 +262,18 @@ namespace CoreWebApiV08.API.Controllers
             }
 
             return Ok(status);
+        }
+
+        [HttpGet]
+        [Route("getallattendance")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllAttendance()
+        {
+
+            var model = await attendance.GetAllAttendanceAsync();
+
+            return Ok(mapper.Map<List<AttendanceDto>>(model));
+
         }
     }
 }

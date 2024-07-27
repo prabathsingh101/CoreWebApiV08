@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240725151030_shortdescriptioncol")]
-    partial class shortdescriptioncol
+    [Migration("20240727045413_tblpayment")]
+    partial class tblpayment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -502,6 +502,74 @@ namespace CoreWebApiV08.API.Migrations
                     b.ToTable("TblFeesHead");
                 });
 
+            modelBuilder.Entity("CoreWebApiV08.API.Models.FeesHead.PaymentModels", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<decimal?>("admissionfees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("classid")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("collectiondate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("createddate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("discountamount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("duration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("finalamount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("invoiceno")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("isdeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("islocked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("isstatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("paymenttype")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("studentid")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("updateddate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("classid");
+
+                    b.HasIndex("studentid");
+
+                    b.ToTable("TblPayments");
+                });
+
             modelBuilder.Entity("CoreWebApiV08.API.Models.Holidays.HolidaysModel", b =>
                 {
                     b.Property<int>("Id")
@@ -812,6 +880,21 @@ namespace CoreWebApiV08.API.Migrations
                         .HasForeignKey("classid");
 
                     b.Navigation("Class");
+                });
+
+            modelBuilder.Entity("CoreWebApiV08.API.Models.FeesHead.PaymentModels", b =>
+                {
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.Classes", "Class")
+                        .WithMany()
+                        .HasForeignKey("classid");
+
+                    b.HasOne("CoreWebApiV08.API.Models.Classes.StudentAdmissionModel", "Student")
+                        .WithMany()
+                        .HasForeignKey("studentid");
+
+                    b.Navigation("Class");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("CoreWebApiV08.API.Models.Lesson.LessionModel", b =>

@@ -39,6 +39,16 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return teacher;
         }
 
+        public async Task<List<AttendanceTypeModel>> GetAllAttendanceAsync()
+        {
+            return await databaseContext.TblAttendanceType
+                .Include("Student")
+                .Include("Class")
+                .Include("Teacher")
+                .Where(a => a.date == DateTime.Now)
+                .ToListAsync();
+        }
+
         public async Task<AttendanceTypeModel> StudentAttnUpdateAsync(int id, AttendanceTypeModel model)
         {
             var isexists = await databaseContext.TblAttendanceType.FirstOrDefaultAsync(x => x.id == id);

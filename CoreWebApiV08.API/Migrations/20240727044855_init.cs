@@ -56,40 +56,43 @@ namespace CoreWebApiV08.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TblClass",
+                name: "TblAttendanceType",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    classname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    classid = table.Column<int>(type: "int", nullable: true),
                     teacherid = table.Column<int>(type: "int", nullable: true),
-                    studentlimit = table.Column<int>(type: "int", nullable: true),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    createddate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    updateddate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    studentid = table.Column<int>(type: "int", nullable: true),
+                    isSelected = table.Column<bool>(type: "bit", nullable: true),
+                    type = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TblClass", x => x.id);
+                    table.PrimaryKey("PK_TblAttendanceType", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "TblCourse",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    iconUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    courseListIcon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    longDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    iconurl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    courselisticon = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    longdescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    seqNo = table.Column<int>(type: "int", nullable: true),
-                    lessonsCount = table.Column<int>(type: "int", nullable: true)
+                    seqno = table.Column<int>(type: "int", nullable: true),
+                    lessonscount = table.Column<int>(type: "int", nullable: true),
+                    duration = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    createddate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    updateddate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TblCourse", x => x.Id);
+                    table.PrimaryKey("PK_TblCourse", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,6 +107,27 @@ namespace CoreWebApiV08.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TblDepartment", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TblEmployee",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    fname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    lname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileExtension = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    dob = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    doj = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    createddate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    updateddate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblEmployee", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -123,19 +147,21 @@ namespace CoreWebApiV08.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TblLessions",
+                name: "TblStudentDocs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    seqNo = table.Column<int>(type: "int", nullable: true),
-                    CourseId = table.Column<int>(type: "int", nullable: true)
+                    filename = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    filedescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    fileextension = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    filesizebytes = table.Column<long>(type: "bigint", nullable: true),
+                    filepath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    registrationno = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TblLessions", x => x.Id);
+                    table.PrimaryKey("PK_TblStudentDocs", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,6 +181,8 @@ namespace CoreWebApiV08.API.Migrations
                     proficiency = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     pincode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    filepath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     dateofjoining = table.Column<DateTime>(type: "datetime2", nullable: true),
                     createddate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     modfieddate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -298,6 +326,83 @@ namespace CoreWebApiV08.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TblLessions",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    duration = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    seqno = table.Column<int>(type: "int", nullable: true),
+                    createddate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    updateddate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    courseid = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblLessions", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_TblLessions_TblCourse_courseid",
+                        column: x => x.courseid,
+                        principalTable: "TblCourse",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TblClass",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    classname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    studentlimit = table.Column<int>(type: "int", nullable: true),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    createddate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    updateddate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    teacherid = table.Column<int>(type: "int", nullable: true),
+                    courseid = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblClass", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_TblClass_TblCourse_courseid",
+                        column: x => x.courseid,
+                        principalTable: "TblCourse",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_TblClass_TblTeacher_teacherid",
+                        column: x => x.teacherid,
+                        principalTable: "TblTeacher",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TblFeesHead",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    classid = table.Column<int>(type: "int", nullable: true),
+                    feename = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    shortdescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    feeamount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    isstatus = table.Column<bool>(type: "bit", nullable: true),
+                    createddate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    updateddate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblFeesHead", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_TblFeesHead_TblClass_classid",
+                        column: x => x.classid,
+                        principalTable: "TblClass",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TblRegistration",
                 columns: table => new
                 {
@@ -314,6 +419,7 @@ namespace CoreWebApiV08.API.Migrations
                     fathersname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     isDeleted = table.Column<bool>(type: "bit", nullable: true),
                     isStatus = table.Column<bool>(type: "bit", nullable: true),
+                    islocked = table.Column<bool>(type: "bit", nullable: true),
                     createddate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     updateddate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     classid = table.Column<int>(type: "int", nullable: true)
@@ -346,6 +452,11 @@ namespace CoreWebApiV08.API.Migrations
                     fathersname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     isDeleted = table.Column<bool>(type: "bit", nullable: true),
                     isStatus = table.Column<bool>(type: "bit", nullable: true),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileExtension = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileSizeBytes = table.Column<long>(type: "bigint", nullable: true),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     createddate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     updateddate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     classid = table.Column<int>(type: "int", nullable: true)
@@ -400,6 +511,26 @@ namespace CoreWebApiV08.API.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TblClass_courseid",
+                table: "TblClass",
+                column: "courseid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TblClass_teacherid",
+                table: "TblClass",
+                column: "teacherid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TblFeesHead_classid",
+                table: "TblFeesHead",
+                column: "classid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TblLessions_courseid",
+                table: "TblLessions",
+                column: "courseid");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TblRegistration_classid",
                 table: "TblRegistration",
                 column: "classid");
@@ -429,10 +560,16 @@ namespace CoreWebApiV08.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "TblCourse");
+                name: "TblAttendanceType");
 
             migrationBuilder.DropTable(
                 name: "TblDepartment");
+
+            migrationBuilder.DropTable(
+                name: "TblEmployee");
+
+            migrationBuilder.DropTable(
+                name: "TblFeesHead");
 
             migrationBuilder.DropTable(
                 name: "TblHolidays");
@@ -447,7 +584,7 @@ namespace CoreWebApiV08.API.Migrations
                 name: "TblStudent");
 
             migrationBuilder.DropTable(
-                name: "TblTeacher");
+                name: "TblStudentDocs");
 
             migrationBuilder.DropTable(
                 name: "TblTestModel");
@@ -463,6 +600,12 @@ namespace CoreWebApiV08.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "TblClass");
+
+            migrationBuilder.DropTable(
+                name: "TblCourse");
+
+            migrationBuilder.DropTable(
+                name: "TblTeacher");
         }
     }
 }
