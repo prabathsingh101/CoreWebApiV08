@@ -4,6 +4,7 @@ using CoreWebApiV08.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreWebApiV08.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240730122043_addcolpayments")]
+    partial class addcolpayments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -516,11 +519,17 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<decimal?>("admissionfees")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal?>("annualfees")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int?>("classid")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("collectiondate")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("computerfees")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("createddate")
                         .HasColumnType("datetime2");
@@ -535,12 +544,6 @@ namespace CoreWebApiV08.API.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("duration")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("feeamount")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("feename")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("feestype")
@@ -558,14 +561,20 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<bool?>("islocked")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("isselected")
-                        .HasColumnType("bit");
-
                     b.Property<bool?>("isstatus")
                         .HasColumnType("bit");
 
+                    b.Property<decimal?>("miscellaneousfees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("otherfees")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("paymenttype")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("sportsfees")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
@@ -573,7 +582,13 @@ namespace CoreWebApiV08.API.Migrations
                     b.Property<int?>("studentid")
                         .HasColumnType("int");
 
+                    b.Property<decimal?>("tiefees")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("totalamount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("tuitionfees")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("updateddate")

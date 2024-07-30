@@ -1,4 +1,5 @@
-﻿using CoreWebApiV08.API.Models.Classes;
+﻿using CoreWebApiV08.API.Models.Admission;
+using CoreWebApiV08.API.Models.Classes;
 
 namespace CoreWebApiV08.API.Repositories.Interface
 {
@@ -18,6 +19,9 @@ namespace CoreWebApiV08.API.Repositories.Interface
         Task<StudentAdmissionModel> CreateAsync(StudentAdmissionModel admissionModel);
 
         Task<StudentAdmissionModel?> UpdateAsync(int id, StudentAdmissionModel admissionModel);
+
+        Task<StudentAdmissionModel?> PartialUpdateAsync(int id, StudentAdmissionModel admissionModel);
+
 
         Task<StudentAdmissionModel?> DeleteAsync(int id);
     }

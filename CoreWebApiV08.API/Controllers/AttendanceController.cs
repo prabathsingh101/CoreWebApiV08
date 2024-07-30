@@ -144,6 +144,7 @@ namespace CoreWebApiV08.API.Controllers
                 var mydata = mapper.Map<AttendanceTypeModel>(attendanceData);
 
                 mydata = await attendance.CreateAsync(mydata);
+
                 var attendanceDto = mapper.Map<AttendanceDto>(mydata);
                 if (attendanceDto == null)
                 {
@@ -266,7 +267,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet]
         [Route("getallattendance")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllAttendance()
         {
 

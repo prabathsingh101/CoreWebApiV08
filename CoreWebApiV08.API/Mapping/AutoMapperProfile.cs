@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CoreWebApiV08.API.DBFirstModel;
+using CoreWebApiV08.API.Models.Admission;
 using CoreWebApiV08.API.Models.Attendance;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.Course;
@@ -73,6 +74,10 @@ namespace CoreWebApiV08.API.Mapping
             CreateMap<PaymentModels, PaymentDto>().ReverseMap();
             CreateMap<AddPaymentRequestDto, PaymentModels>().ReverseMap();
             CreateMap<UpdatePaymentRequestDto, PaymentModels>().ReverseMap();
+
+
+            CreateMap<PartialStudentAdmissionModel, PartialStudentAdmissionDto>().ReverseMap();
+            CreateMap<PartialUpdateStudentAdmissionDto, PartialStudentAdmissionModel>().ReverseMap();
         }
     }
 }

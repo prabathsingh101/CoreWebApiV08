@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using CoreWebApiV08.API.DBFirstModel;
+using CoreWebApiV08.API.Models.Attendance;
 using CoreWebApiV08.API.Models.DTO;
+using CoreWebApiV08.API.Models.DTO.Attendance;
 using CoreWebApiV08.API.Models.DTO.FeesHead;
 using CoreWebApiV08.API.Models.FeesHead;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 
 namespace CoreWebApiV08.API.Controllers
 {
@@ -15,13 +18,13 @@ namespace CoreWebApiV08.API.Controllers
     {
         private readonly ImsContext imsContext;
         private readonly IMapper mapper;
-        private readonly IPayment payment;
+        private readonly IPayment objPayment;
 
-        public PaymentController(ImsContext imsContext, IMapper mapper, IPayment payment )
+        public PaymentController(ImsContext imsContext, IMapper mapper, IPayment objPayment )
         {
             this.imsContext = imsContext;
             this.mapper = mapper;
-            this.payment = payment;
+            this.objPayment = objPayment;
         }
 
         [HttpGet]
@@ -30,7 +33,7 @@ namespace CoreWebApiV08.API.Controllers
         public async Task<IActionResult> GetAllCourse()
         {
 
-            var model = await payment.GetAllAsync();
+            var model = await objPayment.GetAllAsync();
 
             return Ok(mapper.Map<List<PaymentDto>>(model));
 
@@ -42,7 +45,7 @@ namespace CoreWebApiV08.API.Controllers
         public async Task<IActionResult> GetById([FromRoute] int id)
         {            
 
-            var domain = await payment.GetByIdAsync(id);
+            var domain = await objPayment.GetByIdAsync(id);
            
 
             if (domain == null)
@@ -56,27 +59,45 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("create")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody] AddPaymentRequestDto addPaymentRequestDto)
+        public async Task<IActionResult> Create([FromBody] List<AddPaymentRequestDto> addPaymentRequestDto)
         {
             var status = new Status();
 
-            var domainModel = mapper.Map<PaymentModels>(addPaymentRequestDto);
-
-
-            domainModel = await payment.CreateAsync(domainModel);
-
-
-            var courseDto = mapper.Map<PaymentDto>(domainModel);
-
-            if (courseDto.id > 0)
+            foreach (var payment in addPaymentRequestDto)
             {
-                status.StatusCode = 201;
-                status.Message = "Data saved successfully.";
-            }
-            else
-            {
-                status.StatusCode = 204;
-                status.Message = "No content found";
+                var paymentdata = new PaymentModels
+                {
+                    isselected = payment.isselected,
+                    classid = payment.classid,
+                    studentid = payment.studentid,
+                    paymenttype = payment.paymenttype,
+                    collectiondate = payment.collectiondate,
+                    invoiceno = payment.invoiceno,
+                    feename = payment.feename,
+                    feeamount = payment.feeamount,
+                    totalamount = payment.totalamount,
+                    discount = payment.discount,
+                    finalamount = payment.finalamount,
+                };
+                var mydata = await objPayment.CreateAsync(paymentdata);
+
+                var paymentDto = mapper.Map<PaymentDto>(mydata);
+
+                if (paymentDto == null)
+                {
+                    status.StatusCode = 203;
+                    status.Message = "Invoice no. is already exists.";
+                }
+                else if (paymentDto.id > 0)
+                {
+                    status.StatusCode = 201;
+                    status.Message = "Data saved successfully.";
+                }
+                else
+                {
+                    status.StatusCode = 204;
+                    status.Message = "No content found";
+                }
             }
 
             return Ok(status);
@@ -86,7 +107,7 @@ namespace CoreWebApiV08.API.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var model = await payment.DeleteAsync(id);
+            var model = await objPayment.DeleteAsync(id);
             if (model == null)
             {
                 return NotFound();
@@ -104,7 +125,7 @@ namespace CoreWebApiV08.API.Controllers
 
             var domainModel = mapper.Map<PaymentModels>(updatePaymentRequestDto);
 
-            domainModel = await payment.UpdateAsync(id, domainModel);
+            domainModel = await objPayment.UpdateAsync(id, domainModel);
 
             if (domainModel == null)
             {

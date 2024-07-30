@@ -19,7 +19,7 @@
         public string? address { get; set; }
 
         public int? classid { get; set; }
-        public string fathersname { get; set; }
+        public string? fathersname { get; set; }
 
         public IFormFile? File { get; set; }
 

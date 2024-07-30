@@ -7,8 +7,12 @@ namespace CoreWebApiV08.API.Models.FeesHead
     {
         public int id { get; set; }
 
-        public int classid { get; set; }
+        public int? classid { get; set; }
 
-        public string feename { get; set; }    
+        public string? classname { get; set; }
+
+        public string? feename { get; set; }  
+        
+        public decimal? feeamount { get; set; }
     }
 }

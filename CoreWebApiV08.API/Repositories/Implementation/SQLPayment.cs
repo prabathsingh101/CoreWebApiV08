@@ -1,4 +1,5 @@
 ﻿using CoreWebApiV08.API.Data;
+using CoreWebApiV08.API.Models;
 using CoreWebApiV08.API.Models.FeesHead;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,11 @@ namespace CoreWebApiV08.API.Repositories.Implementation
         }
         public async Task<PaymentModels> CreateAsync(PaymentModels model)
         {
+            //var isxists = databaseContext.TblPayments.Where(p=>p.invoiceno==model.invoiceno).FirstOrDefault();
+            //if (isxists != null)
+            //{
+            //    return null;
+            //}
             await databaseContext.TblPayments.AddAsync(model);
             await databaseContext.SaveChangesAsync();
             return model;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Azure.Core;
 using CoreWebApiV08.API.DBFirstModel;
+using CoreWebApiV08.API.Models.Admission;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Classes;
@@ -141,6 +142,27 @@ namespace CoreWebApiV08.API.Controllers
             return Ok(data);
         }
 
-      
+        
+        
+        [HttpPatch]
+        [Route("partialupdate/{id:int}")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> PartialUpdate([FromRoute] int id,
+                                               [FromBody] UpdateAdmissionRequestDto updateAdmissionRequestDto)
+        {
+            
+            var DomainModel = mapper.Map<StudentAdmissionModel>(updateAdmissionRequestDto);
+
+           
+            DomainModel = await student.PartialUpdateAsync(id, DomainModel);
+
+            if (DomainModel == null)
+            {
+                return NotFound();
+            }
+
+           
+            return Ok(mapper.Map<AdmissionDto>(DomainModel));
+        }
     }
 }

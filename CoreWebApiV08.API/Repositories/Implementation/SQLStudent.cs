@@ -1,4 +1,5 @@
 ﻿using CoreWebApiV08.API.Data;
+using CoreWebApiV08.API.Models.Admission;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Hosting;
@@ -97,6 +98,22 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return await databaseContext.TblStudent.FirstOrDefaultAsync(x => x.id == id);
         }
 
+        public async Task<StudentAdmissionModel?> PartialUpdateAsync(int id, StudentAdmissionModel admissionModel)
+        {
+            var isExists = await databaseContext.TblStudent.FirstOrDefaultAsync(x => x.id == id);
+
+            if (isExists == null)
+            {
+                return null;
+            }
+
+            isExists.isStatus = admissionModel.isStatus;
+
+            await databaseContext.SaveChangesAsync();
+
+            return isExists;    
+        }
+
         public async Task<StudentAdmissionModel?> UpdateAsync(int id, StudentAdmissionModel admissionModel)
         {
             var isExists = await databaseContext.TblStudent.FirstOrDefaultAsync(x => x.id == id);
@@ -128,7 +145,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
             isExists.address = admissionModel.address;
 
-            //isExists.createddate = admissionModel.createddate;
+            isExists.isStatus = admissionModel.isStatus;
 
             isExists.updateddate = admissionModel.updateddate;
 
@@ -136,5 +153,7 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
             return isExists;
         }
+
+       
     }
 }

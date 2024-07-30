@@ -7,6 +7,8 @@ namespace CoreWebApiV08.API.Models.DTO.FeesHead
     {
         public int id { get; set; }
 
+        public string? feestype { get; set; }
+
         public string? duration { get; set; } = null;
 
         public DateTime? collectiondate { get; set; }
@@ -18,14 +20,18 @@ namespace CoreWebApiV08.API.Models.DTO.FeesHead
         public string? status { get; set; }
 
         public decimal? admissionfees { get; set; }
+        public string? feename { get; set; }
+        public string? feeamount { get; set; }
 
         public decimal? discount { get; set; }
 
         public decimal? discountamount { get; set; }
-
+        public decimal totalamount { get; set; }
         public decimal finalamount { get; set; }
 
         public string? description { get; set; }
+
+        public bool? isselected { get; set; } = false;
 
         public bool? islocked { get; set; }
 

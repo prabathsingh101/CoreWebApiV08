@@ -165,6 +165,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet]
         [Route("getfeeshead")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> getfeeshead()
         {
             var model = await feesHead.GetAllAsync();
@@ -281,7 +282,22 @@ namespace CoreWebApiV08.API.Controllers
         public async Task<IActionResult> getfeenamelistbyclass([FromRoute] int id)
         {
 
-            string sqlquery = "select id, classid, feename from TblFeesHead where classid=@id";
+            string sqlquery = "select TblFeesHead.id, TblClass.id as classid,TblClass.classname,feename,feeamount from TblFeesHead inner join TblClass on TblClass.id=TblFeesHead.classid where classid=@id";
+            SqlParameter parameter = new SqlParameter("@id", id);
+            var data = await imsContext.mapfeenames.FromSqlRaw(sqlquery, parameter).ToListAsync();
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
+        [HttpGet]
+        [Route("getfeeamountbyfeetype/{id:int}")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> getfeeamountbyfeetype([FromRoute] int id)
+        {
+
+            string sqlquery = "select id, classid, feename,feeamount from TblFeesHead where id=@id";
             SqlParameter parameter = new SqlParameter("@id", id);
             var data = await imsContext.mapfeenames.FromSqlRaw(sqlquery, parameter).ToListAsync();
             if (data == null)
