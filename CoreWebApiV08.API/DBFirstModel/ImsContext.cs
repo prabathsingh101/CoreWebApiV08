@@ -2,6 +2,7 @@
 using CoreWebApiV08.API.Models.Attendance;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.Course;
+using CoreWebApiV08.API.Models.DTO.FeesHead;
 using CoreWebApiV08.API.Models.FeesHead;
 using CoreWebApiV08.API.Models.Holidays;
 using CoreWebApiV08.API.Models.Teachers;
@@ -72,6 +73,7 @@ public partial class ImsContext : DbContext
     public virtual DbSet<TotalTeacher> totalteacher { get; set; }
     public virtual DbSet<TotalCourse> totalcourse { get; set; }
     public virtual DbSet<MapFeename> mapfeenames { get; set; }
+    public virtual DbSet<MaxInvoiceNoModel> getmaxinvoiceno { get; set; }
 
 
 

@@ -8,6 +8,7 @@ using CoreWebApiV08.API.Models.FeesHead;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Xml.Linq;
 
 namespace CoreWebApiV08.API.Controllers
@@ -146,6 +147,21 @@ namespace CoreWebApiV08.API.Controllers
             }
 
             return Ok(status);
+        }
+
+        [HttpGet("getmaxinvoice")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> getmaxinvoiceno()
+        {
+            string sqlquery = "select distinct(ISNULL(max(invoiceno),0)) as invoiceno from TblPayments";
+
+            var data = await imsContext.getmaxinvoiceno.FromSqlRaw(sqlquery).ToListAsync();
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
         }
     }
 }
