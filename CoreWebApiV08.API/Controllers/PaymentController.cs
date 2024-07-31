@@ -29,9 +29,9 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
+        [Route("getallpayment")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAllCourse()
+        public async Task<IActionResult> GetAllPayment()
         {
 
             var model = await objPayment.GetAllAsync();

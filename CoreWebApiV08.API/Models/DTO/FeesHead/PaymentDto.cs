@@ -16,6 +16,8 @@ namespace CoreWebApiV08.API.Models.DTO.FeesHead
         public string? paymenttype { get; set; }
 
         public string? invoiceno { get; set; }
+        public int? classid { get; set; }
+        public int? studentid { get; set; }
 
         public string? status { get; set; }
 

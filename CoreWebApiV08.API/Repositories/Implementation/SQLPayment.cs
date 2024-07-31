@@ -41,7 +41,10 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
         public async Task<List<PaymentModels>> GetAllAsync()
         {
-            return await databaseContext.TblPayments.ToListAsync();
+            return await databaseContext.TblPayments
+                .Include("Class")
+                .Include("Student")
+                .ToListAsync();
         }
 
         public async Task<PaymentModels?> GetByIdAsync(int id)

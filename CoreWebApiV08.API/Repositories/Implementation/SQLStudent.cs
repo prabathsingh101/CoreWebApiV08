@@ -93,6 +93,11 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return await admission.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
+        public async Task<List<StudentAdmissionModel>> GetAllStudentByClass(int id)
+        {
+            return await databaseContext.TblStudent.Where(x => x.classid == id).ToListAsync();
+        }
+
         public async Task<StudentAdmissionModel?> GetByIdAsync(int id)
         {
             return await databaseContext.TblStudent.FirstOrDefaultAsync(x => x.id == id);

@@ -66,6 +66,23 @@ namespace CoreWebApiV08.API.Controllers
             return Ok(mapper.Map<AdmissionDto>(domain));
         }
 
+        [HttpGet("getstudentbyclass/{id:int}")]
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> GettudentByClasId([FromRoute] int id)        
+        {               
+
+            var domain = await student.GetAllStudentByClass(id);
+           
+
+            if (domain == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(mapper.Map<List<AdmissionDto>>(domain));
+        }
+
+
         [HttpPost]
         [Route("Create")]
         [Authorize(Roles = "Admin")]

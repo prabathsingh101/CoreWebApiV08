@@ -22,7 +22,8 @@ namespace CoreWebApiV08.API.Repositories.Interface
 
         Task<StudentAdmissionModel?> PartialUpdateAsync(int id, StudentAdmissionModel admissionModel);
 
-
         Task<StudentAdmissionModel?> DeleteAsync(int id);
+
+        Task<List<StudentAdmissionModel>> GetAllStudentByClass(int id);
     }
 }

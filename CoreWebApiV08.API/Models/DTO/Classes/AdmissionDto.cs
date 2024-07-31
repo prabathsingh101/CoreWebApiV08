@@ -1,8 +1,11 @@
-﻿namespace CoreWebApiV08.API.Models.DTO.Classes
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace CoreWebApiV08.API.Models.DTO.Classes
 {
+    
     public class AdmissionDto
     {
-        public int id { get; set; }
+        public int? id { get; set; }
 
         public int? registrationno { get; set; }
 
@@ -30,6 +33,6 @@
         
         public DateTime? createddate { get; set; }
         public DateTime? updateddate { get; set; }
-        public Classes.ClassesDto Class { get; set; }
+        public Classes.ClassesDto? Class { get; set; }
     }
 }
