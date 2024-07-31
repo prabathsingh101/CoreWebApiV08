@@ -23,9 +23,7 @@ namespace CoreWebApiV08.API.Models.FeesHead
         public string? status { get; set; }
 
         public string? feename { get; set; }   
-        public string? feeamount { get; set; }
-
-        public decimal? admissionfees { get; set; }        
+        public string? feeamount { get; set; }     
 
         public decimal? discount { get; set; }
 

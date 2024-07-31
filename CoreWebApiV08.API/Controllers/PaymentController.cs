@@ -79,17 +79,15 @@ namespace CoreWebApiV08.API.Controllers
                     totalamount = payment.totalamount,
                     discount = payment.discount,
                     finalamount = payment.finalamount,
+                    duration = payment.duration,
+                    status = payment.status,
+
                 };
                 var mydata = await objPayment.CreateAsync(paymentdata);
 
                 var paymentDto = mapper.Map<PaymentDto>(mydata);
-
-                if (paymentDto == null)
-                {
-                    status.StatusCode = 203;
-                    status.Message = "Invoice no. is already exists.";
-                }
-                else if (paymentDto.id > 0)
+               
+                if (paymentDto.id > 0)
                 {
                     status.StatusCode = 201;
                     status.Message = "Data saved successfully.";

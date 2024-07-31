@@ -68,7 +68,6 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
             isexists.status = model.status;
 
-            isexists.admissionfees = model.admissionfees;
 
             isexists.discount = model.discount;
 
