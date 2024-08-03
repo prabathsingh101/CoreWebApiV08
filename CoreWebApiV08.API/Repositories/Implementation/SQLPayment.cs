@@ -52,6 +52,14 @@ namespace CoreWebApiV08.API.Repositories.Implementation
             return await databaseContext.TblPayments.FirstOrDefaultAsync(x => x.id == id);
         }
 
+        public async Task<List<PaymentModels>> GetPaymentByFilterAsync(PaymentModels models)
+        {
+            return await databaseContext.TblPayments
+                .Include("Student")
+                .Include("Class")
+                .Where(x => x.classid == models.classid && x.studentid == models.studentid && x.duration == models.duration).ToListAsync();
+        }
+
         public async Task<PaymentModels> UpdateAsync(int id, PaymentModels model)
         {
             var isexists = await databaseContext.TblPayments.FirstOrDefaultAsync(x => x.id == id);

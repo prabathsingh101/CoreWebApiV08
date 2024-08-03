@@ -40,6 +40,23 @@ namespace CoreWebApiV08.API.Controllers
 
         }
 
+        [HttpPost]
+        [Route("getpaymentbyfilter")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetPaymentByFilter([FromBody] PaymentModels models)
+        {
+            var paymentdata = new PaymentModels
+            {                
+                classid = models.classid,
+                studentid = models.studentid,               
+                duration = models.duration            
+
+            };
+            var mydata = await objPayment.GetPaymentByFilterAsync(paymentdata);
+
+            return Ok(mapper.Map<List<PaymentDto>>(mydata));
+        }
+
         [HttpGet]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]

@@ -9,6 +9,8 @@ namespace CoreWebApiV08.API.Repositories.Interface
 
         Task<PaymentModels?> GetByIdAsync(int id);
 
+        Task<List<PaymentModels>> GetPaymentByFilterAsync(PaymentModels models);
+
         Task<PaymentModels> CreateAsync(PaymentModels model);
 
         Task<PaymentModels> UpdateAsync(int id, PaymentModels model);
