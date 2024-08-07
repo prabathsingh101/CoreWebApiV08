@@ -10,6 +10,7 @@ namespace CoreWebApiV08.API.Models.Classes
         public int? registrationno { get; set; }
 
         public string? fullname { get; set; }   
+        public string? gender { get; set; }
 
         public DateTime? registrationdate { get; set; }
 

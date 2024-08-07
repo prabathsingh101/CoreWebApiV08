@@ -9,6 +9,8 @@
 
         public string? lname { get; set; }
         public string? fullname { get; set; }
+
+        public string? gender { get; set; }
         public DateTime? registrationdate { get; set; }
         public DateTime? admissiondate { get; set; }
         public decimal? registrationfees { get; set; }

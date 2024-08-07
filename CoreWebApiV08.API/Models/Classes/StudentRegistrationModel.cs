@@ -14,26 +14,30 @@ namespace CoreWebApiV08.API.Models.Classes
         public string? fname { get; set; }
 
         public string? lname { get; set; }
+
         public string? fullname { get; set; }
 
+        public string? gender { get; set; }
+
         public DateTime? registrationdate { get; set; }
+
         public decimal? registrationfees { get; set; }
 
         public string? mobileno { get; set; }
 
         public string? address { get; set; }
-
         
         public string? fathersname { get; set; }
 
         public bool? isDeleted { get; set; } = false;
 
         public bool? isStatus { get; set; } = false;
+
         public bool? islocked { get; set; } = false;
 
         public DateTime? createddate { get; set; }
-        public DateTime? updateddate { get; set; }
 
+        public DateTime? updateddate { get; set; }
         //
         public int? classid { get; set; }
         // Navigation property for claass

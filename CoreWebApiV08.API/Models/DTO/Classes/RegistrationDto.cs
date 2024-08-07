@@ -12,6 +12,7 @@ namespace CoreWebApiV08.API.Models.DTO.Classes
 
         public string? lname { get; set; }
         public string? fullname { get; set; }
+        public string? gender { get; set; }
         public DateTime? registrationdate { get; set; }
         public decimal? registrationfees { get; set; }
         public bool? isDeleted { get; set; }

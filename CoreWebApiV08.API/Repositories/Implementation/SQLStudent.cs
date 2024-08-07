@@ -136,6 +136,8 @@ namespace CoreWebApiV08.API.Repositories.Implementation
 
             isExists.fullname = admissionModel.fullname;
 
+            isExists.gender = admissionModel.gender;
+
             isExists.registrationdate = admissionModel.registrationdate;
 
             isExists.admissiondate = admissionModel.admissiondate;
