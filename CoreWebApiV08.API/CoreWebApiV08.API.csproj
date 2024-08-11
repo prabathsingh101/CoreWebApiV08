@@ -31,7 +31,7 @@
   <ItemGroup>
     <Folder Include="DBFirstModel\" />
     <Folder Include="Images\" />
-    <Folder Include="Resources\Images\" />
+    <Folder Include="Uploads\" />
     <Folder Include="StudentImage\" />
   </ItemGroup>
 

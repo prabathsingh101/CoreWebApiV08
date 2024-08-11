@@ -13,14 +13,24 @@ namespace CoreWebApiV08.API.Models.Employees
 
         public string? lname { get; set; }
 
-        public string? FileName { get; set; }
-        public string? FileExtension { get; set; }
-    
-        public string? Url { get; set; }
+        public string? fullname {  get; set; }  
 
-        public DateTime? dob { get; set; }
+        public string? email { get; set; }  = null;
 
-        public DateTime? doj { get; set; }
+        public string? phone { get; set; }  
+
+        public string? address { get; set; }
+
+        public string? gender { get; set; }
+
+        public string? employeeimage { get; set; }
+
+        [NotMapped]
+        public IFormFile? imagefile { get; set; }
+
+        public DateTime? dob { get; set; } = DateTime.Now;
+
+        public DateTime? doj { get; set; } = DateTime.Now;
 
         public DateTime? createddate { get; set; } = DateTime.Now;
 

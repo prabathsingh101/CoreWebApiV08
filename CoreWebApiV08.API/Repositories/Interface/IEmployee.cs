@@ -2,8 +2,8 @@
 
 namespace CoreWebApiV08.API.Repositories.Interface
 {
-    public interface IEmployees
+    public interface IEmployee
     {
-        Task<EmployeeModel> CreateAsync(IFormFile file, EmployeeModel employee);
+        bool Add(EmployeeModel model);
     }
 }

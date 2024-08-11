@@ -4,39 +4,26 @@ using CoreWebApiV08.API.Repositories.Interface;
 
 namespace CoreWebApiV08.API.Repositories.Implementation
 {
-    public class SQLEmployee : IEmployees
+    public class SQLEmployee: IEmployee
     {
-        private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly IHttpContextAccessor httpContextAccessor;
-        private readonly DatabaseContext dbContext;
-
-        public SQLEmployee(
-            IWebHostEnvironment webHostEnvironment,
-            IHttpContextAccessor httpContextAccessor,
-            DatabaseContext dbContext)
+        private readonly DatabaseContext _context;
+        public SQLEmployee(DatabaseContext context)
         {
-            this.webHostEnvironment = webHostEnvironment;
-            this.httpContextAccessor = httpContextAccessor;
-            this.dbContext = dbContext;
+            this._context = context;
         }
-        public async Task<EmployeeModel> CreateAsync(IFormFile file, EmployeeModel employee)
+        public bool Add(EmployeeModel model)
         {
-            // 1- Upload the Image to API/Images
-            var localPath = Path.Combine(webHostEnvironment.ContentRootPath, "Images", $"{employee.FileName}{employee.FileExtension}");
-            using var stream = new FileStream(localPath, FileMode.Create);
-            await file.CopyToAsync(stream);
+            try
+            {
+                _context.TblEmployee.Add(model);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
 
-            // 2-Update the database
-            // https://codepulse.com/images/somefilename.jpg
-            var httpRequest = httpContextAccessor.HttpContext.Request;
-            var urlPath = $"{httpRequest.Scheme}://{httpRequest.Host}{httpRequest.PathBase}/Images/{employee.FileName}{employee.FileExtension}";
-
-            employee.Url = urlPath;
-
-            await dbContext.TblEmployee.AddAsync(employee);
-            await dbContext.SaveChangesAsync();
-
-            return employee;
-        }
+                return false;
+            }
+        }        
     }
 }

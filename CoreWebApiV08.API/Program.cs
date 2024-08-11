@@ -112,9 +112,13 @@ builder.Services.AddTransient<IStudentRegistration, SQLStudentRegistration>();
 builder.Services.AddTransient<IStudent, SQLStudent>();
 builder.Services.AddTransient<IAttendance, SQLAttendance>();
 builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
-builder.Services.AddScoped<IEmployees, SQLEmployee>();
+
 builder.Services.AddScoped<IFeesHead, SQLFeesHead>();
 builder.Services.AddScoped<IPayment, SQLPayment>();
+
+builder.Services.AddScoped<IFileService, SQLFileService>();
+builder.Services.AddScoped<IEmployee, SQLEmployee>();
+
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
@@ -152,23 +156,15 @@ app.UseCors("MyAllowSpecificOrigins");
 app.UseAuthentication();
 
 app.UseAuthorization();
-//app.UseStaticFiles();
-//app.UseStaticFiles(new StaticFileOptions
-//{
-//    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "StudentImage")),
-//    RequestPath = "/StudentImage"
-//});
 
-app.UseStaticFiles(new StaticFileOptions()
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-    RequestPath = new PathString("/Resources")
-});
+
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
-    RequestPath = "/Images"
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
+    RequestPath = "/Resources"
 });
+
 
 app.MapControllers();
 
