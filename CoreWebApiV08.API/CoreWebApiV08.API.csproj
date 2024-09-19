@@ -4,11 +4,16 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	  <AspNetCoreHostingModel>
+		  InProcess
+	  </AspNetCoreHostingModel>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Models\Classes\AttendanceTypeModel.cs" />
   </ItemGroup>
+	
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
@@ -25,6 +30,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="MyTested.AspNetCore.Mvc.Versioning" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 

@@ -7,6 +7,8 @@ using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
@@ -62,6 +64,15 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddDbContext<ImsContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
 
+//versioning api
+builder.Services.AddApiVersioning(x =>
+{
+    x.DefaultApiVersion= new ApiVersion(1, 0);
+    x.AssumeDefaultVersionWhenUnspecified = true;
+    x.ReportApiVersions = true;
+    x.ApiVersionReader= new HeaderApiVersionReader("x-api-version");
+});
+
 //file upload size
 builder.Services.Configure<FormOptions>(o =>
 {
@@ -69,6 +80,9 @@ builder.Services.Configure<FormOptions>(o =>
     o.MultipartBodyLengthLimit = int.MaxValue;
     o.MemoryBufferThreshold = int.MaxValue;
 });
+
+//xml
+builder.Services.AddControllers().AddXmlDataContractSerializerFormatters();
 
 
 // For Identity  
@@ -99,6 +113,7 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
     };
 });
+
 
 builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IUserService, SQLUserService>();
