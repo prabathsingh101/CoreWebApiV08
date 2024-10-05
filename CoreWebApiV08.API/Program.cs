@@ -1,7 +1,9 @@
 using CoreWebApiV08.API.Data;
 using CoreWebApiV08.API.DBFirstModel;
+using CoreWebApiV08.API.Exceptions;
 using CoreWebApiV08.API.Mapping;
 using CoreWebApiV08.API.Models.Domain;
+using CoreWebApiV08.API.Repositories;
 using CoreWebApiV08.API.Repositories.Implementation;
 using CoreWebApiV08.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -82,7 +84,8 @@ builder.Services.Configure<FormOptions>(o =>
 });
 
 //xml
-builder.Services.AddControllers().AddXmlDataContractSerializerFormatters();
+//builder.Services.AddControllers().AddXmlDataContractSerializerFormatters();
+
 
 
 // For Identity  
@@ -134,8 +137,14 @@ builder.Services.AddScoped<IPayment, SQLPayment>();
 builder.Services.AddScoped<IFileService, SQLFileService>();
 builder.Services.AddScoped<IEmployee, SQLEmployee>();
 
+builder.Services.AddSingleton<IInterface, A>();
+builder.Services.AddSingleton<IInterface, B>();
+builder.Services.AddSingleton<IInterface, C>();
+
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
+builder.Services.AddExceptionHandler<GlobalException>();
 
 builder.Services.AddCors(options =>
 {
@@ -180,6 +189,7 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/Resources"
 });
 
+app.UseExceptionHandler((opt) => { });
 
 app.MapControllers();
 

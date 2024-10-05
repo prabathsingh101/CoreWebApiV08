@@ -124,5 +124,11 @@ namespace CoreWebApiV08.API.Controllers
             }
             return Ok(data);    
         }
+
+        [AcceptVerbs("GET", "POST","PUT","DELETE")]
+        public IActionResult MyAction()
+        {            
+            return Ok();
+        }
     }
 }

@@ -28,7 +28,8 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("GetAll")]
-        [Authorize(Roles = "Admin, User")]
+        
+        //[Authorize(Roles = "Admin, User")]
         // //GET:/api/teacher?filterOn=Name&filterQuery=Track&sortBy=Name&isAscending=true&pageNumber=1&pageSize=10
         public async Task<IActionResult> GetAll(
             [FromQuery]
@@ -49,7 +50,8 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [Authorize(Roles = "Admin,User")]
+        //[Authorize(Roles = "Admin,User")]
+
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             //get teacher domain from database      

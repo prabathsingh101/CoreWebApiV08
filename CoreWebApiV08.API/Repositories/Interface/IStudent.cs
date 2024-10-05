@@ -5,7 +5,7 @@ namespace CoreWebApiV08.API.Repositories.Interface
 {
     public interface IStudent
     {
-        Task<List<StudentAdmissionModel>> GetAllAsync(
+        Task<List<StudentAdmissionModel?>> GetAllAsync(
             string? filterOn = null,
             string? filterQuery = null,
             string? sortBy = null,
