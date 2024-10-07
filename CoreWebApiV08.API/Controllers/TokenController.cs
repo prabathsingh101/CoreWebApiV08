@@ -22,6 +22,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPost]
         [Route("Refresh")]
+        [Produces("application/json")]
         public IActionResult Refresh(RefreshTokenRequest tokenApiModel)
         {
             if (tokenApiModel is null)
@@ -47,6 +48,7 @@ namespace CoreWebApiV08.API.Controllers
         //revoken is use for removing token enntry
         [HttpPost, Authorize]
         [Route("Revoke")]
+        [Produces("application/json")]
         public IActionResult Revoke()
         {
             try

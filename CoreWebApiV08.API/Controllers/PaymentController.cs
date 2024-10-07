@@ -31,6 +31,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("getallpayment")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAllPayment()
         {
 
@@ -43,6 +44,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("getpaymentbyfilter")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetPaymentByFilter([FromBody] PaymentModels models)
         {
             var paymentdata = new PaymentModels
@@ -60,6 +62,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {            
 
@@ -77,6 +80,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("create")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Create([FromBody] List<AddPaymentRequestDto> addPaymentRequestDto)
         {
             var status = new Status();
@@ -121,6 +125,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpDelete]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var model = await objPayment.DeleteAsync(id);
@@ -134,6 +139,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Update([FromRoute] int id,
                                                [FromBody] UpdatePaymentRequestDto updatePaymentRequestDto)
         {
@@ -166,6 +172,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("getmaxinvoice")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getmaxinvoiceno()
         {
             string sqlquery = "select distinct(ISNULL(max(invoiceno),0)) as invoiceno from TblPayments";

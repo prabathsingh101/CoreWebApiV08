@@ -64,6 +64,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("studentbyclassid/{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> studentbyclassid([FromRoute] int id)
         {           
 
@@ -74,8 +75,7 @@ namespace CoreWebApiV08.API.Controllers
             {
                 return NotFound();
             }
-            return Ok(data);           
-
+            return Ok(data);          
 
         }
 
@@ -83,6 +83,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("create")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Create([FromBody] List<AddAttendanceRequestDto> addAttendance)
         {
             
@@ -125,6 +126,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("teacherattendance")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> teacherattendance([FromBody] List<AddAttendanceRequestDto> addAttendance)
         {
 
@@ -169,6 +171,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("studentattendancelist")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> studentattendancelist()
         {
             string sqlquery = "exec sp_student_attn_list";            
@@ -183,6 +186,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("teacherattendancelist")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> teacherattendancelist()
         {
             string sqlquery = "exec sp_teacher_attn_list";
@@ -199,6 +203,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPatch]
         [Route("updatestudentattn/{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> UpdateStudentAttn([FromRoute] int id,
                                          [FromBody] UpdateAttendanceRequestDto updateAttendanceRequestDto)
         {
@@ -234,6 +239,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPatch]
         [Route("updateteacherattn/{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> UpdateTeacherAttn([FromRoute] int id,
                                         [FromBody] UpdateAttendanceRequestDto updateAttendanceRequestDto)
         {
@@ -268,6 +274,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("getallattendance")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAllAttendance()
         {
 

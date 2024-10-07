@@ -29,6 +29,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("Post")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Create([FromBody] AddRequestHolidaysDto addRequestHolidaysDto)
         {
             var status = new Status(); 
@@ -48,6 +49,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Update(
             [FromRoute] int id, 
             [FromBody] UpdateRequestHolidaysDto 
@@ -69,6 +71,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("GetAll")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAll()
         {
 
@@ -83,6 +86,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
 
@@ -100,6 +104,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpDelete]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Delete(int id)
         {
           var holidayModel =await holidays.DeleteAsync(id);
@@ -112,6 +117,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("getevents")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getHolidayEvents()
         {
             string sqlquery = "exec sp_getHolidaysEvent";
@@ -126,6 +132,7 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [AcceptVerbs("GET", "POST","PUT","DELETE")]
+        [Produces("application/json")]
         public IActionResult MyAction()
         {            
             return Ok();

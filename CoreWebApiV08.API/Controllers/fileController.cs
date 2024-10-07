@@ -11,7 +11,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("upload")]
         [DisableRequestSizeLimit]
-
+        [Produces("application/json")]
         public IActionResult Upload()
         {
             try

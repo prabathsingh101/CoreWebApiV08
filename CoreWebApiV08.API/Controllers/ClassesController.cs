@@ -34,6 +34,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("GetAll")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         // //GET:/api/teacher?filterOn=Name&filterQuery=Track&sortBy=Name&isAscending=true&pageNumber=1&pageSize=10
         public async Task<IActionResult> GetAll(
             [FromQuery]
@@ -55,6 +56,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             //get teacher domain from database      
@@ -74,6 +76,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("Create")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Create([FromBody] AddClassRequestDto addClassRequestDto)
         {
             var status = new Status();
@@ -101,6 +104,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpDelete]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var model = await classes.DeleteAsync(id);
@@ -114,6 +118,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Update([FromRoute] int id,
                                                [FromBody] UpdateClassRequestDto updateClassRequestDto)
         {
@@ -134,6 +139,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("getclassdetail")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getClass()
         {
             string sqlquery = "exec sp_getClassDetails";
@@ -149,6 +155,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("classname")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getClassName()
         {
             string sqlquery = "exec sp_getClassName";
@@ -166,6 +173,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("getfeeshead")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getfeeshead()
         {
             var model = await feesHead.GetAllAsync();
@@ -176,6 +184,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("getbyidfeeshead/{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getbyidfeeshead([FromRoute] int id)
         {
             //get teacher domain from database      
@@ -194,6 +203,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("getfeenamebyclassid/{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getfeenamebyclassid([FromRoute] int id)
         {                 
 
@@ -212,6 +222,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("createfeeshead")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> createfeeshead([FromBody] AddFeesHeadRequestDto addFeesHeadRequestDto)
         {
             var status = new Status();
@@ -245,6 +256,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpDelete]
         [Route("deletefeeshead/{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> deletefeeshead([FromRoute] int id)
         {
             var model = await feesHead.DeleteAsync(id);
@@ -258,6 +270,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPut]
         [Route("updatefeeshead/{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> updatefeeshead([FromRoute] int id,
                                                [FromBody] UpdateFeesHeadRequestDto updateFeesHeadRequestDto)
         {
@@ -279,6 +292,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("getfeenamelistbyclass/{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getfeenamelistbyclass([FromRoute] int id)
         {
 
@@ -294,6 +308,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("getfeeamountbyfeetype/{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getfeeamountbyfeetype([FromRoute] int id)
         {
 

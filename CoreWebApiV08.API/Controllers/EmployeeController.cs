@@ -26,6 +26,7 @@ namespace CoreWebApiV08.API.Controllers
         }
         [HttpPost]
         [Route("create")]
+        [Produces("application/json")]
         public IActionResult Add([FromForm] AddEmployeeRequestDto addEmployeeRequestDto)
         {
             var status = new Status();

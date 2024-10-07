@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using CoreWebApiV08.API.DBFirstModel;
-using CoreWebApiV08.API.Models.Admission;
 using CoreWebApiV08.API.Models.Classes;
 using CoreWebApiV08.API.Models.DTO;
 using CoreWebApiV08.API.Models.DTO.Classes;
@@ -28,8 +26,8 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("GetAll")]
-        
-        //[Authorize(Roles = "Admin, User")]
+        [Produces("application/json")]
+        [Authorize(Roles = "Admin, User")]
         // //GET:/api/teacher?filterOn=Name&filterQuery=Track&sortBy=Name&isAscending=true&pageNumber=1&pageSize=10
         public async Task<IActionResult> GetAll(
             [FromQuery]
@@ -50,8 +48,8 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        //[Authorize(Roles = "Admin,User")]
-
+        [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             //get teacher domain from database      
@@ -70,6 +68,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("getstudentbyclass/{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> GettudentByClasId([FromRoute] int id)        
         {               
 
@@ -88,6 +87,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("Create")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Create([FromBody] AddAdmissionRequestDto addAdmissionRequestDto)
         {
             
@@ -116,6 +116,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpDelete]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var model = await student.DeleteAsync(id);
@@ -129,6 +130,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Update([FromRoute] int id,
                                                [FromBody] UpdateAdmissionRequestDto updateAdmissionRequestDto)
         {
@@ -150,6 +152,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("totalstudent")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> TotalStudent()
         {
             string sqlquery = "select count(id) as totalstudent from TblStudent";
@@ -166,6 +169,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPatch]
         [Route("partialupdate/{id:int}")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> PartialUpdate([FromRoute] int id,
                                                [FromBody] UpdateAdmissionRequestDto updateAdmissionRequestDto)
         {

@@ -39,6 +39,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("GetAll")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAllLesson()
         {
 
@@ -51,6 +52,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {                 
 
@@ -68,6 +70,8 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPost]
         [Route("create")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
+
         public async Task<IActionResult> Create([FromBody] AddLessonRequestDto addLessonRequestDto)
         {
             var status = new Status();
@@ -96,6 +100,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpDelete]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var model = await lesson.DeleteAsync(id);
@@ -109,6 +114,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpPut]
         [Route("{id:int}")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public async Task<IActionResult> Update([FromRoute] int id,
                                                [FromBody] UpdateLessonRequestDto updateLessonRequestDto)
         {

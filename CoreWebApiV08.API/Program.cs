@@ -84,7 +84,7 @@ builder.Services.Configure<FormOptions>(o =>
 });
 
 //xml
-//builder.Services.AddControllers().AddXmlDataContractSerializerFormatters();
+builder.Services.AddControllers().AddXmlDataContractSerializerFormatters();
 
 
 

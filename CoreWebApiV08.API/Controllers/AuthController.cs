@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -42,6 +41,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPost]
         [Route("ChangePassword")]
+        [Produces("application/json")]
         public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
         {
             var status = new Status();
@@ -83,6 +83,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPost]
         [Route("Login")]
+        [Produces("application/json")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await userManager.FindByNameAsync(model.Username);
@@ -151,6 +152,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpPost]
         [Route("User-Registration")]
+        [Produces("application/json")]
         public async Task<IActionResult> Registration([FromBody] RegistrationModel model)
         {
             var status = new Status();
@@ -218,6 +220,7 @@ namespace CoreWebApiV08.API.Controllers
         // after registering admin we will comment this code, because i want only one admin in this application
         [HttpPost]
         [Route("Admin-Registration")]
+        [Produces("application/json")]
         public async Task<IActionResult> RegistrationAdmin([FromBody] RegistrationModel model)
         {
             var status = new Status();
@@ -280,6 +283,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("GetName")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public IActionResult GetName()
         {
             var userName = userService.GetMyName();
@@ -289,6 +293,7 @@ namespace CoreWebApiV08.API.Controllers
         [HttpGet]
         [Route("GetRoleName")]
         [Authorize(Roles = "Admin")]
+        [Produces("application/json")]
         public IActionResult GetRoleName()
         {
             var userName = userService.GetRoleName();
@@ -297,6 +302,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("getusers")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getUsers()
         {
             string sqlquery = "EXEC sp_getUsers";
@@ -312,6 +318,7 @@ namespace CoreWebApiV08.API.Controllers
 
         [HttpGet("getAllrole")]
         [Authorize(Roles = "Admin,User")]
+        [Produces("application/json")]
         public async Task<IActionResult> getRole()
         {
             string sqlquery = "EXEC sp_GetRole";

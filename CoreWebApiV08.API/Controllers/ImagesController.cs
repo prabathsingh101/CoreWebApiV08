@@ -20,6 +20,7 @@ namespace CoreWebApiV08.API.Controllers
         //HTTP POST:/api/Images/Upload
         [HttpPost]
         [Route("Upload")]
+        [Produces("application/json")]
         public async Task<IActionResult> Upload([FromForm] ImageUploadRequestDto request)
         {
             ValidateFileUpload(request);

@@ -21,7 +21,7 @@ namespace CoreWebApiV08.API.Controllers
         [Route("upload")]
         [DisableRequestSizeLimit]
         //[Consumes("multipart/form-data")]
-        
+        [Produces("application/json")]
         public IActionResult Upload()
         {
             try
