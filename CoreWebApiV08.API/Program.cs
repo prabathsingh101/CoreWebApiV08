@@ -16,6 +16,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using StackExchange.Redis;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,6 +66,24 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 builder.Services.AddDbContext<ImsContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Conn")));
+
+// Adding Redis service
+// It adds and configures Redis distributed cache service 
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    //This property is set to specify the connection string for Redis
+    //The value is fetched from the application's configuration system, i.e., appsettings.json file
+    options.Configuration = builder.Configuration["RedisCacheOptions:Configuration"];
+    //This property helps in setting a logical name for the Redis cache instance. 
+    //The value is also fetched from the appsettings.json file
+    options.InstanceName = builder.Configuration["RedisCacheOptions:InstanceName"];
+});
+
+// Register the Redis connection multiplexer as a singleton service
+// This allows the application to interact directly with Redis for advanced scenarios
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+    // Establish a connection to the Redis server using the configuration from appsettings.json
+    ConnectionMultiplexer.Connect(builder.Configuration["RedisCacheOptions:Configuration"]));
 
 //versioning api
 builder.Services.AddApiVersioning(x =>
@@ -136,6 +155,7 @@ builder.Services.AddScoped<IPayment, SQLPayment>();
 
 builder.Services.AddScoped<IFileService, SQLFileService>();
 builder.Services.AddScoped<IEmployee, SQLEmployee>();
+builder.Services.AddScoped<IProducts, SQLProducts>();
 
 builder.Services.AddSingleton<IInterface, A>();
 builder.Services.AddSingleton<IInterface, B>();
@@ -145,6 +165,7 @@ builder.Services.AddSingleton<IInterface, C>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddExceptionHandler<GlobalException>();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddCors(options =>
 {
@@ -168,10 +189,10 @@ options.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHa
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || (app.Environment.IsProduction()))
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiCore v1"));
 }
 
 app.UseHttpsRedirection();

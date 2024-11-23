@@ -8,6 +8,7 @@ using CoreWebApiV08.API.Models.Employees;
 using CoreWebApiV08.API.Models.FeesHead;
 using CoreWebApiV08.API.Models.Holidays;
 using CoreWebApiV08.API.Models.Lesson;
+using CoreWebApiV08.API.Models.Products;
 using CoreWebApiV08.API.Models.Teachers;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +44,8 @@ namespace CoreWebApiV08.API.Data
         public DbSet<EmployeeModel> TblEmployee { get; set; }
         public DbSet<FeesHeadModel> TblFeesHead { get; set; }
         public DbSet<PaymentModels> TblPayments { get; set; }
+
+        public DbSet<Products> TblProducts { get; set; }    
     }
 
 

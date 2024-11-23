@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Text.Json;
 
 namespace CoreWebApiV08.API.Exceptions
 {
@@ -14,22 +15,31 @@ namespace CoreWebApiV08.API.Exceptions
         {
             this._logger = logger;
         }
-        public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, 
+        public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, 
+            Exception exception,
             CancellationToken cancellationToken)
         {
 
-            _logger.LogError(exception, "An unexpected error occurred");
+            _logger.LogError(exception, exception.Message);
 
-            await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
+            var details = new ProblemDetails()
             {
+                Detail = $"API Error {exception.Message}",
+                Instance = "API",
                 Status = (int)HttpStatusCode.InternalServerError,
-                Type=exception.GetType().Name,
-                Title = "An unexpected error occurred",
-                Detail=exception.Message,
-                Instance= $"{httpContext.Request.Method} {httpContext.Request.Path}"
-            });
-            return true;  
+                Title = "API Error",
+                Type = "Server Error"
+            };
+
+            var response = JsonSerializer.Serialize(details);
+
+            httpContext.Response.ContentType = "application/json";
+
+            await httpContext.Response.WriteAsync(response, cancellationToken);
+
+            return true;
         }
+       
     }
     
 }
