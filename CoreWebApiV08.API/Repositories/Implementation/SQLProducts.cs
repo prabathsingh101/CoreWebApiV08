@@ -51,6 +51,9 @@ namespace CoreWebApiV08.API.Repositories.Implementation
                 return null;    
             }
             isExists.Name = products.Name;
+            isExists.Price = products.Price;
+            isExists.Category = products.Category;
+            isExists.Quantity = products.Quantity;
 
             await _db.SaveChangesAsync();
 

@@ -22,6 +22,7 @@ namespace CoreWebApiV08.API.Controllers
             _configuration = configuration;
         }
         [HttpGet("all")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAllCachedKeysAndValues()
         {
             try
@@ -55,6 +56,7 @@ namespace CoreWebApiV08.API.Controllers
         }
         // Retrieve a specific cache entry by its key.
         [HttpGet("{key}")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetCacheEntryByKey(string key)
         {
             try

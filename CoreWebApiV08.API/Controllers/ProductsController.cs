@@ -20,6 +20,7 @@ namespace CoreWebApiV08.API.Controllers
             _cache = cache;
         }
         [HttpGet("all")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAll()
         {
             var cacheKey = "GET_ALL_PRODUCTS";
@@ -55,6 +56,7 @@ namespace CoreWebApiV08.API.Controllers
         }
 
         [HttpGet("Category")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetProductByCategory(string Category)
         {
             var cacheKey = $"PRODUCTS_{Category}";
@@ -91,6 +93,7 @@ namespace CoreWebApiV08.API.Controllers
 
         // GET: api/products/{id}
         [HttpGet("{id}")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetProduct(int id)
         {
             var cacheKey = $"Product_{id}";
